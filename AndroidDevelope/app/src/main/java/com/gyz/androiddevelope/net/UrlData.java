@@ -10,9 +10,26 @@ import java.io.Serializable;
  */
 public class UrlData implements Serializable {
 
+    private String key;
     private String netType;
     private String url;
-    private long exirp;
+    private long expires;
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
+
+    public long getExpires() {
+        return expires;
+    }
+
+    public void setExpires(long expires) {
+        this.expires = expires;
+    }
 
     public String getNetType() {
         return netType;
@@ -30,11 +47,4 @@ public class UrlData implements Serializable {
         this.url = url;
     }
 
-    public long getExirp() {
-        return exirp;
-    }
-
-    public void setExirp(long exirp) {
-        this.exirp = exirp;
-    }
 }
