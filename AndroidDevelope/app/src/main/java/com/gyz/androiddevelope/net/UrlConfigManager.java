@@ -29,7 +29,7 @@ public class UrlConfigManager {
                     case XmlPullParser.START_TAG:
 
                         if ("Node".equals(parser.getName())) {
-                            String keyStr = parser.getAttributeValue(null, "key");
+                            String keyStr = parser.getAttributeValue(null, "Key");
                             if (keyStr.trim().equals(key)) {
 
                                 UrlData urlData = new UrlData();

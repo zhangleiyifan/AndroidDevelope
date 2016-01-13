@@ -9,8 +9,14 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.gyz.androiddevelope.MainActivity">
 
+    <Button
+        android:id="@+id/btnOnClick"
+        android:layout_width="160dp"
+        android:layout_height="80dp"
+        android:text="network" />
+
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:id="@+id/txtInfo"
+        android:layout_height="wrap_content" />
 </RelativeLayout>
