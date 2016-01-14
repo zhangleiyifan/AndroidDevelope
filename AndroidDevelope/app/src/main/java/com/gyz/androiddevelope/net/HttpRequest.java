@@ -4,7 +4,6 @@ import android.os.Handler;
 import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
-import com.google.gson.Gson;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -116,7 +115,6 @@ public class HttpRequest implements Runnable {
             Log.i(TAG,"result===="+result);
 //                设置回调
                 if (callback != null) {
-                    Gson gson = new Gson();
                     final Response responseInJson = JSON.parseObject(result, Response.class);
 
                     if (responseInJson.isError()) {

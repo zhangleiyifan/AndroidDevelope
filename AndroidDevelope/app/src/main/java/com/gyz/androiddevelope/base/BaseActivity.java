@@ -1,12 +1,19 @@
 package com.gyz.androiddevelope.base;
 
-import android.app.Activity;
+import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.widget.Toast;
 
+import com.gyz.androiddevelope.net.RequestCallback;
 import com.gyz.androiddevelope.net.RequestManager;
 
 
-public abstract class BaseActivity extends Activity {
+public abstract class BaseActivity extends AppCompatActivity {
+
+	public static final String TAG = "BaseActivity";
+	protected ProgressDialog dlg;
 	/**
 	 * 请求列表管理器
 	 */
@@ -28,6 +35,21 @@ public abstract class BaseActivity extends Activity {
 	protected abstract void initViews(Bundle savedInstanceState);
 
 	protected abstract void loadData();
+
+
+	public abstract class  AbstractRequestCallback implements RequestCallback{
+
+		public abstract void onSuccess(String result);
+
+		public void onFail(String errorMessage){
+			if (dlg!=null)
+				dlg.dismiss();
+			Log.e(TAG,"errorMessage="+errorMessage);
+			Toast.makeText(BaseActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+		}
+	}
+
+
 
 	protected void onDestroy() {
 		/**
