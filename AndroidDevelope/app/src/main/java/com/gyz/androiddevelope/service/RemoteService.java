@@ -31,7 +31,7 @@ public class RemoteService {
 
     public void invoke(BaseActivity activity,String key,List<RequestParams> list,RequestCallback callback){
 
-        UrlData urlData= UrlConfigManager.getUrl(key,activity);
+        UrlData urlData= UrlConfigManager.findUrlData(activity,key);
         HttpRequest request = activity.getRequestManager().createHttpRequest(urlData,list,callback);
         DefaultThreadPool.getInstance().execute(request);
 

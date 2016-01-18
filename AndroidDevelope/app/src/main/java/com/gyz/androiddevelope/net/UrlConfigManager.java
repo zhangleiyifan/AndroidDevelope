@@ -2,10 +2,15 @@ package com.gyz.androiddevelope.net;
 
 import android.content.Context;
 import android.content.res.XmlResourceParser;
+
 import com.gyz.androiddevelope.R;
+
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
+
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author: guoyazhou
@@ -14,8 +19,22 @@ import java.io.IOException;
 public class UrlConfigManager {
     private static final String TAG = "UrlConfigManager";
 
-    public static UrlData getUrl(String key, Context context) {
+    private static List<UrlData> list = null;
 
+    public static UrlData findUrlData(Context context, String key) {
+
+        if (list == null || list.isEmpty())
+            fetchUrlFromXml(context);
+
+        for (UrlData urlData : list) {
+            if (key.equals(urlData.getKey()))
+                return urlData;
+        }
+        return null;
+    }
+
+    private static void fetchUrlFromXml(Context context) {
+        list = new ArrayList<>();
         XmlResourceParser parser = context.getResources().getXml(R.xml.url);
         int eventType;
         try {
@@ -30,15 +49,14 @@ public class UrlConfigManager {
 
                         if ("Node".equals(parser.getName())) {
                             String keyStr = parser.getAttributeValue(null, "Key");
-                            if (keyStr.trim().equals(key)) {
 
-                                UrlData urlData = new UrlData();
-                                urlData.setKey(key);
-                                urlData.setExpires(Long.parseLong(parser.getAttributeValue(null, "Expires")));
-                                urlData.setNetType(parser.getAttributeValue(null, "NetType"));
-                                urlData.setUrl(parser.getAttributeValue(null, "Url"));
-                                return urlData;
-                            }
+                            UrlData urlData = new UrlData();
+                            urlData.setKey(keyStr);
+                            urlData.setExpires(Long.parseLong(parser.getAttributeValue(null, "Expires")));
+                            urlData.setNetType(parser.getAttributeValue(null, "NetType"));
+                            urlData.setUrl(parser.getAttributeValue(null, "Url"));
+
+                            list.add(urlData);
                         }
 
                     case XmlPullParser.END_TAG:
@@ -53,6 +71,5 @@ public class UrlConfigManager {
         } finally {
             parser.close();
         }
-        return null;
     }
 }
