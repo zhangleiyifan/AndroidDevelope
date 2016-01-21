@@ -1,6 +1,7 @@
 package com.gyz.androiddevelope;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -58,6 +59,8 @@ public class MainActivity extends BaseActivity {
         RemoteService.getInstance().invoke(this, "getWeatherInfo", paramses, new AbstractRequestCallback() {
             @Override
             public void onSuccess(String result) {
+
+                Log.v(TAG, "回调onSuccess==result" + result);
                 dlg.dismiss();
                 WeatherInfo info = JSON.parseObject(result, WeatherInfo.class);
                 txtInfo.setText(info.getCity());

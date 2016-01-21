@@ -4,6 +4,7 @@ import android.os.Handler;
 import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
+import com.gyz.androiddevelope.cache.CacheManager;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -34,7 +35,7 @@ public class HttpRequest implements Runnable {
     private static final String TAG = "HttpRequest";
     private static final String GET = "get";
     private static final String POST = "post";
-    private static final int TIMEOUT = 30000;
+    private static final int TIMEOUT = 1000 * 15;
     //    网络相关
     private HttpUriRequest request = null;
     private HttpResponse response = null;
@@ -44,14 +45,14 @@ public class HttpRequest implements Runnable {
     private RequestCallback callback;
     private UrlData urlData;
     private List<RequestParams> paramses = null;
-    private String url;
+    String newUrl;//拼接后的url
 
     public HttpRequest(UrlData urlData, List<RequestParams> params, RequestCallback callback) {
 
         this.urlData = urlData;
         this.paramses = params;
         this.callback = callback;
-        url = urlData.getUrl();
+        newUrl= urlData.getUrl();
 
         if (httpClient == null) {
             httpClient = new DefaultHttpClient();
@@ -59,7 +60,7 @@ public class HttpRequest implements Runnable {
         handler = new Handler();
     }
 
-    public HttpUriRequest getRequest(){
+    public HttpUriRequest getRequest() {
         return request;
     }
 
@@ -68,6 +69,7 @@ public class HttpRequest implements Runnable {
         try {
             if (GET.equals(urlData.getNetType())) {
 //            添加参数
+
                 StringBuffer paramBuffer = new StringBuffer();
                 if (paramses != null && paramses.size() > 0) {
                     for (RequestParams p : paramses) {
@@ -77,14 +79,48 @@ public class HttpRequest implements Runnable {
                             paramBuffer.append("&" + p.getName() + "=" + p.getValue());
                         }
                     }
-                    String newUrl = url + "?" + paramBuffer.toString();
-                    request = new HttpGet(newUrl);
-                } else {
-                    request = new HttpGet(url);
+                    newUrl = newUrl + "?" + paramBuffer.toString();
                 }
 
+                // 如果这个get的API有缓存时间（大于0）
+                Log.v(TAG,"请求前==urlData.getExpires()"+urlData.getExpires());
+                if (urlData.getExpires() > 0) {
+//                    这里会做缓存是否过期判断，过期返回null
+                    final String content = CacheManager.getInstance().getFileCache(newUrl);
+
+                    Log.v(TAG,"请求前 缓存数据==content"+content);
+                    if (content != null) {
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                callback.onSuccess(content);
+                            }
+                        });
+                        return;
+                    }
+                }
+
+                request = new HttpGet(newUrl);
+
             } else if (POST.equals(urlData.getNetType())) {
-                request = new HttpPost(url);
+
+                // 如果这个post的API有缓存时间（大于0）
+                if (urlData.getExpires() > 0) {
+
+//                    这里会做缓存是否过期判断，过期返回null
+                    final String content = CacheManager.getInstance().getFileCache(newUrl);
+                    if (content != null) {
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                callback.onSuccess(content);
+                            }
+                        });
+                        return;
+                    }
+                }
+
+                request = new HttpPost(newUrl );
                 //   添加参数
                 if (paramses != null && paramses.size() > 0) {
                     List<BasicNameValuePair> list = new ArrayList<>();
@@ -112,14 +148,20 @@ public class HttpRequest implements Runnable {
                 String result = new String(content.toByteArray()).trim();
                 result = "{'isError':false,'errorType':0,'errorMessage':'','result':{'city':'北京','cityid':'101010100','temp':'17','WD':'西南风','WS':'2级','SD':'54%','WSE':'2','time':'23:15','isRadar':'1','Radar':'JC_RADAR_AZ9010_JB','njd':'暂无实况','qy':'1016'}}";
 
-            Log.i(TAG,"result===="+result);
-//                设置回调
+                Log.i(TAG, "请求结果result====" + result);
+//                设置回调   callback为空时，说明不需要回调，不进行处理
                 if (callback != null) {
                     final Response responseInJson = JSON.parseObject(result, Response.class);
 
                     if (responseInJson.isError()) {
                         handlerNetworkError(responseInJson.getErrorMsg());
                     } else {
+                        // 把成功获取到的数据记录到缓存
+                        if (urlData.getExpires() > 0) {
+                            Log.i(TAG, "把成功获取到的数据记录到缓存===="  );
+                            CacheManager.getInstance().putFileCache(newUrl, responseInJson.getResult(), urlData.getExpires());
+                        }
+
                         handler.post(new Runnable() {
                             @Override
                             public void run() {
@@ -127,8 +169,8 @@ public class HttpRequest implements Runnable {
                             }
                         });
                     }
-                }else {
-                    handlerNetworkError("网络异常");
+                } else {
+//                不需要回调，不进行处理    handlerNetworkError("网络异常");
                 }
             } else {
                 handlerNetworkError("网络异常");
