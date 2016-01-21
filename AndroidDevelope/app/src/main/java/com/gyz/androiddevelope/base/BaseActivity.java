@@ -62,6 +62,8 @@ public abstract class BaseActivity extends AppCompatActivity {
 	}
 
 	protected void onPause() {
+		if (dlg!=null)
+			dlg.dismiss();
 		/**
 		 * 在activity停止的时候同时设置停止请求，停止线程请求回调
 		 */

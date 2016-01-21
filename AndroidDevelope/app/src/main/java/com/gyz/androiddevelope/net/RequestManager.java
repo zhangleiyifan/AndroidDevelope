@@ -1,6 +1,7 @@
 package com.gyz.androiddevelope.net;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -24,12 +25,39 @@ public class RequestManager {
     //    取消网络请求
     public void cancelRequest() {
         if (requestList != null && requestList.size() > 0) {
-            for (HttpRequest request : requestList) {
-                if (request.getRequest() != null) {
+
+//            会报java.util.ConcurrentModificationException
+//            抛出的条件   大意是: 一个迭代器在迭代集合的时候   集合被修改了
+//            for (HttpRequest request : requestList) {
+//                Log.e(TAG," cancelRequest--for循环");
+//                if (request.getRequest() != null) {
+//                    request.getRequest().abort();
+//                Log.e(TAG," 取消网络请求");
+//                    requestList.remove(request);
+//                }
+//            }
+
+
+//            for (int i = 0; i < requestList.size(); i++) {
+//                Log.e(TAG, " cancelRequest--for循环");
+//                HttpRequest request = requestList.get(i);
+//                if (request.getRequest() != null) {
+//                    request.getRequest().abort();
+//                    Log.e(TAG," 取消网络请求");
+//                    requestList.remove(request);
+//                }
+//            }
+
+            Iterator<HttpRequest> it = requestList.iterator();
+            while (it.hasNext()){
+                HttpRequest request = it.next();
+                if (request.getRequest()!=null){
                     request.getRequest().abort();
-                    requestList.remove(request);
                 }
+                it.remove();
             }
+            requestList.clear();
+
         }
     }
 
