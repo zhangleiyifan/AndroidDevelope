@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.os.Build;
 import android.os.Environment;
 import android.os.StatFs;
+import android.util.Log;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -90,6 +91,7 @@ public class FileUtil {
         ObjectOutputStream oos = null;
 
         File file = new File(path);
+        Log.d(TAG,"path=="+path);
         try {
             fos = new FileOutputStream(file);
             oos = new ObjectOutputStream(fos);
