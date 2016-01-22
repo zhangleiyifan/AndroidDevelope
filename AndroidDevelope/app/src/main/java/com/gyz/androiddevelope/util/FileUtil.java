@@ -46,8 +46,8 @@ public class FileUtil {
     public static long getSDSize() {
         final String str = Environment.getExternalStorageDirectory().getPath();
         final StatFs localStatFs = new StatFs(str);
-        final long blockSize = localStatFs.getBlockSizeLong();
-        return localStatFs.getAvailableBlocksLong() * blockSize;
+        final long blockSize = localStatFs.getBlockSize();
+        return localStatFs.getAvailableBlocks() * blockSize;
     }
 
     public static String getMD5(String str) {
