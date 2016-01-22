@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,23 +8,19 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".activity.MainActivity">
-
-    <Button
-        android:id="@+id/btnOnClick"
-        android:layout_width="160dp"
-        android:layout_height="80dp"
-        android:text="network" />
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".activity.ShowInfoActivity"
+    tools:showIn="@layout/activity_do_sth">
 
     <TextView
-        android:id="@+id/txtInfo"
+        android:id="@+id/txtName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <Button
-        android:id="@+id/btnGo"
+    <TextView
+        android:id="@+id/txtPwd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btnOnClick"
-        android:text="do sth." />
+        android:layout_below="@+id/txtName" />
+
 </RelativeLayout>

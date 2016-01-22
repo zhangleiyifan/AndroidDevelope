@@ -1,7 +1,6 @@
 package com.gyz.androiddevelope.cache;
 
-import android.os.Environment;
-
+import com.gyz.androiddevelope.engine.AppContants;
 import com.gyz.androiddevelope.util.FileUtil;
 
 import java.io.File;
@@ -13,10 +12,6 @@ import java.io.File;
 public class CacheManager {
     private static final String TAG = "CacheManager";
 
-    /**
-     * 缓存文件路径
-     */
-    public static final String CACHE_PATH = Environment.getExternalStorageDirectory().getPath() + "/AndroidDevelop/data/";
 
     /**
      * sdcard 最小空间，如果小于10M，不会再向sdcard里面写入任何数据
@@ -51,7 +46,7 @@ public class CacheManager {
     public synchronized CacheItem getFromCache(String path) {
 
         CacheItem cacheItem = null;
-        Object findItem = FileUtil.restoreObject(CACHE_PATH + path);
+        Object findItem = FileUtil.restoreObject(AppContants.CACHE_PATH + path);
 
         if (findItem != null) {
             cacheItem = (CacheItem) findItem;
@@ -77,7 +72,7 @@ public class CacheManager {
         File file = null;
         File[] files = null;
         if (FileUtil.sdcardMounted()) {
-            file = new File(CACHE_PATH);
+            file = new File(AppContants.CACHE_PATH);
             files = file.listFiles();
             if (files != null) {
                 for (File file1 : files) {
@@ -96,7 +91,7 @@ public class CacheManager {
     public synchronized boolean putIntoCache(CacheItem item) {
 
         if (FileUtil.getSDSize() > SDCARD_MIN_SPACE) {
-            FileUtil.saveObject(CACHE_PATH + item.getKey(), item);
+            FileUtil.saveObject(AppContants.CACHE_PATH + item.getKey(), item);
             return true;
         }
         return false;
@@ -109,7 +104,7 @@ public class CacheManager {
             if (FileUtil.getSDSize() < SDCARD_MIN_SPACE) {
                 clearAllCache();
             } else {
-                final File dir = new File(CACHE_PATH);
+                final File dir = new File(AppContants.CACHE_PATH);
                 if (!dir.exists()) {
                     dir.mkdirs();
                 }
@@ -125,7 +120,7 @@ public class CacheManager {
      * @return
      */
     public boolean contains(String key) {
-        File file = new File(CACHE_PATH + key);
+        File file = new File(AppContants.CACHE_PATH + key);
         return file.exists();
     }
 
