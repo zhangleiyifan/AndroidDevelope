@@ -35,14 +35,16 @@ public class LoginActivity extends BaseActivity {
 
     public static void startActivity(Context context ,boolean needCallBack) {
         Intent intent = new Intent(context, LoginActivity.class);
-        intent.putExtra(AppContants.NEED_CALLBACK,needCallBack);
+        intent.putExtra(AppContants.NEED_CALLBACK, needCallBack);
         context.startActivity(intent);
+
     }
 
     @Override
     protected void initVariables() {
 
         needCallback= getIntent().getBooleanExtra(AppContants.NEED_CALLBACK,false);
+
     }
 
     @Override

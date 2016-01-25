@@ -1,5 +1,6 @@
 package com.gyz.androiddevelope.activity;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,11 +8,15 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
+import com.anthonycr.grant.PermissionsManager;
+import com.anthonycr.grant.PermissionsResultAction;
 import com.gyz.androiddevelope.R;
 import com.gyz.androiddevelope.base.BaseActivity;
 import com.gyz.androiddevelope.bean.WeatherInfo;
+import com.gyz.androiddevelope.cache.CacheManager;
 import com.gyz.androiddevelope.engine.AppContants;
 import com.gyz.androiddevelope.engine.User;
 import com.gyz.androiddevelope.net.RequestParams;
@@ -44,6 +49,29 @@ public class MainActivity extends BaseActivity {
     protected void initViews(Bundle savedInstanceState) {
 
         setContentView(R.layout.activity_main);
+
+
+        if (!PermissionsManager.hasAllPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.MOUNT_UNMOUNT_FILESYSTEMS})) {
+//            没有权限，申请权限
+            PermissionsManager.getInstance().requestAllManifestPermissionsIfNecessary(this, new PermissionsResultAction() {
+
+                @Override
+                public void onGranted() {
+                    CacheManager.getInstance().initCacheDir();
+                }
+
+                @Override
+                public void onDenied(String permission) {
+                    Toast.makeText(MainActivity.this, "拒绝", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        } else {
+
+            CacheManager.getInstance().initCacheDir();
+        }
+
+
         ButterKnife.bind(this);
         dlg = Utils.createProgressDialog(this,
                 this.getString(R.string.str_loading));
@@ -56,6 +84,7 @@ public class MainActivity extends BaseActivity {
 
     @OnClick({R.id.btnOnClick, R.id.btnGo})
     public void OnClick(View view) {
+
         switch (view.getId()) {
             case R.id.btnOnClick:
 
