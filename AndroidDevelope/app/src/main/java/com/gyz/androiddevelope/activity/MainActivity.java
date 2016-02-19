@@ -21,6 +21,7 @@ import com.gyz.androiddevelope.engine.User;
 import com.gyz.androiddevelope.net.RequestParams;
 import com.gyz.androiddevelope.net.okhttp.OkHttpClientManager;
 import com.gyz.androiddevelope.retrofit.ApiManagerService;
+import com.gyz.androiddevelope.retrofit.RxUtil;
 import com.gyz.androiddevelope.util.L;
 import com.gyz.androiddevelope.util.Utils;
 
@@ -36,9 +37,7 @@ import retrofit2.Retrofit;
 import retrofit2.RxJavaCallAdapterFactory;
 import rx.Observable;
 import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Func1;
-import rx.schedulers.Schedulers;
 
 public class MainActivity extends BaseActivity {
 
@@ -102,20 +101,19 @@ public class MainActivity extends BaseActivity {
 //                    }
 //                });
 
-
-                Observable.just("").flatMap(new Func1<String, Observable<Axiba>>() {
+                RxUtil.subscribe("", new Func1<String, Observable<Axiba>>() {
                     @Override
                     public Observable<Axiba> call(String s) {
 
                         Retrofit retrofit = new Retrofit.Builder().baseUrl("http://www.weather.com.cn/")
                                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                        .addConverterFactory(GsonConverterFactory.create()).build();
-                         ApiManagerService service = retrofit.create(ApiManagerService.class);
+                                .addConverterFactory(GsonConverterFactory.create()).build();
+                        ApiManagerService service = retrofit.create(ApiManagerService.class);
 
                         return  service.getWeather("111", "Beijing");
 
                     }
-                }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<Axiba>() {
+                }, new Subscriber<Axiba>() {
                     @Override
                     public void onCompleted() {
                         L.e(TAG, "onCompleted");
@@ -131,6 +129,37 @@ public class MainActivity extends BaseActivity {
                         L.d(TAG, "axiba==" + axiba.getWeatherinfo().getCity() + "    |   " + axiba.getWeatherinfo().getTime());
                     }
                 });
+
+
+
+//                Observable.just("").flatMap(new Func1<String, Observable<Axiba>>() {
+//                    @Override
+//                    public Observable<Axiba> call(String s) {
+//
+//                        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://www.weather.com.cn/")
+//                                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+//                        .addConverterFactory(GsonConverterFactory.create()).build();
+//                         ApiManagerService service = retrofit.create(ApiManagerService.class);
+//
+//                        return  service.getWeather("111", "Beijing");
+//
+//                    }
+//                }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<Axiba>() {
+//                    @Override
+//                    public void onCompleted() {
+//                        L.e(TAG, "onCompleted");
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable e) {
+//                        e.printStackTrace();
+//                    }
+//
+//                    @Override
+//                    public void onNext(Axiba axiba) {
+//                        L.d(TAG, "axiba==" + axiba.getWeatherinfo().getCity() + "    |   " + axiba.getWeatherinfo().getTime());
+//                    }
+//                });
 
 
 
