@@ -10,6 +10,10 @@ public class AppContants {
 
     public static final int  WRITE_EXTERNAL_STORAGE_REQUEST_CODE = 101;
 
+    public static final String FIRST_LOAD="first_load";
+
+    public static final boolean isDebug = true;
+
     /**
      * 缓存文件路径
      */

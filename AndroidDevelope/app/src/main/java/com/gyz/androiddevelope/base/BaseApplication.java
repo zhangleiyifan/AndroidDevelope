@@ -1,4 +1,4 @@
-package com.gyz.androiddevelope;
+package com.gyz.androiddevelope.base;
 
 import android.app.Application;
 
@@ -16,6 +16,7 @@ public class BaseApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
+        CacheManager.getInstance().initCacheDir();
 
     }
 

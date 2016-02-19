@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <com.gyz.androiddevelope.view.CircleView
+        android:layout_width="250dp"
+        android:layout_height="250dp" />
+
+    <com.gyz.androiddevelope.view.QQHealthView
+        android:layout_width="match_parent"
+        android:visibility="gone"
+
+        android:layout_height="match_parent" />
+
+</LinearLayout>

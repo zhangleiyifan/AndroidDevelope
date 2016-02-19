@@ -26,4 +26,32 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/btnOnClick"
         android:text="do sth." />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:id="@+id/btnOkHttp"
+        android:layout_below="@+id/btnGo"
+        android:text="okHttp2.5"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:id="@+id/btnOkHttp3"
+        android:layout_below="@+id/btnOkHttp"
+        android:text="okHttp3"
+        android:layout_height="wrap_content" />
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:id="@+id/view"
+        android:layout_below="@+id/btnOkHttp3"
+        android:text="view"
+        android:layout_height="wrap_content" />
+    <Button
+        android:layout_width="wrap_content"
+        android:id="@+id/retrofit"
+        android:layout_below="@+id/view"
+        android:text="retrofit"
+        android:layout_height="wrap_content" />
 </RelativeLayout>

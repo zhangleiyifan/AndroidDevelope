@@ -2,6 +2,7 @@ package com.gyz.androiddevelope.cache;
 
 import com.gyz.androiddevelope.engine.AppContants;
 import com.gyz.androiddevelope.util.FileUtil;
+import com.gyz.androiddevelope.util.L;
 
 import java.io.File;
 
@@ -107,6 +108,7 @@ public class CacheManager {
                 final File dir = new File(AppContants.CACHE_PATH);
                 if (!dir.exists()) {
                     dir.mkdirs();
+                    L.d("初始化 initCacheDir");
                 }
             }
         }
