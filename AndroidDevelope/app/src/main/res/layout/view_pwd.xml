@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="horizontal">
+
+
+    <EditText
+        android:id="@+id/edtPwd1"
+        android:maxLength="1"
+        android:layout_width="35dp"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:layout_marginRight="15dp"
+        android:inputType="number" />
+
+
+    <EditText
+        android:id="@+id/edtPwd2"
+        android:layout_width="35dp"
+        android:gravity="center"
+        android:layout_marginRight="15dp"
+        android:layout_height="40dp"
+        android:maxLength="1"
+        android:inputType="number" />
+
+
+    <EditText
+        android:id="@+id/edtPwd3"
+        android:layout_width="35dp"
+        android:gravity="center"
+        android:layout_marginRight="15dp"
+        android:layout_height="40dp"
+        android:maxLength="1"
+        android:inputType="number" />
+
+
+    <EditText
+        android:id="@+id/edtPwd4"
+        android:layout_width="35dp"
+        android:gravity="center"
+        android:maxLength="1"
+        android:layout_height="40dp"
+        android:inputType="number" />
+
+</LinearLayout>

@@ -28,30 +28,49 @@
         android:text="do sth." />
 
     <Button
-        android:layout_width="wrap_content"
         android:id="@+id/btnOkHttp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/btnGo"
-        android:text="okHttp2.5"
-        android:layout_height="wrap_content" />
+        android:text="okHttp2.5" />
 
     <Button
-        android:layout_width="wrap_content"
         android:id="@+id/btnOkHttp3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/btnOkHttp"
-        android:text="okHttp3"
-        android:layout_height="wrap_content" />
+        android:text="okHttp3" />
 
 
     <Button
-        android:layout_width="wrap_content"
         android:id="@+id/view"
-        android:layout_below="@+id/btnOkHttp3"
-        android:text="view"
-        android:layout_height="wrap_content" />
-    <Button
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnOkHttp3"
+        android:text="view" />
+
+    <Button
         android:id="@+id/retrofit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/view"
-        android:text="retrofit"
-        android:layout_height="wrap_content" />
+        android:text="retrofit" />
+    <Button
+        android:id="@+id/btnHealth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/retrofit"
+        android:text="健康资讯" />
+    <Button
+        android:id="@+id/btnHealthList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnHealth"
+        android:text="健康资讯列表" />
+
+    <com.gyz.androiddevelope.view.PwdView
+        android:id="@+id/pwdView"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/retrofit" />
 </RelativeLayout>

@@ -1,4 +1,4 @@
-package com.gyz.androiddevelope.bean;
+package com.gyz.androiddevelope.response_bean;
 
 /**
  * @author: guoyazhou

@@ -1,7 +1,7 @@
 // JSON Java Class Generator
 // Written by Bruce Bao
 // Used for API: http://www.weather.com.cn/data/sk/101010100.html
-package com.gyz.androiddevelope.bean;
+package com.gyz.androiddevelope.response_bean;
 
 
 import android.os.Parcel;

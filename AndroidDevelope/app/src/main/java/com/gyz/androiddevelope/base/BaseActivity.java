@@ -83,4 +83,8 @@ public abstract class BaseActivity extends Activity {
     public RequestManager getRequestManager() {
         return requestManager;
     }
+
+
+    //==================================================
+
 }

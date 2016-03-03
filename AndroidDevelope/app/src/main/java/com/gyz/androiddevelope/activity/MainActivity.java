@@ -8,21 +8,24 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.gyz.androiddevelope.R;
 import com.gyz.androiddevelope.activity.account.LoginActivity;
 import com.gyz.androiddevelope.base.BaseActivity;
-import com.gyz.androiddevelope.bean.Axiba;
-import com.gyz.androiddevelope.bean.WeatherInfo;
 import com.gyz.androiddevelope.engine.AppContants;
 import com.gyz.androiddevelope.engine.RemoteService;
 import com.gyz.androiddevelope.engine.User;
 import com.gyz.androiddevelope.net.RequestParams;
 import com.gyz.androiddevelope.net.okhttp.OkHttpClientManager;
-import com.gyz.androiddevelope.retrofit.ApiManagerService;
+import com.gyz.androiddevelope.response_bean.Axiba;
+import com.gyz.androiddevelope.response_bean.InfoList;
+import com.gyz.androiddevelope.response_bean.Tngou;
+import com.gyz.androiddevelope.response_bean.UserInfo;
+import com.gyz.androiddevelope.response_bean.WeatherInfo;
+import com.gyz.androiddevelope.retrofit.ReUtil;
 import com.gyz.androiddevelope.retrofit.RxUtil;
-import com.gyz.androiddevelope.util.L;
 import com.gyz.androiddevelope.util.Utils;
 
 import java.util.ArrayList;
@@ -32,9 +35,8 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.Request;
-import retrofit2.GsonConverterFactory;
-import retrofit2.Retrofit;
-import retrofit2.RxJavaCallAdapterFactory;
+import request_bean.ReqHealthInfoList;
+import request_bean.ReqUserInfoBean;
 import rx.Observable;
 import rx.Subscriber;
 import rx.functions.Func1;
@@ -75,48 +77,24 @@ public class MainActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.btnOnClick, R.id.btnGo, R.id.btnOkHttp, R.id.btnOkHttp3, R.id.view, R.id.retrofit})
+    @OnClick({R.id.btnOnClick, R.id.btnGo, R.id.btnOkHttp, R.id.btnOkHttp3, R.id.view, R.id.retrofit,R.id.btnHealth,R.id.btnHealthList})
     public void OnClick(View view) {
 
         switch (view.getId()) {
 
-            case R.id.retrofit:
+            case R.id.btnHealthList:
 
-//                Retrofit retrofit = new Retrofit.Builder().baseUrl("http://www.weather.com.cn")
-//                        .addConverterFactory(GsonConverterFactory.create()).build();
-//                ApiManagerService service = retrofit.create(ApiManagerService.class);
-//
-//                Call call = service.getWeather("111", "Beijing");
-//
-//                call.enqueue(new Callback() {
-//                    @Override
-//                    public void onResponse(Response response) {
-//                        Axiba axiba = (Axiba) response.body();
-//                        L.d(TAG, "axiba==" + axiba.getWeatherinfo().getCity() + "    |   " + axiba.getWeatherinfo().getTime());
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Throwable t) {
-//                        t.printStackTrace();
-//                    }
-//                });
-
-                RxUtil.subscribe("", new Func1<String, Observable<Axiba>>() {
+                RxUtil.subscribe("", new Func1<String, Observable<InfoList>>() {
                     @Override
-                    public Observable<Axiba> call(String s) {
-
-                        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://www.weather.com.cn/")
-                                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                                .addConverterFactory(GsonConverterFactory.create()).build();
-                        ApiManagerService service = retrofit.create(ApiManagerService.class);
-
-                        return  service.getWeather("111", "Beijing");
-
+                    public Observable<InfoList> call(String s) {
+//                        return ReUtil.getApiManager().getHealthInfoList(3, 10, 1);
+                        ReqHealthInfoList list = new ReqHealthInfoList(3, 10, 1);
+                        return ReUtil.getApiManager().getHealthInfoList(list);
                     }
-                }, new Subscriber<Axiba>() {
+                }, new Subscriber<InfoList>() {
                     @Override
                     public void onCompleted() {
-                        L.e(TAG, "onCompleted");
+
                     }
 
                     @Override
@@ -125,23 +103,111 @@ public class MainActivity extends BaseActivity {
                     }
 
                     @Override
-                    public void onNext(Axiba axiba) {
-                        L.d(TAG, "axiba==" + axiba.getWeatherinfo().getCity() + "    |   " + axiba.getWeatherinfo().getTime());
+                    public void onNext(InfoList infoList) {
+                        InfoList.Info info = infoList.infos.get(0);
+                        Toast.makeText(MainActivity.this, "infoList=="+info.description, Toast.LENGTH_SHORT).show();
                     }
                 });
 
 
 
-//                Observable.just("").flatMap(new Func1<String, Observable<Axiba>>() {
+                break;
+
+            case R.id.btnHealth:
+
+                RxUtil.subscribe("", new Func1<String, Observable<Tngou>>() {
+                    @Override
+                    public Observable<Tngou> call(String s) {
+                        return ReUtil.getApiManager().getInfoList();
+                    }
+                }, new Subscriber<Tngou>() {
+                    @Override
+                    public void onCompleted() {
+                        Toast.makeText(MainActivity.this, "onCompleted==", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Toast.makeText(MainActivity.this, "onError==", Toast.LENGTH_SHORT).show();
+                        e.printStackTrace();
+                    }
+
+                    @Override
+                    public void onNext(Tngou tngou) {
+                        Toast.makeText(MainActivity.this, "infoClasses.size==" + tngou.infoList.size(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                break;
+
+            case R.id.retrofit:
+
+                RxUtil.subscribe("", new Func1<String, Observable<UserInfo>>() {
+                    @Override
+                    public Observable<UserInfo> call(String s) {
+
+                        ReqUserInfoBean bean = new ReqUserInfoBean("a4fe0465b9464ae8fbl54da04bfd6e2f");
+
+//                        Observable<UserInfo> observable =  ReUtil.getApiManager().getUserInfo(bean);
+//                        return observable;
+                        return ReUtil.getApiManager().getUserInfo("a4fe0465b9464ae8fbl54da04bfd6e2f");
+                    }
+                }, new Subscriber<UserInfo>() {
+                    @Override
+                    public void onCompleted() {
+                        Toast.makeText(MainActivity.this, "onCompleted==", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Toast.makeText(MainActivity.this, "onError==", Toast.LENGTH_SHORT).show();
+                        e.printStackTrace();
+                    }
+
+                    @Override
+                    public void onNext(UserInfo userInfo) {
+                        Toast.makeText(MainActivity.this, "userInfo==" + userInfo.getAccount(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+
+//
+//                RxUtil.subscribe("", new Func1<String, Observable<Axiba>>() {
 //                    @Override
 //                    public Observable<Axiba> call(String s) {
+//                        return ReUtil.getApiManager().getWeather("111", "Beijing");
 //
-//                        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://www.weather.com.cn/")
-//                                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-//                        .addConverterFactory(GsonConverterFactory.create()).build();
-//                         ApiManagerService service = retrofit.create(ApiManagerService.class);
+//                    }
+//                }, new Subscriber<Axiba>() {
+//                    @Override
+//                    public void onCompleted() {
+//                        L.e(TAG, "onCompleted");
+//                    }
 //
-//                        return  service.getWeather("111", "Beijing");
+//                    @Override
+//                    public void onError(Throwable e) {
+//                        e.printStackTrace();
+//                    }
+//
+//                    @Override
+//                    public void onNext(Axiba axiba) {
+//                        L.d(TAG, "axiba==" + axiba.getWeatherinfo().getCity() + "    |   " + axiba.getWeatherinfo().getTime());
+//                        Toast.makeText(MainActivity.this, "axiba==" + axiba.getWeatherinfo().getCity(), Toast.LENGTH_SHORT).show();
+//
+//                    }
+//                });
+
+//                Observable.just("","").flatMap(new Func1<String, Observable<Axiba>>() {
+//                    @Override
+//                    public Observable<Axiba> call(String s) {
+////
+////                        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://www.weather.com.cn")
+////                                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+////                        .addConverterFactory(GsonConverterFactory.create()).build();
+////                         ApiManagerService service = retrofit.create(ApiManagerService.class);
+////
+////                        return  service.getWeather("111", "Beijing");
+//                    return     ReUtil.getApiManager().getWeather("111", "Beijing");
 //
 //                    }
 //                }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<Axiba>() {
@@ -158,48 +224,10 @@ public class MainActivity extends BaseActivity {
 //                    @Override
 //                    public void onNext(Axiba axiba) {
 //                        L.d(TAG, "axiba==" + axiba.getWeatherinfo().getCity() + "    |   " + axiba.getWeatherinfo().getTime());
+//                        Toast.makeText(MainActivity.this,"axiba==" + axiba.getWeatherinfo().getCity(),Toast.LENGTH_SHORT).show();
 //                    }
 //                });
 
-
-
-
-//
-//                Observable.just("").map(new Func1<String, Axiba>() {
-//                    @Override
-//                    public Axiba call(String s) {
-//
-//                        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://www.weather.com.cn").addConverterFactory(GsonConverterFactory.create()).build();
-//                        ApiManagerService service = retrofit.create(ApiManagerService.class);
-//
-//                        Call<Axiba> call = service.getWeather("111", "Beijing");
-//
-//                        Axiba axiba = null;
-//                        try {
-//                            axiba = call.execute().body();
-//                        } catch (IOException e) {
-//                            e.printStackTrace();
-//                        }
-//                        return axiba;
-//                    }
-//                })
-//                        .observeOn(AndroidSchedulers.mainThread())
-//                        .subscribe(new Subscriber<Axiba>() {
-//                            @Override
-//                            public void onCompleted() {
-//                                L.e(TAG, "onCompleted");
-//                            }
-//
-//                            @Override
-//                            public void onError(Throwable e) {
-//                                e.printStackTrace();
-//                            }
-//
-//                            @Override
-//                            public void onNext(Axiba axiba) {
-//                                L.d(TAG, "axiba==" + axiba.getWeatherinfo().getCity() + "    |   " + axiba.getWeatherinfo().getTime());
-//                            }
-//                        });
 
                 break;
 

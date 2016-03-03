@@ -123,6 +123,7 @@ public class QQHealthView extends View {
         mStrokePaint.setShader(mSweepGradient);
         canvas.drawArc(mArcRect, -240, 300, false, mStrokePaint);
 
+
         // 3.draw text
         float xPos, yPos;
         mTextPaint.setTextAlign(Paint.Align.CENTER);
