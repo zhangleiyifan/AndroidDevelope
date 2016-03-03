@@ -39,6 +39,7 @@ import request_bean.ReqHealthInfoList;
 import request_bean.ReqUserInfoBean;
 import rx.Observable;
 import rx.Subscriber;
+import rx.functions.Action1;
 import rx.functions.Func1;
 
 public class MainActivity extends BaseActivity {
@@ -84,38 +85,27 @@ public class MainActivity extends BaseActivity {
 
             case R.id.btnHealthList:
 
-                RxUtil.subscribe("", new Func1<String, Observable<InfoList>>() {
+                RxUtil.subscribeOnNext(new Func1<String, Observable<InfoList>>() {
                     @Override
                     public Observable<InfoList> call(String s) {
-//                        return ReUtil.getApiManager().getHealthInfoList(3, 10, 1);
+
                         ReqHealthInfoList list = new ReqHealthInfoList(3, 10, 1);
                         return ReUtil.getApiManager().getHealthInfoList(list);
                     }
-                }, new Subscriber<InfoList>() {
+                }, new Action1<InfoList>() {
                     @Override
-                    public void onCompleted() {
+                    public void call(InfoList infoList) {
 
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        e.printStackTrace();
-                    }
-
-                    @Override
-                    public void onNext(InfoList infoList) {
                         InfoList.Info info = infoList.infos.get(0);
-                        Toast.makeText(MainActivity.this, "infoList=="+info.description, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "infoList==" + info.description, Toast.LENGTH_SHORT).show();
                     }
                 });
-
-
 
                 break;
 
             case R.id.btnHealth:
 
-                RxUtil.subscribe("", new Func1<String, Observable<Tngou>>() {
+                RxUtil.subscribeAll(  new Func1<String, Observable<Tngou>>() {
                     @Override
                     public Observable<Tngou> call(String s) {
                         return ReUtil.getApiManager().getInfoList();
@@ -142,7 +132,7 @@ public class MainActivity extends BaseActivity {
 
             case R.id.retrofit:
 
-                RxUtil.subscribe("", new Func1<String, Observable<UserInfo>>() {
+                RxUtil.subscribeAll( new Func1<String, Observable<UserInfo>>() {
                     @Override
                     public Observable<UserInfo> call(String s) {
 
@@ -172,7 +162,7 @@ public class MainActivity extends BaseActivity {
 
 
 //
-//                RxUtil.subscribe("", new Func1<String, Observable<Axiba>>() {
+//                RxUtil.subscribeAll("", new Func1<String, Observable<Axiba>>() {
 //                    @Override
 //                    public Observable<Axiba> call(String s) {
 //                        return ReUtil.getApiManager().getWeather("111", "Beijing");
@@ -210,7 +200,7 @@ public class MainActivity extends BaseActivity {
 //                    return     ReUtil.getApiManager().getWeather("111", "Beijing");
 //
 //                    }
-//                }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<Axiba>() {
+//                }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribeAll(new Subscriber<Axiba>() {
 //                    @Override
 //                    public void onCompleted() {
 //                        L.e(TAG, "onCompleted");
