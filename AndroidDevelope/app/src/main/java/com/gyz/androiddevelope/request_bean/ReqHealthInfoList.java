@@ -1,4 +1,4 @@
-package request_bean;
+package com.gyz.androiddevelope.request_bean;
 
 /**
  * @author: guoyazhou

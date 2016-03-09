@@ -1,32 +1,39 @@
-package com.gyz.androiddevelope.activity;
+package com.gyz.androiddevelope.fragment;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.alibaba.fastjson.JSON;
 import com.gyz.androiddevelope.R;
+import com.gyz.androiddevelope.activity.CircleActivity;
+import com.gyz.androiddevelope.activity.HomeActivity;
+import com.gyz.androiddevelope.activity.ShowInfoActivity;
 import com.gyz.androiddevelope.activity.account.LoginActivity;
-import com.gyz.androiddevelope.base.BaseActivity;
+import com.gyz.androiddevelope.base.BaseFragment;
 import com.gyz.androiddevelope.engine.AppContants;
-import com.gyz.androiddevelope.engine.RemoteService;
 import com.gyz.androiddevelope.engine.User;
 import com.gyz.androiddevelope.net.RequestParams;
 import com.gyz.androiddevelope.net.okhttp.OkHttpClientManager;
+import com.gyz.androiddevelope.request_bean.ReqHealthInfoList;
+import com.gyz.androiddevelope.request_bean.ReqUserInfoBean;
 import com.gyz.androiddevelope.response_bean.Axiba;
 import com.gyz.androiddevelope.response_bean.InfoList;
 import com.gyz.androiddevelope.response_bean.Tngou;
 import com.gyz.androiddevelope.response_bean.UserInfo;
-import com.gyz.androiddevelope.response_bean.WeatherInfo;
 import com.gyz.androiddevelope.retrofit.ReUtil;
 import com.gyz.androiddevelope.retrofit.RxUtil;
 import com.gyz.androiddevelope.util.Utils;
+import com.gyz.androiddevelope.view.PwdView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,54 +42,62 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.Request;
-import request_bean.ReqHealthInfoList;
-import request_bean.ReqUserInfoBean;
 import rx.Observable;
 import rx.Subscriber;
 import rx.functions.Action1;
 import rx.functions.Func1;
 
-public class MainActivity extends BaseActivity {
+public class TestFragment extends BaseFragment {
 
-
+    public static final String TAG = "TestFragment";
     public static final int GO_TO_INFO = 3001;
 
     @Bind(R.id.btnOnClick)
     Button btnOnClick;
     @Bind(R.id.txtInfo)
     TextView txtInfo;
+    @Bind(R.id.btnHealthList)
+    Button btnHealthList;
+    @Bind(R.id.btnHome)
+    Button btnHome;
+    @Bind(R.id.pwdView)
+    PwdView pwdView;
+
+    ProgressDialog dlg;
+    Context context;
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        View view = inflater.inflate(R.layout.activity_main, container, false);
+        ButterKnife.bind(this, view);
+
+        context =getContext();
+        dlg = Utils.createProgressDialog(context,this.getString(R.string.str_loading));
+
+        return view;
+    }
+
 
     @Override
-    protected void initVariables() {
+    public void initView() {
 
-    }
-
-    public static void startActivity(Context context) {
-        Intent intent = new Intent(context, MainActivity.class);
-        context.startActivity(intent);
     }
 
     @Override
-    protected void initViews(Bundle savedInstanceState) {
-
-        setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
-
-
-        dlg = Utils.createProgressDialog(this,
-                this.getString(R.string.str_loading));
-    }
-
-    @Override
-    protected void loadData() {
+    public void initData() {
 
     }
 
-    @OnClick({R.id.btnOnClick, R.id.btnGo, R.id.btnOkHttp, R.id.btnOkHttp3, R.id.view, R.id.retrofit,R.id.btnHealth,R.id.btnHealthList})
+    @OnClick({R.id.btnHome, R.id.btnOnClick, R.id.btnGo, R.id.btnOkHttp, R.id.btnOkHttp3, R.id.view, R.id.retrofit, R.id.btnHealth, R.id.btnHealthList})
     public void OnClick(View view) {
 
         switch (view.getId()) {
 
+            case R.id.btnHome:
+                context.startActivity(new Intent(context, HomeActivity.class));
+                break;
             case R.id.btnHealthList:
 
                 RxUtil.subscribeOnNext(new Func1<String, Observable<InfoList>>() {
@@ -97,7 +112,7 @@ public class MainActivity extends BaseActivity {
                     public void call(InfoList infoList) {
 
                         InfoList.Info info = infoList.infos.get(0);
-                        Toast.makeText(MainActivity.this, "infoList==" + info.description, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "infoList==" + info.description, Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -105,7 +120,7 @@ public class MainActivity extends BaseActivity {
 
             case R.id.btnHealth:
 
-                RxUtil.subscribeAll(  new Func1<String, Observable<Tngou>>() {
+                RxUtil.subscribeAll(new Func1<String, Observable<Tngou>>() {
                     @Override
                     public Observable<Tngou> call(String s) {
                         return ReUtil.getApiManager().getInfoList();
@@ -113,18 +128,18 @@ public class MainActivity extends BaseActivity {
                 }, new Subscriber<Tngou>() {
                     @Override
                     public void onCompleted() {
-                        Toast.makeText(MainActivity.this, "onCompleted==", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "onCompleted==", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        Toast.makeText(MainActivity.this, "onError==", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "onError==", Toast.LENGTH_SHORT).show();
                         e.printStackTrace();
                     }
 
                     @Override
                     public void onNext(Tngou tngou) {
-                        Toast.makeText(MainActivity.this, "infoClasses.size==" + tngou.infoList.size(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "infoClasses.size==" + tngou.infoList.size(), Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -132,7 +147,7 @@ public class MainActivity extends BaseActivity {
 
             case R.id.retrofit:
 
-                RxUtil.subscribeAll( new Func1<String, Observable<UserInfo>>() {
+                RxUtil.subscribeAll(new Func1<String, Observable<UserInfo>>() {
                     @Override
                     public Observable<UserInfo> call(String s) {
 
@@ -145,18 +160,18 @@ public class MainActivity extends BaseActivity {
                 }, new Subscriber<UserInfo>() {
                     @Override
                     public void onCompleted() {
-                        Toast.makeText(MainActivity.this, "onCompleted==", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "onCompleted==", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        Toast.makeText(MainActivity.this, "onError==", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "onError==", Toast.LENGTH_SHORT).show();
                         e.printStackTrace();
                     }
 
                     @Override
                     public void onNext(UserInfo userInfo) {
-                        Toast.makeText(MainActivity.this, "userInfo==" + userInfo.getAccount(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "userInfo==" + userInfo.getAccount(), Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -182,7 +197,7 @@ public class MainActivity extends BaseActivity {
 //                    @Override
 //                    public void onNext(Axiba axiba) {
 //                        L.d(TAG, "axiba==" + axiba.getWeatherinfo().getCity() + "    |   " + axiba.getWeatherinfo().getTime());
-//                        Toast.makeText(MainActivity.this, "axiba==" + axiba.getWeatherinfo().getCity(), Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(TestFragment.this, "axiba==" + axiba.getWeatherinfo().getCity(), Toast.LENGTH_SHORT).show();
 //
 //                    }
 //                });
@@ -214,7 +229,7 @@ public class MainActivity extends BaseActivity {
 //                    @Override
 //                    public void onNext(Axiba axiba) {
 //                        L.d(TAG, "axiba==" + axiba.getWeatherinfo().getCity() + "    |   " + axiba.getWeatherinfo().getTime());
-//                        Toast.makeText(MainActivity.this,"axiba==" + axiba.getWeatherinfo().getCity(),Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(TestFragment.this,"axiba==" + axiba.getWeatherinfo().getCity(),Toast.LENGTH_SHORT).show();
 //                    }
 //                });
 
@@ -223,7 +238,7 @@ public class MainActivity extends BaseActivity {
 
             case R.id.view:
 
-                startActivity(new Intent(MainActivity.this, CircleActivity.class));
+                context.startActivity(new Intent(context, CircleActivity.class));
                 break;
             case R.id.btnOkHttp3:
 
@@ -289,26 +304,26 @@ public class MainActivity extends BaseActivity {
                 paramses.add(new RequestParams("cityId", "111"));
                 paramses.add(new RequestParams("cityName", "Beijing"));
 
-                RemoteService.getInstance().invoke(this, "getWeatherInfo", paramses, new AbstractRequestCallback() {
-                    @Override
-                    public void onSuccess(String result) {
-
-                        Log.v(TAG, "回调onSuccess==result" + result);
-                        dlg.dismiss();
-                        WeatherInfo info = JSON.parseObject(result, WeatherInfo.class);
-                        txtInfo.setText(info.getCity());
-                    }
-
-                });
+//                RemoteService.getInstance().invoke(this, "getWeatherInfo", paramses, new AbstractRequestCallback() {
+//                    @Override
+//                    public void onSuccess(String result) {
+//
+//                        Log.v(TAG, "回调onSuccess==result" + result);
+//                        dlg.dismiss();
+//                        WeatherInfo info = JSON.parseObject(result, WeatherInfo.class);
+//                        txtInfo.setText(info.getCity());
+//                    }
+//
+//                });
 
                 break;
 
             case R.id.btnGo:
 
                 if (User.getInstantce().isLogin()) {
-                    ShowInfoActivity.startActivity(MainActivity.this);
+                    ShowInfoActivity.startActivity(context);
                 } else {
-                    Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                    Intent intent = new Intent(context, LoginActivity.class);
                     intent.putExtra(AppContants.NEED_CALLBACK, true);
                     startActivityForResult(intent, GO_TO_INFO);
                 }
@@ -318,16 +333,25 @@ public class MainActivity extends BaseActivity {
 
     }
 
+
+
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK) {
             switch (requestCode) {
                 case GO_TO_INFO:
 
-                    ShowInfoActivity.startActivity(MainActivity.this);
+                    ShowInfoActivity.startActivity(context);
                     break;
             }
         }
 
     }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
+    }
+
 }

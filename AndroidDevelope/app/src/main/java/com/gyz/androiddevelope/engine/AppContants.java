@@ -14,10 +14,14 @@ public class AppContants {
 
     public static final boolean isDebug = true;
 
+    public static final String BUGLY_APP_ID = "900021343";
+
     /**
      * 缓存文件路径
      */
     public static final String CACHE_PATH  =  Environment.getExternalStorageDirectory().getPath() + "/AndroidDevelop/data/";
 
     public static final String NEED_CALLBACK = "need_callback";
+
+    public static final String IMAGE_HEAD="http://tnfs.tngou.net/image";
 }

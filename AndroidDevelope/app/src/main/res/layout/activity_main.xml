@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".activity.MainActivity">
+    tools:context=".fragment.TestFragment">
 
     <Button
         android:id="@+id/btnOnClick"
@@ -67,6 +67,13 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/btnHealth"
         android:text="健康资讯列表" />
+
+    <Button
+        android:id="@+id/btnHome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnHealthList"
+        android:text="Home" />
 
     <com.gyz.androiddevelope.view.PwdView
         android:id="@+id/pwdView"

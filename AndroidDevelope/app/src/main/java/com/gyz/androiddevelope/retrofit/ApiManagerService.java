@@ -1,13 +1,14 @@
 package com.gyz.androiddevelope.retrofit;
 
 import com.gyz.androiddevelope.response_bean.Axiba;
+import com.gyz.androiddevelope.response_bean.HealthInfoList;
 import com.gyz.androiddevelope.response_bean.InfoList;
 import com.gyz.androiddevelope.response_bean.Tngou;
 import com.gyz.androiddevelope.response_bean.UserInfo;
 
-import request_bean.ReqHealthInfoList;
-import request_bean.ReqUserInfoBean;
-import request_bean.ReqWeatherBean;
+import com.gyz.androiddevelope.request_bean.ReqHealthInfoList;
+import com.gyz.androiddevelope.request_bean.ReqUserInfoBean;
+import com.gyz.androiddevelope.request_bean.ReqWeatherBean;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -48,6 +49,10 @@ public interface ApiManagerService {
 
     @POST("api/info/list")
     Observable<InfoList> getHealthInfoList(@Body ReqHealthInfoList list);
+
+    @POST("api/info/list")
+    Observable<HealthInfoList> getHealthNewsInfoList(@Body ReqHealthInfoList list );
+
 
 
 }

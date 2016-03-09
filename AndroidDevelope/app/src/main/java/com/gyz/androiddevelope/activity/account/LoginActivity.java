@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.gyz.androiddevelope.R;
-import com.gyz.androiddevelope.activity.MainActivity;
 import com.gyz.androiddevelope.base.BaseActivity;
 import com.gyz.androiddevelope.engine.AppContants;
 import com.gyz.androiddevelope.engine.User;
@@ -70,7 +69,7 @@ public class LoginActivity extends BaseActivity {
         if (needCallback){
             setResult(Activity.RESULT_OK);
         }else {
-            MainActivity.startActivity(LoginActivity.this);
+
         }
             finish();
     }

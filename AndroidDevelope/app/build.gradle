@@ -10,6 +10,10 @@ android {
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"
+        ndk {
+            //设置支持的SO库架构
+            abiFilters 'armeabi' //, 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
+        }
     }
     buildTypes {
         release {
@@ -30,11 +34,11 @@ dependencies {
     compile 'com.android.support:design:23.1.1'
     compile 'com.anthonycr.grant:permissions:1.0'
     compile 'com.squareup.okhttp3:okhttp:3.0.1'
-
+    compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.squareup.retrofit2:retrofit:2.0.0-beta3'
     compile 'com.squareup.retrofit2:adapter-rxjava:2.0.0-beta3'
     compile 'com.squareup.retrofit2:converter-gson:2.0.0-beta3'
     compile 'io.reactivex:rxandroid:1.0.1'
     compile 'io.reactivex:rxjava:1.0.14'
-
+    compile files('libs/bugly_1.2.9_release.jar')
 }

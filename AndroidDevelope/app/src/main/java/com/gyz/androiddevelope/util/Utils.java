@@ -1,8 +1,7 @@
 package com.gyz.androiddevelope.util;
 
 import android.app.ProgressDialog;
-
-import com.gyz.androiddevelope.base.BaseActivity;
+import android.content.Context;
 
 
 public class Utils  {
@@ -38,7 +37,7 @@ public class Utils  {
 	 * @param msg
 	 * @return ProgressDialog
 	 */
-    public static ProgressDialog createProgressDialog(final BaseActivity activity, final String msg)
+    public static ProgressDialog createProgressDialog(final Context activity, final String msg)
     {
         final ProgressDialog dialog = new ProgressDialog(activity);
         dialog.setMessage(msg);

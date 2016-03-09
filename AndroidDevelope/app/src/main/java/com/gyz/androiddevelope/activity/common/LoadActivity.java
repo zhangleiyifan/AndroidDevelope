@@ -1,15 +1,14 @@
 package com.gyz.androiddevelope.activity.common;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.ScaleAnimation;
 
 import com.gyz.androiddevelope.R;
-import com.gyz.androiddevelope.activity.MainActivity;
-import com.gyz.androiddevelope.activity.account.LoginActivity;
+import com.gyz.androiddevelope.activity.HomeActivity;
 import com.gyz.androiddevelope.base.BaseActivity;
-import com.gyz.androiddevelope.engine.AppContants;
-import com.gyz.androiddevelope.engine.User;
-import com.gyz.androiddevelope.util.SPUtils;
 
 /**
  * @author: guoyazhou
@@ -26,28 +25,32 @@ public class LoadActivity extends BaseActivity {
     @Override
     protected void initViews(Bundle savedInstanceState) {
 
-        setContentView(R.layout.activity_load);
+        View view = View.inflate(this, R.layout.activity_load, null);
+        setContentView(view);
 
-        new Handler().postDelayed(new Runnable() {
+        ScaleAnimation animation = new ScaleAnimation(1.0f, 1.4f, 1.0f, 1.4f,
+                Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        animation.setDuration(3000);
+        animation.setFillAfter(true);
+        view.startAnimation(animation);
+
+        animation.setAnimationListener(new Animation.AnimationListener() {
             @Override
-            public void run() {
-                if ((boolean) SPUtils.get(LoadActivity.this, AppContants.FIRST_LOAD, false)) {
+            public void onAnimationStart(Animation animation) {
 
-                    SPUtils.put(LoadActivity.this, AppContants.FIRST_LOAD, true);
-                    LoginActivity.startActivity(LoadActivity.this, false);//或者跳引导页
-                } else {
-                    if (User.getInstantce().isLogin()) {
-                        MainActivity.startActivity(LoadActivity.this);
-                    } else {
-                        LoginActivity.startActivity(LoadActivity.this, false);
-                    }
-                }
+            }
 
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                startActivity(new Intent(getBaseContext(), HomeActivity.class));
                 finish();
             }
-        }, 3000);
 
+            @Override
+            public void onAnimationRepeat(Animation animation) {
 
+            }
+        });
     }
 
     @Override

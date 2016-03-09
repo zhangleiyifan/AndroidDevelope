@@ -27,15 +27,18 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activity.MainActivity"/>
-        <activity android:name=".activity.CircleActivity"/>
-
+        <activity android:name=".activity.CircleActivity" />
         <activity
             android:name=".activity.ShowInfoActivity"
-            android:label="@string/title_activity_do_sth"/>
+            android:label="@string/title_activity_do_sth" />
         <activity
             android:name=".activity.account.LoginActivity"
             android:label="@string/title_activity_do_sth" />
-
+        <activity
+            android:name=".activity.HomeActivity"
+            android:label="@string/title_health_info"
+            android:launchMode="singleTask"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
+
 </manifest>

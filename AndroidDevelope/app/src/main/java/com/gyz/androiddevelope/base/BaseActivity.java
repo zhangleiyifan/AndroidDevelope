@@ -1,8 +1,8 @@
 package com.gyz.androiddevelope.base;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -10,7 +10,7 @@ import com.gyz.androiddevelope.net.RequestCallback;
 import com.gyz.androiddevelope.net.RequestManager;
 
 
-public abstract class BaseActivity extends Activity {
+public abstract class BaseActivity extends AppCompatActivity {
 
     public static final String TAG = "BaseActivity";
     protected ProgressDialog dlg;
