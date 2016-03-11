@@ -23,7 +23,7 @@ public class LoggingInterceptor implements Interceptor {
 
         long t1 = System.nanoTime();
         L.i(TAG, "Sending request=" + request.url() + "   connection=" + chain.connection() + "    head=" + request.headers()
-                        + " request=" + request.body().toString()
+                        + " request="
         );
 
         Response response = chain.proceed(request);

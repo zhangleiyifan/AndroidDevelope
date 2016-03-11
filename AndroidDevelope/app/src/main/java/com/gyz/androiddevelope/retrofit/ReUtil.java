@@ -1,5 +1,7 @@
 package com.gyz.androiddevelope.retrofit;
 
+import com.gyz.androiddevelope.engine.AppContants;
+
 import okhttp3.OkHttpClient;
 import retrofit2.GsonConverterFactory;
 import retrofit2.Retrofit;
@@ -18,7 +20,8 @@ public class ReUtil {
 
         OkHttpClient okHttpClient = new OkHttpClient().newBuilder().addInterceptor(loggingInterceptor).build();
 
-        Retrofit retrofit = new Retrofit.Builder().client(okHttpClient).baseUrl("http://www.tngou.net/")
+        Retrofit retrofit = new Retrofit.Builder().client(okHttpClient).baseUrl(AppContants.BASE_URL)
+//        Retrofit retrofit = new Retrofit.Builder().client(okHttpClient).baseUrl("http://www.tngou.net/")
 //        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://www.weather.com.cn/")
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create()).build();

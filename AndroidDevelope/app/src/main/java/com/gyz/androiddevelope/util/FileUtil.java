@@ -1,6 +1,7 @@
 package com.gyz.androiddevelope.util;
 
 import android.annotation.TargetApi;
+import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Environment;
 import android.os.StatFs;
@@ -109,6 +110,27 @@ public class FileUtil {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    public static void saveMyBitmap(File file,Bitmap mBitmap){
+
+        FileOutputStream fOut = null;
+        try {
+            fOut = new FileOutputStream(file);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        mBitmap.compress(Bitmap.CompressFormat.PNG, 100, fOut);
+        try {
+            fOut.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            fOut.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

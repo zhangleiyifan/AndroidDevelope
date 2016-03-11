@@ -6,9 +6,7 @@
     android:orientation="vertical">
 
     <RelativeLayout
-        android:paddingTop="@dimen/dp_12"
-        android:paddingRight="@dimen/dp_12"
-        android:paddingLeft="@dimen/dp_12"
+        android:padding="@dimen/dp_12"
         android:background="@drawable/white_ripple_round_corner_bg"
         android:layout_marginTop="@dimen/dp_8"
         android:layout_marginLeft="@dimen/dp_12"
@@ -34,12 +32,5 @@
         android:textColor="@color/colorBlack"
         android:textSize="@dimen/sp_15" />
 
-    <TextView
-        android:id="@+id/txtKeyWords"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/txtTitle"
-        android:textColor="@color/color_cacaca"
-        android:textSize="@dimen/sp_12" />
 </RelativeLayout>
 </RelativeLayout>

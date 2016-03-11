@@ -19,6 +19,7 @@ import com.gyz.androiddevelope.activity.CircleActivity;
 import com.gyz.androiddevelope.activity.HomeActivity;
 import com.gyz.androiddevelope.activity.ShowInfoActivity;
 import com.gyz.androiddevelope.activity.account.LoginActivity;
+import com.gyz.androiddevelope.activity.common.WaveActivity;
 import com.gyz.androiddevelope.base.BaseFragment;
 import com.gyz.androiddevelope.engine.AppContants;
 import com.gyz.androiddevelope.engine.User;
@@ -90,10 +91,16 @@ public class TestFragment extends BaseFragment {
 
     }
 
-    @OnClick({R.id.btnHome, R.id.btnOnClick, R.id.btnGo, R.id.btnOkHttp, R.id.btnOkHttp3, R.id.view, R.id.retrofit, R.id.btnHealth, R.id.btnHealthList})
+    @OnClick({R.id.btnWave,
+            R.id.btnHome, R.id.btnOnClick, R.id.btnGo, R.id.btnOkHttp, R.id.btnOkHttp3, R.id.view, R.id.retrofit, R.id.btnHealth, R.id.btnHealthList})
     public void OnClick(View view) {
 
         switch (view.getId()) {
+
+            case R.id.btnWave:
+
+                startActivity(new Intent(context, WaveActivity.class));
+                break;
 
             case R.id.btnHome:
                 context.startActivity(new Intent(context, HomeActivity.class));

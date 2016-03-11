@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@color/color_cacaca">
+    <item>
+        <shape
+            android:shape="rectangle">
+            <padding
+                android:bottom="1px"
+                android:left="1px"
+                android:right="1px"
+                android:top="1px" />
+            <solid android:color="@android:color/white" />
+
+            <corners android:radius="@dimen/dp_10" />
+        </shape>
+    </item>
+
+    <item android:drawable="@drawable/white_round_corner_bg" />
+</ripple>

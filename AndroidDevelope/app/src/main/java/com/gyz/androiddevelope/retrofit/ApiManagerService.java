@@ -1,8 +1,11 @@
 package com.gyz.androiddevelope.retrofit;
 
+import com.gyz.androiddevelope.engine.AppContants;
 import com.gyz.androiddevelope.response_bean.Axiba;
 import com.gyz.androiddevelope.response_bean.HealthInfoList;
 import com.gyz.androiddevelope.response_bean.InfoList;
+import com.gyz.androiddevelope.response_bean.LatestNewsBean;
+import com.gyz.androiddevelope.response_bean.LoadImageBean;
 import com.gyz.androiddevelope.response_bean.Tngou;
 import com.gyz.androiddevelope.response_bean.UserInfo;
 
@@ -22,6 +25,20 @@ import rx.Observable;
  * @date: 2016-02-19 10:55
  */
 public interface ApiManagerService {
+
+    //============================================知乎日报api=======================================================
+        @GET(AppContants.START_IMAG)
+    Observable<LoadImageBean> getLoadImg();
+
+    @GET(AppContants.LATEST_NEWS)
+    Observable<LatestNewsBean> getLatestNews();
+
+
+
+
+
+
+    //===================================================================================================
 
     @FormUrlEncoded
     @POST("/data/sk/101010100.html")

@@ -17,7 +17,7 @@ import android.view.View;
 import com.gyz.androiddevelope.R;
 import com.gyz.androiddevelope.base.BaseActivity;
 import com.gyz.androiddevelope.base.BaseFragment;
-import com.gyz.androiddevelope.fragment.HealthInfoListFragment;
+import com.gyz.androiddevelope.fragment.MainFragment;
 import com.gyz.androiddevelope.fragment.TestFragment;
 
 import butterknife.Bind;
@@ -30,7 +30,7 @@ public class HomeActivity extends BaseActivity
     @Bind(R.id.toolbar)
     Toolbar toolbar;
 
-    private BaseFragment healthInfoListFragment, testFragment;
+    private BaseFragment mainFragment, testFragment;
 
     @Override
     protected void initVariables() {
@@ -62,9 +62,9 @@ public class HomeActivity extends BaseActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        healthInfoListFragment = new HealthInfoListFragment();
+        mainFragment = new MainFragment();
         testFragment = new TestFragment();
-        switchFragment(healthInfoListFragment);
+        switchFragment(mainFragment);
 
     }
 
@@ -112,9 +112,9 @@ public class HomeActivity extends BaseActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            // Handle the camera action
-            switchFragment(healthInfoListFragment);
-            toolbar.setTitle(R.string.title_health_info);
+
+            switchFragment(mainFragment);
+            toolbar.setTitle(R.string.title_home_page);
 
         } else if (id == R.id.nav_gallery) {
             switchFragment(testFragment);
