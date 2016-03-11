@@ -12,4 +12,5 @@
     <string name="test">测试</string>
     <string name="title_health_info">健康资讯</string>
     <string name="title_home_page">首页</string>
+    <string name="exit_app">再按一次退出应用</string>
 </resources>

@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
 
 import com.gyz.androiddevelope.R;
 import com.gyz.androiddevelope.base.BaseActivity;
@@ -29,8 +30,11 @@ public class HomeActivity extends BaseActivity
 
     @Bind(R.id.toolbar)
     Toolbar toolbar;
+    @Bind(R.id.contain_home)
+    FrameLayout containHome;
 
     private BaseFragment mainFragment, testFragment;
+    long firstTime = 0;
 
     @Override
     protected void initVariables() {
@@ -79,7 +83,15 @@ public class HomeActivity extends BaseActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            long secondTime = System.currentTimeMillis();
+            if (secondTime - firstTime > 2000) {
+                Snackbar sb = Snackbar.make(containHome, R.string.exit_app,Snackbar.LENGTH_SHORT);
+                sb.getView().setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                sb.show();
+                firstTime = secondTime;
+            }else {
+               finish();
+            }
         }
     }
 
@@ -137,7 +149,6 @@ public class HomeActivity extends BaseActivity
     protected void switchFragment(Fragment fragment) {
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-//        ft.setCustomAnimations(R.anim.slide_left_in, R.anim.slide_left_out);
 
         if (fragment != null) {
             ft.replace(R.id.contain_home, fragment);

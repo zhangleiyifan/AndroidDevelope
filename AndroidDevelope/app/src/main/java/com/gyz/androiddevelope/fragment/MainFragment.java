@@ -138,6 +138,7 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         }, new Subscriber<LatestNewsBean>() {
             @Override
             public void onCompleted() {
+                swipeRefreshLayout.setRefreshing(false);
             }
 
             @Override
@@ -148,7 +149,6 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
             @Override
             public void onNext(LatestNewsBean latestNewsBean) {
 
-                swipeRefreshLayout.setRefreshing(false);
                 if (isAdd) {
                     list.addAll(latestNewsBean.stories);
                 } else {
