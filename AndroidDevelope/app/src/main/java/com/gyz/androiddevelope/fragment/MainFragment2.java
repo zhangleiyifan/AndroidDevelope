@@ -20,6 +20,7 @@ import com.gyz.androiddevelope.retrofit.RxUtil;
 import com.gyz.androiddevelope.util.L;
 import com.gyz.androiddevelope.util.ToastUtil;
 import com.gyz.androiddevelope.view.MarqueeView;
+import com.gyz.androiddevelope.view.PullToRefreshRecyeclerView;
 
 import java.util.List;
 
@@ -33,13 +34,11 @@ import rx.functions.Func1;
  * @author: guoyazhou
  * @date: 2016-03-08 16:00
  */
-public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
-    private static final String TAG = "HealthInfoListFragment";
+public class MainFragment2 extends BaseFragment implements PullToRefreshRecyeclerView.RefreshLoadMoreListener {
+    private static final String TAG = "MainFragment2";
 
-    @Bind(R.id.recyclerView)
-    RecyclerView recyclerView;
-    @Bind(R.id.swipeRefreshLayout)
-    SwipeRefreshLayout swipeRefreshLayout;
+    @Bind(R.id.pullView)
+    public PullToRefreshRecyeclerView pullView;
 
     List<LatestNewsBean.Story> list;
     HomeNewsAdapter adapter;
@@ -52,8 +51,7 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_main, container, false);
-
+        View view = inflater.inflate(R.layout.fragment_main2, container, false);
         ButterKnife.bind(this, view);
         return view;
     }
@@ -62,19 +60,8 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     public void initView() {
 
         adapter= new HomeNewsAdapter(getContext());
-        recyclerView.setAdapter(adapter);
-        //下拉刷新
-        swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimaryDark, R.color.colorAccent, R.color.color_f98435, R.color.color_ef5350);
-        swipeRefreshLayout.setOnRefreshListener(this);
-        swipeRefreshLayout.setProgressViewOffset(false, 0, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 24, getResources()
-                .getDisplayMetrics()));
-
-        mLayoutManager = new LinearLayoutManager(getContext());
-        mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(mLayoutManager);
-
         //添加头部view
-        View  header=  LayoutInflater.from(getContext()).inflate(R.layout.kanner,recyclerView,false);
+        View  header=  LayoutInflater.from(getContext()).inflate(R.layout.kanner,pullView.getRecyclerView(),false);
         marqueeView = (MarqueeView) header.findViewById(R.id.marqueeView);
         marqueeView.setOnItemClickListener(new MarqueeView.OnItemClickListener() {
             @Override
@@ -91,51 +78,14 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
             }
         });
 
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                L.e("lastVisibleItemPosition==" + lastVisibleItemPosition + "getItemCount==" + adapter.getItemCount());
-//                if (newState == RecyclerView.SCROLL_STATE_IDLE
-//                        && lastVisibleItemPosition + 1 == adapter.getItemCount()) {
-//                    swipeRefreshLayout.setRefreshing(true);
-//                    page++;
-//                    isAdd = true;
-//                    requestNetData();
-//                }
-            }
-
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-//                lastVisibleItemPosition = mLayoutManager.findLastVisibleItemPosition();
-                int lastVisibleItem = mLayoutManager.findLastVisibleItemPosition();
-                int totalItemCount = mLayoutManager.getItemCount();
-
-//                if ( lastVisibleItem >=totalItemCount-1&& !isLoadMore){
-//                    isLoadMore = true;
-//                   requestNetData();
-//                }
-
-            }
-        });
-
+        pullView.setRecyclerAdapter(adapter);
+        pullView.setmRefreshLoadMoreListener(this);
     }
 
     @Override
     public void initData() {
         requestNetData();
     }
-
-
-    @Override
-    public void onRefresh() {
-//      下拉时会调用
-        page = 1;
-        isAdd = false;
-        requestNetData();
-    }
-
 
     private void requestNetData() {
         RxUtil.subscribeAll(new Func1<String, Observable<LatestNewsBean>>() {
@@ -146,7 +96,7 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         }, new Subscriber<LatestNewsBean>() {
             @Override
             public void onCompleted() {
-                swipeRefreshLayout.setRefreshing(false);
+                    pullView.setPullRefreshEnable(false);
             }
 
             @Override
@@ -177,4 +127,15 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         ButterKnife.unbind(this);
     }
 
+    @Override
+    public void onRefresh() {
+        L.e("onrefresh---------------------------");
+    }
+
+    @Override
+    public void onLoadMore() {
+//        TODO
+        L.e("onloadmoreeeeeeeeeeeeeeeeeeeeeeeeeeee");
+        pullView.setLoadMoreCompleted();
+    }
 }
