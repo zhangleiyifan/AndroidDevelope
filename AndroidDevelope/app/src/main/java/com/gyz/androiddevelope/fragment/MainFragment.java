@@ -215,6 +215,7 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
                 storiesList.add(0, story);
                 isLoadMore = false;
                 adapter.addDatas(storiesList);
+                //test
 
             }
         });
