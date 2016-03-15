@@ -1,89 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:pwd="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".fragment.TestFragment">
+    android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/btnOnClick"
-        android:layout_width="160dp"
-        android:layout_height="80dp"
-        android:text="network" />
-
-    <TextView
-        android:id="@+id/txtInfo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <Button
-        android:id="@+id/btnGo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/btnOnClick"
-        android:text="do sth." />
-
-    <Button
-        android:id="@+id/btnOkHttp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/btnGo"
-        android:text="okHttp2.5" />
-
-    <Button
-        android:id="@+id/btnOkHttp3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/btnOkHttp"
-        android:text="okHttp3" />
-
-
-    <Button
-        android:id="@+id/view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/btnOkHttp3"
-        android:text="view" />
-
-    <Button
-        android:id="@+id/retrofit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/view"
-        android:text="retrofit" />
-    <Button
-        android:id="@+id/btnHealth"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/retrofit"
-        android:text="健康资讯" />
-    <Button
-        android:id="@+id/btnHealthList"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/btnHealth"
-        android:text="健康资讯列表" />
-
-    <Button
-        android:id="@+id/btnHome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/btnHealthList"
-        android:text="Home" />
-    <Button
-        android:id="@+id/btnWave"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/btnHome"
-        android:text="wave" />
-
-    <com.gyz.androiddevelope.view.PwdView
-        android:id="@+id/pwdView"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_below="@+id/retrofit" />
-</RelativeLayout>
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        tools:context=".fragment.TestFragment">
+
+        <Button
+            android:id="@+id/btnOnClick"
+            android:layout_width="160dp"
+            android:layout_height="80dp"
+            android:text="network" />
+
+        <TextView
+            android:id="@+id/txtInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/btnGo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btnOnClick"
+            android:text="do sth." />
+
+        <Button
+            android:id="@+id/btnOkHttp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btnGo"
+            android:text="okHttp2.5" />
+
+        <Button
+            android:id="@+id/btnOkHttp3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btnOkHttp"
+            android:text="okHttp3" />
+
+
+        <Button
+            android:id="@+id/view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btnOkHttp3"
+            android:text="view" />
+
+        <Button
+            android:id="@+id/retrofit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/view"
+            android:text="retrofit" />
+
+        <Button
+            android:id="@+id/btnHealth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/retrofit"
+            android:text="健康资讯" />
+
+        <Button
+            android:id="@+id/btnHealthList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btnHealth"
+            android:text="健康资讯列表" />
+
+        <Button
+            android:id="@+id/btnHome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btnHealthList"
+            android:text="Home" />
+
+        <Button
+            android:id="@+id/btnWave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btnHome"
+            android:text="wave" />
+
+        <com.gyz.androiddevelope.view.PasswordEditText
+            android:layout_width="250dp"
+            android:layout_height="@dimen/dp_40"
+            android:layout_toRightOf="@+id/view"
+            android:layout_alignBaseline="@+id/view"
+            pwd:boundColor="@color/color_4c4c4c"
+            pwd:textColor="@color/color_f98435"
+            android:inputType="number"
+            pwd:textLength="6"
+            pwd:textSize="20" />
+
+        <com.gyz.androiddevelope.view.PwdView
+            android:id="@+id/pwdView"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@+id/retrofit" />
+    </RelativeLayout>
+</ScrollView>

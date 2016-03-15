@@ -16,15 +16,6 @@ public class LatestNewsBean {
     public List<TopStory> topStories;
 
 
-
-    public class Story{
-        public int id;
-        public String title;
-        public String ga_prefix; //供 Google Analytics 使用
-        public List<String> images;
-        public int type;
-    }
-
     public class TopStory{
 
         private int id;

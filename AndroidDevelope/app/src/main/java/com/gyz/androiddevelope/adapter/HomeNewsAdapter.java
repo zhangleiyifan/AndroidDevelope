@@ -6,23 +6,27 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.gyz.androiddevelope.R;
-import com.gyz.androiddevelope.response_bean.LatestNewsBean;
+import com.gyz.androiddevelope.engine.AppContants;
+import com.gyz.androiddevelope.response_bean.Story;
+import com.gyz.androiddevelope.util.SPUtils;
 import com.squareup.picasso.Picasso;
 
 /**
  * @author: guoyazhou
  * @date: 2016-03-11 17:23
  */
-public class HomeNewsAdapter extends BaseRecyclerAdapter<LatestNewsBean.Story> {
+public class HomeNewsAdapter extends BaseRecyclerAdapter<Story> {
     private static final String TAG = "HomeNewsAdapter";
 
     private Context context;
+    private String str;
 
-    public HomeNewsAdapter (Context context){
-        this.context=context;
+    public HomeNewsAdapter(Context context) {
+        this.context = context;
     }
 
     @Override
@@ -33,12 +37,30 @@ public class HomeNewsAdapter extends BaseRecyclerAdapter<LatestNewsBean.Story> {
     }
 
     @Override
-    public void onBind(RecyclerView.ViewHolder holder, int RealPosition, LatestNewsBean.Story data) {
+    public void onBind(RecyclerView.ViewHolder holder, int RealPosition, Story story) {
 
         MyViewHolder viewHolder = (MyViewHolder) holder;
-        final LatestNewsBean.Story story = data;
-        viewHolder.txtTitle.setText(story.title);
-        Picasso.with(context).load(story.images.get(0)).into(viewHolder.img);
+        if (story.type == AppContants.TITLE_TYPE) {
+//            仅显示标题
+            viewHolder.img.setVisibility(View.GONE);
+            viewHolder.txtTitle.setVisibility(View.GONE);
+            viewHolder.txtTopic.setVisibility(View.VISIBLE);
+            viewHolder.layoutItemBg.setBackgroundResource(0);
+            viewHolder.txtTopic.setText(story.title);
+        } else {
+
+            str = (String) SPUtils.get(context, AppContants.READ_ID, "");
+            if (str.contains(String.valueOf(story.id))) {
+                viewHolder.txtTitle.setTextColor(context.getResources().getColor(R.color.color_999999));
+            } else {
+                viewHolder.txtTitle.setTextColor(context.getResources().getColor(R.color.colorBlack));
+            }
+            viewHolder.img.setVisibility(View.VISIBLE);
+            viewHolder.txtTitle.setVisibility(View.VISIBLE);
+            viewHolder.txtTopic.setVisibility(View.GONE);
+            Picasso.with(context).load(story.images.get(0)).into(viewHolder.img);
+            viewHolder.txtTitle.setText(story.title);
+        }
     }
 
 
@@ -46,14 +68,17 @@ public class HomeNewsAdapter extends BaseRecyclerAdapter<LatestNewsBean.Story> {
 
         public ImageView img;
         public TextView txtTitle;
+        public TextView txtTopic;
         public View rootView;
+        public RelativeLayout layoutItemBg;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             img = (ImageView) itemView.findViewById(R.id.img);
             txtTitle = (TextView) itemView.findViewById(R.id.txtTitle);
+            txtTopic = (TextView) itemView.findViewById(R.id.txtTopic);
             rootView = itemView.findViewById(R.id.layoutContent);
-
+            layoutItemBg = (RelativeLayout) itemView.findViewById(R.id.layoutItemBg);
         }
     }
 }

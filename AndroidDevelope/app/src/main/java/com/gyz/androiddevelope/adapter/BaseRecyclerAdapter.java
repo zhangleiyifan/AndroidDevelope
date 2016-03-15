@@ -33,6 +33,12 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
         mDatas.addAll(datas);
         notifyDataSetChanged();
     }
+
+    public void clearDatas(){
+        if (mDatas!=null)
+            mDatas.clear();
+    }
+
     @Override
     public int getItemViewType(int position) {
         if(mHeaderView == null) return TYPE_NORMAL;
@@ -54,7 +60,7 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
             viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mListener.onItemClick(pos, data);
+                    mListener.onItemClick(pos, data,v);
                 }
             });
         }
@@ -102,6 +108,6 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
         }
     }
     public interface OnItemClickListener<T> {
-        void onItemClick(int position, T data);
+        void onItemClick(int position, T data,View parent);
     }
 }

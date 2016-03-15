@@ -9,12 +9,19 @@
         android:paddingTop="@dimen/dp_12"
         android:paddingRight="@dimen/dp_12"
         android:paddingLeft="@dimen/dp_12"
+        android:id="@+id/layoutItemBg"
         android:background="@drawable/white_ripple_round_corner_bg"
         android:layout_marginTop="@dimen/dp_8"
         android:layout_marginLeft="@dimen/dp_12"
         android:layout_marginRight="@dimen/dp_12"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:id="@+id/txtTopic"
+            android:visibility="gone"
+            android:layout_height="wrap_content" />
 
     <ImageView
         android:id="@+id/img"

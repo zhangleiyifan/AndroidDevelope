@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="PasswordEditText">
+        <attr name="textLength" format="integer" />
+        <attr name="textColor" format="color" />
+        <attr name="textSize" format="integer"/>
+        <attr name="boundColor" format="color" />
+    </declare-styleable>
+
+</resources>

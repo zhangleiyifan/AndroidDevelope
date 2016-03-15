@@ -18,6 +18,12 @@ public class AppContants {
 
     public static final String BASE_URL="http://news-at.zhihu.com/api/4/";
 
+    public static final int TITLE_TYPE = 101;
+
+    public static final String READ_ID = "read_id";
+    public static final int LATEST_COLUMN = Integer.MAX_VALUE;
+    public static final int DATABASE_VERSION = 2;
+
     /**
      * 缓存文件路径
      */
@@ -27,10 +33,15 @@ public class AppContants {
 
     public static final String IMAGE_HEAD="http://tnfs.tngou.net/image";
 //===========知乎=====================================================================
+
+
     public static final String START_IMAG = "start-image/720*1184";
 
     //最新消息
     public static final String LATEST_NEWS = "news/latest";
+    //历史消息
+    public static final String BEFORE_NEWS = "news/before/{date}";
+
 
 
 //===========知乎 end=====================================================================

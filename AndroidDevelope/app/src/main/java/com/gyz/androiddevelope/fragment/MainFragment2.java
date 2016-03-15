@@ -2,10 +2,7 @@ package com.gyz.androiddevelope.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +12,7 @@ import com.gyz.androiddevelope.adapter.BaseRecyclerAdapter;
 import com.gyz.androiddevelope.adapter.HomeNewsAdapter;
 import com.gyz.androiddevelope.base.BaseFragment;
 import com.gyz.androiddevelope.response_bean.LatestNewsBean;
+import com.gyz.androiddevelope.response_bean.Story;
 import com.gyz.androiddevelope.retrofit.ReUtil;
 import com.gyz.androiddevelope.retrofit.RxUtil;
 import com.gyz.androiddevelope.util.L;
@@ -40,7 +38,7 @@ public class MainFragment2 extends BaseFragment implements PullToRefreshRecyecle
     @Bind(R.id.pullView)
     public PullToRefreshRecyeclerView pullView;
 
-    List<LatestNewsBean.Story> list;
+    List<Story> list;
     HomeNewsAdapter adapter;
     MarqueeView marqueeView;
     LinearLayoutManager mLayoutManager;
@@ -73,8 +71,8 @@ public class MainFragment2 extends BaseFragment implements PullToRefreshRecyecle
         adapter.setHeaderView(header);
         adapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(int position, Object data) {
-                LatestNewsBean.Story object = (LatestNewsBean.Story) data;
+            public void onItemClick(int position, Object data,View v) {
+                 Story object = ( Story) data;
             }
         });
 

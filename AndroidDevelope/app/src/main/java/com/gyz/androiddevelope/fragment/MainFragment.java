@@ -1,5 +1,7 @@
 package com.gyz.androiddevelope.fragment;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -9,15 +11,21 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.gyz.androiddevelope.R;
 import com.gyz.androiddevelope.adapter.BaseRecyclerAdapter;
 import com.gyz.androiddevelope.adapter.HomeNewsAdapter;
 import com.gyz.androiddevelope.base.BaseFragment;
+import com.gyz.androiddevelope.engine.AppContants;
+import com.gyz.androiddevelope.response_bean.BeforeNewsBean;
 import com.gyz.androiddevelope.response_bean.LatestNewsBean;
+import com.gyz.androiddevelope.response_bean.Story;
 import com.gyz.androiddevelope.retrofit.ReUtil;
 import com.gyz.androiddevelope.retrofit.RxUtil;
+import com.gyz.androiddevelope.util.DateUtil;
 import com.gyz.androiddevelope.util.L;
+import com.gyz.androiddevelope.util.SPUtils;
 import com.gyz.androiddevelope.util.ToastUtil;
 import com.gyz.androiddevelope.view.MarqueeView;
 
@@ -41,12 +49,12 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     @Bind(R.id.swipeRefreshLayout)
     SwipeRefreshLayout swipeRefreshLayout;
 
-    List<LatestNewsBean.Story> list;
+    //    List<LatestNewsBean.Story> list;
     HomeNewsAdapter adapter;
     MarqueeView marqueeView;
     LinearLayoutManager mLayoutManager;
-    private int page = 1, rows, id, lastVisibleItemPosition;
-    private boolean isAdd;
+    private String date;
+    private boolean isLoadMore;
 
 
     @Nullable
@@ -61,7 +69,7 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     @Override
     public void initView() {
 
-        adapter= new HomeNewsAdapter(getContext());
+        adapter = new HomeNewsAdapter(getContext());
         recyclerView.setAdapter(adapter);
         //下拉刷新
         swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimaryDark, R.color.colorAccent, R.color.color_f98435, R.color.color_ef5350);
@@ -74,20 +82,29 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         recyclerView.setLayoutManager(mLayoutManager);
 
         //添加头部view
-        View  header=  LayoutInflater.from(getContext()).inflate(R.layout.kanner,recyclerView,false);
+        View header = LayoutInflater.from(getContext()).inflate(R.layout.kanner, recyclerView, false);
         marqueeView = (MarqueeView) header.findViewById(R.id.marqueeView);
         marqueeView.setOnItemClickListener(new MarqueeView.OnItemClickListener() {
             @Override
             public void click(LatestNewsBean.TopStory entity) {
-                ToastUtil.showShort(getContext(),"title==="+entity.getTitle());
+                ToastUtil.showShort(getContext(), "title===" + entity.getTitle());
             }
         });
 
         adapter.setHeaderView(header);
         adapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(int position, Object data) {
-                LatestNewsBean.Story object = (LatestNewsBean.Story) data;
+            public void onItemClick(int position, Object data, View v) {
+                Story object = (Story) data;
+
+                String readId = (String) SPUtils.get(context, AppContants.READ_ID, "");
+
+                if (!readId.contains(String.valueOf(object.id))) {
+                    TextView textView = (TextView) v.findViewById(R.id.txtTitle);
+                    textView.setTextColor(context.getResources().getColor(R.color.color_999999));
+                    //保存已读
+                    SPUtils.put(context, AppContants.READ_ID, readId + "," + object.id);
+                }
             }
         });
 
@@ -95,27 +112,19 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-                L.e("lastVisibleItemPosition==" + lastVisibleItemPosition + "getItemCount==" + adapter.getItemCount());
-//                if (newState == RecyclerView.SCROLL_STATE_IDLE
-//                        && lastVisibleItemPosition + 1 == adapter.getItemCount()) {
-//                    swipeRefreshLayout.setRefreshing(true);
-//                    page++;
-//                    isAdd = true;
-//                    requestNetData();
-//                }
+
             }
 
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-//                lastVisibleItemPosition = mLayoutManager.findLastVisibleItemPosition();
                 int lastVisibleItem = mLayoutManager.findLastVisibleItemPosition();
                 int totalItemCount = mLayoutManager.getItemCount();
 
-//                if ( lastVisibleItem >=totalItemCount-1&& !isLoadMore){
-//                    isLoadMore = true;
-//                   requestNetData();
-//                }
+                if (lastVisibleItem >= totalItemCount - 1 && !isLoadMore) {
+                    isLoadMore = true;
+                    requestAddData();
+                }
 
             }
         });
@@ -124,20 +133,19 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
 
     @Override
     public void initData() {
-        requestNetData();
+        requestFirstData();
     }
 
 
     @Override
     public void onRefresh() {
 //      下拉时会调用
-        page = 1;
-        isAdd = false;
-        requestNetData();
+        isLoadMore = false;
+        requestFirstData();
     }
 
-
-    private void requestNetData() {
+    //下拉刷新
+    private void requestFirstData() {
         RxUtil.subscribeAll(new Func1<String, Observable<LatestNewsBean>>() {
             @Override
             public Observable<LatestNewsBean> call(String s) {
@@ -146,7 +154,46 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         }, new Subscriber<LatestNewsBean>() {
             @Override
             public void onCompleted() {
+                if (swipeRefreshLayout!=null)
                 swipeRefreshLayout.setRefreshing(false);
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                e.printStackTrace();
+//                从数据库中获取缓存json
+                SQLiteDatabase database = getCacheDbHelper().getReadableDatabase();
+                Cursor cursor = database.rawQuery("select * from CacheList where date = " + AppContants.LATEST_COLUMN, null);
+                if (cursor.moveToFirst()) {
+
+                    String json = cursor.getString(cursor.getColumnIndex("json"));
+                    afterPullRefresh(getGson().fromJson(json, LatestNewsBean.class));
+                }
+            }
+
+            @Override
+            public void onNext(LatestNewsBean latestNewsBean) {
+                afterPullRefresh(latestNewsBean);
+                //存入数据库
+                SQLiteDatabase database = getCacheDbHelper().getWritableDatabase();
+                L.e(TAG, "sql=====" + "replace into CacheList(date,json) values (" + AppContants.LATEST_COLUMN + ",'" + getGson().toJson(latestNewsBean, LatestNewsBean.class) + "')");
+                database.execSQL("replace into CacheList(date,json) values (" + AppContants.LATEST_COLUMN + ",'" + getGson().toJson(latestNewsBean, LatestNewsBean.class) + "')");
+            }
+        });
+
+    }
+
+    //加载更多
+    private void requestAddData() {
+        RxUtil.subscribeAll(new Func1<String, Observable<BeforeNewsBean>>() {
+            @Override
+            public Observable<BeforeNewsBean> call(String s) {
+                return ReUtil.getApiManager().getBeforeNews(date);
+            }
+        }, new Subscriber<BeforeNewsBean>() {
+            @Override
+            public void onCompleted() {
             }
 
             @Override
@@ -155,20 +202,31 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
             }
 
             @Override
-            public void onNext(LatestNewsBean latestNewsBean) {
+            public void onNext(BeforeNewsBean beforeNewsBean) {
+                L.e(TAG, "beforeNewsBean=" + beforeNewsBean.date);
+                date = beforeNewsBean.date;
 
-                if (isAdd) {
-                    list.addAll(latestNewsBean.stories);
-                } else {
-                    list = latestNewsBean.stories;
-                }
-                L.e(TAG, "size===" + list.size());
+                //加入分割标题
+                Story story = new Story();
+                story.title = DateUtil.convertDate(date);
+                story.type = AppContants.TITLE_TYPE;
 
-                adapter.addDatas(list);
-                marqueeView.setTopEntities(latestNewsBean.topStories);
+                List<Story> storiesList = beforeNewsBean.stories;
+                storiesList.add(0, story);
+                isLoadMore = false;
+                adapter.addDatas(storiesList);
+
             }
         });
 
+    }
+
+    private void afterPullRefresh(LatestNewsBean latestNewsBean){
+        L.e(TAG, "LatestNewsBean=" + latestNewsBean.date);
+        date = latestNewsBean.date;
+        adapter.clearDatas();
+        adapter.addDatas(latestNewsBean.stories);
+        marqueeView.setTopEntities(latestNewsBean.topStories);
     }
 
     @Override

@@ -1,7 +1,13 @@
 package com.gyz.androiddevelope.base;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.gyz.androiddevelope.db.CacheDbHelper;
+import com.gyz.androiddevelope.engine.AppContants;
 
 /**
  * @author: guoyazhou
@@ -9,6 +15,9 @@ import android.support.v4.app.Fragment;
  */
 public abstract class BaseFragment extends Fragment {
     private static final String TAG = "BaseFragment";
+    private CacheDbHelper cacheDbHelper;
+    public Context context;
+    private Gson gson;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -18,6 +27,9 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        context= getActivity();
+        cacheDbHelper = new CacheDbHelper(context, AppContants.DATABASE_VERSION);
+        gson = new GsonBuilder().create();
         initView();
         initData();
     }
@@ -31,4 +43,12 @@ public abstract class BaseFragment extends Fragment {
      * 初始化数据
      */
     public abstract  void  initData();
+
+    public CacheDbHelper getCacheDbHelper(){
+        return cacheDbHelper;
+    }
+
+    public Gson getGson(){
+        return gson;
+    }
 }
