@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.gyz.androiddevelope.R;
+import com.gyz.androiddevelope.activity.NewsDetailActivity;
 import com.gyz.androiddevelope.adapter.BaseRecyclerAdapter;
 import com.gyz.androiddevelope.adapter.HomeNewsAdapter;
 import com.gyz.androiddevelope.base.BaseFragment;
@@ -105,6 +106,9 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
                     //保存已读
                     SPUtils.put(context, AppContants.READ_ID, readId + "," + object.id);
                 }
+
+                //跳转至详情页
+                NewsDetailActivity.startActivity(context,object.id);
             }
         });
 

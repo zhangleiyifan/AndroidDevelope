@@ -10,6 +10,7 @@ import com.gyz.androiddevelope.response_bean.HealthInfoList;
 import com.gyz.androiddevelope.response_bean.InfoList;
 import com.gyz.androiddevelope.response_bean.LatestNewsBean;
 import com.gyz.androiddevelope.response_bean.LoadImageBean;
+import com.gyz.androiddevelope.response_bean.NewsDetailBean;
 import com.gyz.androiddevelope.response_bean.Tngou;
 import com.gyz.androiddevelope.response_bean.UserInfo;
 
@@ -31,14 +32,18 @@ public interface ApiManagerService {
     //============================================知乎日报api=======================================================
         @GET(AppContants.START_IMAG)
     Observable<LoadImageBean> getLoadImg();
-
+    
+    //最新消息
     @GET(AppContants.LATEST_NEWS)
     Observable<LatestNewsBean> getLatestNews();
 
+    // 历史消息
     @GET(AppContants.BEFORE_NEWS)
     Observable<BeforeNewsBean> getBeforeNews(@Path("date") String date);
 
-
+    //获取新闻详细消息
+    @GET(AppContants.DETAIL_NEWS)
+    Observable<NewsDetailBean> getNewsDetail(@Path("id") int id);
 
 
     //===================================================================================================

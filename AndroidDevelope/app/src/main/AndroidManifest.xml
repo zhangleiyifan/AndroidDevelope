@@ -43,6 +43,9 @@
             android:label="@string/title_home_page"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".activity.NewsDetailActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

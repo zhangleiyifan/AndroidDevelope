@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.gyz.androiddevelope.db.WebCacheDbHelper;
+import com.gyz.androiddevelope.engine.AppContants;
 import com.gyz.androiddevelope.net.RequestCallback;
 import com.gyz.androiddevelope.net.RequestManager;
 
@@ -14,6 +16,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     public static final String TAG = "BaseActivity";
     protected ProgressDialog dlg;
+    private WebCacheDbHelper dbHelper;
     /**
      * 请求列表管理器
      */
@@ -24,6 +27,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         requestManager = new RequestManager();
         super.onCreate(savedInstanceState);
+        dbHelper = new WebCacheDbHelper(getApplicationContext(), AppContants.DATABASE_VERSION);
         initVariables();
         initViews(savedInstanceState);
         loadData();
@@ -86,5 +90,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
 
     //==================================================
-
+    public WebCacheDbHelper getDbHelper(){
+        return dbHelper;
+    }
 }

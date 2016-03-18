@@ -22,7 +22,7 @@ public class AppContants {
 
     public static final String READ_ID = "read_id";
     public static final int LATEST_COLUMN = Integer.MAX_VALUE;
-    public static final int DATABASE_VERSION = 2;
+    public static final int DATABASE_VERSION = 11;
 
     /**
      * 缓存文件路径
@@ -32,17 +32,17 @@ public class AppContants {
     public static final String NEED_CALLBACK = "need_callback";
 
     public static final String IMAGE_HEAD="http://tnfs.tngou.net/image";
-//===========知乎=====================================================================
+//===========知乎==begin===================================================================
 
-
+    // loading 图片
     public static final String START_IMAG = "start-image/720*1184";
-
     //最新消息
     public static final String LATEST_NEWS = "news/latest";
     //历史消息
     public static final String BEFORE_NEWS = "news/before/{date}";
+    //消息内容详情
+    public static final String DETAIL_NEWS = "news/{id}";
 
 
-
-//===========知乎 end=====================================================================
+//===========知乎==end=====================================================================
 }
