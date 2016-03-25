@@ -20,7 +20,7 @@ public class DefaultThreadPool {
     /**
      * 缓冲BaseRequest任务队列
      */
-    static ArrayBlockingQueue<Runnable> blockingQueue = new ArrayBlockingQueue<Runnable>(BLOCKING_QUEUE_SIZE);
+    static ArrayBlockingQueue<Runnable> blockingQueue = new ArrayBlockingQueue<>(BLOCKING_QUEUE_SIZE);
     private static DefaultThreadPool instance = null;
     /**
      * 线程池，目前是十个线程，

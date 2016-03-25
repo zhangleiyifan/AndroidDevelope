@@ -19,8 +19,8 @@ import com.gyz.androiddevelope.activity.CircleActivity;
 import com.gyz.androiddevelope.activity.HomeActivity;
 import com.gyz.androiddevelope.activity.ShowInfoActivity;
 import com.gyz.androiddevelope.activity.account.LoginActivity;
-import com.gyz.androiddevelope.activity.common.WaveActivity;
 import com.gyz.androiddevelope.base.BaseFragment;
+import com.gyz.androiddevelope.base.TestActivity;
 import com.gyz.androiddevelope.engine.AppContants;
 import com.gyz.androiddevelope.engine.User;
 import com.gyz.androiddevelope.net.RequestParams;
@@ -99,7 +99,8 @@ public class TestFragment extends BaseFragment {
 
             case R.id.btnWave:
 
-                startActivity(new Intent(context, WaveActivity.class));
+//                startActivity(new Intent(context, WaveActivity.class));
+                startActivity(new Intent(context, TestActivity.class));
                 break;
 
             case R.id.btnHome:

@@ -1,12 +1,8 @@
 package com.gyz.androiddevelope.engine;
 
 import com.gyz.androiddevelope.base.BaseActivity;
-import com.gyz.androiddevelope.net.DefaultThreadPool;
-import com.gyz.androiddevelope.net.HttpRequest;
 import com.gyz.androiddevelope.net.RequestCallback;
 import com.gyz.androiddevelope.net.RequestParams;
-import com.gyz.androiddevelope.net.UrlConfigManager;
-import com.gyz.androiddevelope.net.UrlData;
 
 import java.util.List;
 
@@ -31,9 +27,9 @@ public class RemoteService {
 
     public void invoke(BaseActivity activity,String key,List<RequestParams> list,RequestCallback callback){
 
-        UrlData urlData= UrlConfigManager.findUrlData(activity,key);
-        HttpRequest request = activity.getRequestManager().createHttpRequest(urlData,list,callback);
-        DefaultThreadPool.getInstance().execute(request);
+//        UrlData urlData= UrlConfigManager.findUrlData(activity,key);
+//        HttpRequest request = activity.getRequestManager().createHttpRequest(urlData,list,callback);
+//        DefaultThreadPool.getInstance().execute(request);
 
     }
 }

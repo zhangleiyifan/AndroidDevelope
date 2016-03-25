@@ -14,7 +14,7 @@ public class RequestManager {
     private List<HttpRequest> requestList;
 
     public RequestManager() {
-        requestList = new ArrayList<HttpRequest>();
+        requestList = new ArrayList<>();
     }
 
     //添加请求队列
