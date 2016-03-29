@@ -38,6 +38,7 @@
     <dimen name="sp_39">39sp</dimen>
     <dimen name="sp_40">40sp</dimen>
 
+    <dimen name="dp_0">0dp</dimen>
     <dimen name="dp_1">1dp</dimen>
     <dimen name="dp_2">2dp</dimen>
     <dimen name="dp_3">3dp</dimen>

@@ -49,6 +49,7 @@ public class LoadActivity extends BaseActivity {
         View view = View.inflate(this, R.layout.activity_load, null);
         setContentView(view);
         ButterKnife.bind(this);
+        getSwipeBackLayout().setEnableGesture(false);
 
         file = new File(AppContants.CACHE_PATH, "start.jpg");
 

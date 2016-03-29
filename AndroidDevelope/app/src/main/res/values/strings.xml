@@ -14,6 +14,8 @@
     <string name="title_home_page">首页</string>
     <string name="exit_app">再按一次退出应用</string>
     <string name="action_edit">编辑</string>
+    <string name="action_zan">点赞</string>
     <string name="action_share">分享</string>
     <string name="hello_world">hell world</string>
+    <string name="zhihu">知乎日报</string>
 </resources>

@@ -10,11 +10,13 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gyz.androiddevelope.R;
@@ -52,6 +54,8 @@ public class NewsDetailActivity extends BaseActivity implements Toolbar.OnMenuIt
     ImageView imgTitle;
     @Bind(R.id.collapsingToolbarLayout)
     CollapsingToolbarLayout collapsingToolbarLayout;
+    @Bind(R.id.txtTitle)
+    TextView txtTitle;
     private int newsID;
 
     public static void startActivity(Context context, int id) {
@@ -79,6 +83,7 @@ public class NewsDetailActivity extends BaseActivity implements Toolbar.OnMenuIt
                 finish();
             }
         });
+
 
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
@@ -117,6 +122,8 @@ public class NewsDetailActivity extends BaseActivity implements Toolbar.OnMenuIt
 
             @Override
             public void onNext(NewsDetailBean newsDetailBean) {
+
+                txtTitle.setText(newsDetailBean.getTitle());
                 initWebContent(newsDetailBean.getBody());
                 Picasso.with(getApplicationContext()).load(newsDetailBean.getImage()).into(imgTitle);
                 //存入db
@@ -137,18 +144,20 @@ public class NewsDetailActivity extends BaseActivity implements Toolbar.OnMenuIt
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_news_detail, menu);
+        return true;
+    }
+
+    @Override
     public boolean onMenuItemClick(MenuItem item) {
         String msg = "";
         switch (item.getItemId()) {
-            case R.id.action_edit:
-                msg += "Click edit";
-                break;
+
             case R.id.action_share:
                 msg += "Click share";
                 break;
-            case R.id.action_settings:
-                msg += "Click setting";
-                break;
+
         }
 
         if (!msg.equals("")) {

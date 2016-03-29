@@ -50,7 +50,6 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     @Bind(R.id.swipeRefreshLayout)
     SwipeRefreshLayout swipeRefreshLayout;
 
-    //    List<LatestNewsBean.Story> list;
     HomeNewsAdapter adapter;
     MarqueeView marqueeView;
     LinearLayoutManager mLayoutManager;
@@ -74,9 +73,9 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         recyclerView.setAdapter(adapter);
         //下拉刷新
         swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimaryDark, R.color.colorAccent, R.color.color_f98435, R.color.color_ef5350);
-        swipeRefreshLayout.setOnRefreshListener(this);
         swipeRefreshLayout.setProgressViewOffset(false, 0, (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 24, getResources()
                 .getDisplayMetrics()));
+        swipeRefreshLayout.setOnRefreshListener(this);
 
         mLayoutManager = new LinearLayoutManager(getContext());
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -145,11 +144,25 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     public void onRefresh() {
 //      下拉时会调用
         isLoadMore = false;
+        L.d(TAG,"触发下拉刷新");
         requestFirstData();
     }
 
     //下拉刷新
     private void requestFirstData() {
+
+        if (swipeRefreshLayout!=null)
+            swipeRefreshLayout.setRefreshing(true);
+        L.d(TAG,"----------isShow=="+swipeRefreshLayout.isShown());
+
+        swipeRefreshLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                swipeRefreshLayout.setRefreshing(true);
+            }
+        });
+
+
         RxUtil.subscribeAll(new Func1<String, Observable<LatestNewsBean>>() {
             @Override
             public Observable<LatestNewsBean> call(String s) {
@@ -160,7 +173,6 @@ public class MainFragment extends BaseFragment implements SwipeRefreshLayout.OnR
             public void onCompleted() {
                 if (swipeRefreshLayout!=null)
                 swipeRefreshLayout.setRefreshing(false);
-
             }
 
             @Override

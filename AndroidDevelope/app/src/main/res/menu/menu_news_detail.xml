@@ -1,20 +1,27 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".MainActivity">
+    tools:context=".activity.NewsDetailActivity">
 
-    <item android:id="@+id/action_edit"
-        android:title="@string/action_edit"
-        android:orderInCategory="80"
-        app:showAsAction="ifRoom" />
-
-    <item android:id="@+id/action_share"
-        android:title="@string/action_share"
+    <item
+        android:id="@+id/action_share"
+        android:icon="@mipmap/share"
         android:orderInCategory="90"
+        android:title="@string/action_share"
         app:showAsAction="ifRoom" />
 
-    <item android:id="@+id/action_settings"
-        android:title="@string/action_settings"
+    <item
+        android:id="@+id/action_comment"
+        android:icon="@mipmap/comment"
+        android:orderInCategory="95"
+        android:title="@string/action_edit"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_zan"
+        android:icon="@mipmap/praise"
         android:orderInCategory="100"
-        app:showAsAction="never"/>
+        android:title="@string/action_zan"
+        app:showAsAction="ifRoom" />
+
 </menu>

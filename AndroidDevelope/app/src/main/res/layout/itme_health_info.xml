@@ -2,51 +2,50 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/layoutContent"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_height="wrap_content">
 
     <RelativeLayout
-        android:paddingTop="@dimen/dp_12"
-        android:paddingRight="@dimen/dp_12"
-        android:paddingLeft="@dimen/dp_12"
         android:id="@+id/layoutItemBg"
-        android:background="@drawable/white_ripple_round_corner_bg"
-        android:layout_marginTop="@dimen/dp_8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/dp_12"
         android:layout_marginRight="@dimen/dp_12"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_marginTop="@dimen/dp_8"
+        android:background="@drawable/white_ripple_round_corner_bg"
+        android:paddingLeft="@dimen/dp_12"
+        android:paddingRight="@dimen/dp_12"
+        android:paddingTop="@dimen/dp_12">
 
         <TextView
-            android:layout_width="wrap_content"
             android:id="@+id/txtTopic"
-            android:visibility="gone"
-            android:layout_height="wrap_content" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
 
-    <ImageView
-        android:id="@+id/img"
-        android:layout_width="@dimen/dp_65"
-        android:layout_height="@dimen/dp_65"
-        android:scaleType="fitXY"
-        android:layout_alignParentRight="true"
-        android:src="@mipmap/zhihu" />
+        <ImageView
+            android:id="@+id/img"
+            android:layout_width="@dimen/dp_65"
+            android:layout_height="@dimen/dp_65"
+            android:layout_alignParentRight="true"
+            android:scaleType="fitXY"
+            android:src="@mipmap/zhihu" />
 
-    <TextView
-        android:id="@+id/txtTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/dp_12"
-        android:layout_toLeftOf="@+id/img"
-        android:lines="3"
-        android:textColor="@color/colorBlack"
-        android:textSize="@dimen/sp_15" />
+        <TextView
+            android:id="@+id/txtTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/dp_12"
+            android:layout_toLeftOf="@+id/img"
+            android:lines="3"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/sp_15" />
 
-    <TextView
-        android:id="@+id/txtKeyWords"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/txtTitle"
-        android:textColor="@color/color_cacaca"
-        android:textSize="@dimen/sp_12" />
-</RelativeLayout>
+        <TextView
+            android:id="@+id/txtKeyWords"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txtTitle"
+            android:textColor="@color/color_cacaca"
+            android:textSize="@dimen/sp_12" />
+    </RelativeLayout>
 </RelativeLayout>
