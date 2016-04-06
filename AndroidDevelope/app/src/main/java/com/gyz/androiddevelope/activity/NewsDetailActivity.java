@@ -10,7 +10,6 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebSettings;
@@ -22,12 +21,15 @@ import android.widget.Toast;
 import com.gyz.androiddevelope.R;
 import com.gyz.androiddevelope.base.BaseActivity;
 import com.gyz.androiddevelope.response_bean.NewsDetailBean;
+import com.gyz.androiddevelope.response_bean.StoryExtraBean;
+import com.gyz.androiddevelope.retrofit.MySubscriber;
 import com.gyz.androiddevelope.retrofit.ReUtil;
 import com.gyz.androiddevelope.retrofit.RxUtil;
 import com.squareup.picasso.Picasso;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import rx.Observable;
 import rx.Subscriber;
 import rx.functions.Func1;
@@ -56,6 +58,16 @@ public class NewsDetailActivity extends BaseActivity implements Toolbar.OnMenuIt
     CollapsingToolbarLayout collapsingToolbarLayout;
     @Bind(R.id.txtTitle)
     TextView txtTitle;
+    @Bind(R.id.imgShare)
+    ImageView imgShare;
+    @Bind(R.id.imgComment)
+    ImageView imgComment;
+    @Bind(R.id.txtCommentCount)
+    TextView txtCommentCount;
+    @Bind(R.id.imgZan)
+    ImageView imgZan;
+    @Bind(R.id.txtZanCount)
+    TextView txtZanCount;
     private int newsID;
 
     public static void startActivity(Context context, int id) {
@@ -133,6 +145,19 @@ public class NewsDetailActivity extends BaseActivity implements Toolbar.OnMenuIt
 
             }
         });
+        //文章评论 点赞数
+        RxUtil.subscribeAll(new Func1<String, Observable<StoryExtraBean>>() {
+            @Override
+            public Observable<StoryExtraBean> call(String s) {
+                return ReUtil.getApiManager().getNewsExtra(newsID);
+            }
+        }, new MySubscriber<StoryExtraBean>() {
+            @Override
+            public void onNext(StoryExtraBean bean) {
+                txtCommentCount.setText(String.valueOf(bean.getComments()));
+                txtZanCount.setText(String.valueOf(bean.getPopularity()));
+            }
+        });
     }
 
     private void initWebContent(String body) {
@@ -143,10 +168,27 @@ public class NewsDetailActivity extends BaseActivity implements Toolbar.OnMenuIt
         webView.loadDataWithBaseURL("x-data://base", html, "text/html", "UTF-8", null);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_news_detail, menu);
-        return true;
+
+    @OnClick({R.id.imgShare, R.id.imgComment, R.id.imgZan})
+    public void onClick(View view) {
+        String msg = "";
+        switch (view.getId()) {
+            case R.id.imgShare:
+                msg += "Click share";
+                break;
+
+            case R.id.imgComment:
+                msg += "Click imgComment";
+                break;
+
+            case R.id.imgZan:
+                msg += "Click imgZan";
+                break;
+
+        }
+        if (!msg.equals("")) {
+            Toast.makeText(NewsDetailActivity.this, msg, Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -154,8 +196,16 @@ public class NewsDetailActivity extends BaseActivity implements Toolbar.OnMenuIt
         String msg = "";
         switch (item.getItemId()) {
 
-            case R.id.action_share:
+            case R.id.imgShare:
                 msg += "Click share";
+                break;
+
+            case R.id.imgComment:
+                msg += "Click imgComment";
+                break;
+
+            case R.id.imgZan:
+                msg += "Click imgZan";
                 break;
 
         }

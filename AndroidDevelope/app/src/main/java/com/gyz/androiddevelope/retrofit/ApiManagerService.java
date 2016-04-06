@@ -11,6 +11,7 @@ import com.gyz.androiddevelope.response_bean.InfoList;
 import com.gyz.androiddevelope.response_bean.LatestNewsBean;
 import com.gyz.androiddevelope.response_bean.LoadImageBean;
 import com.gyz.androiddevelope.response_bean.NewsDetailBean;
+import com.gyz.androiddevelope.response_bean.StoryExtraBean;
 import com.gyz.androiddevelope.response_bean.Tngou;
 import com.gyz.androiddevelope.response_bean.UserInfo;
 
@@ -45,6 +46,9 @@ public interface ApiManagerService {
     @GET(AppContants.DETAIL_NEWS)
     Observable<NewsDetailBean> getNewsDetail(@Path("id") int id);
 
+    //获取故事评论数、点赞数
+    @GET(AppContants.EXTRA_NEWS)
+    Observable<StoryExtraBean> getNewsExtra(@Path("id") int id);
 
     //===================================================================================================
 

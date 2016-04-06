@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:minHeight="?attr/actionBarSize"
+    app:layout_collapseMode="pin">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginRight="@dimen/dp_20"
+        android:gravity="center_vertical"
+        android:paddingTop="@dimen/dp_6"
+        android:layout_marginEnd="@dimen/dp_20"
+        >
+
+        <ImageView
+            android:id="@+id/imgShare"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/imgComment"
+            android:layout_toStartOf="@+id/imgComment"
+            android:src="@mipmap/share" />
+
+        <ImageView
+            android:id="@+id/imgComment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/dp_4"
+            android:layout_marginEnd="@dimen/dp_4"
+            android:layout_toLeftOf="@+id/txtCommentCount"
+            android:layout_toStartOf="@+id/txtCommentCount"
+            android:src="@mipmap/comment" />
+
+        <TextView
+            android:id="@+id/txtCommentCount"
+            style="@style/ToolBarTextView"
+            android:layout_marginRight="@dimen/dp_12"
+            android:paddingTop="@dimen/dp_3"
+            android:layout_marginEnd="@dimen/dp_12"
+            android:layout_toLeftOf="@+id/imgZan"
+            android:layout_toStartOf="@+id/imgZan" />
+
+
+        <ImageView
+            android:id="@+id/imgZan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/dp_4"
+            android:layout_marginEnd="@dimen/dp_4"
+            android:layout_toLeftOf="@+id/txtZanCount"
+            android:layout_toStartOf="@+id/txtZanCount"
+            android:src="@mipmap/praise" />
+
+        <TextView
+            android:id="@+id/txtZanCount"
+            style="@style/ToolBarTextView"
+            android:paddingTop="@dimen/dp_3"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"/>
+    </RelativeLayout>
+
+
+</android.support.v7.widget.Toolbar>

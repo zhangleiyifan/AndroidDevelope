@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".NoBoringActionBarActivity">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_999999"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="180dp"
+            android:gravity="center_horizontal"
+            android:text="131****8432"
+            android:textSize="@dimen/sp_23" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/color_cf3035"
+        />
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:background="@android:color/transparent"
+        android:layout_height="@dimen/header_height">
+
+
+        <FrameLayout
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:background="@android:color/transparent"
+            android:layout_height="@dimen/header_height">
+
+
+
+            <ImageView
+                android:id="@+id/header_logo"
+                android:layout_width="@dimen/header_logo_size"
+                android:layout_height="@dimen/header_logo_size"
+                android:layout_gravity="center"
+                android:src="@mipmap/ic_header_logo" />
+
+
+        </FrameLayout>
+    </FrameLayout>
+
+</FrameLayout>

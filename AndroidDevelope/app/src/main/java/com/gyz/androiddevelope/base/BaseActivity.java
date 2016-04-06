@@ -24,6 +24,11 @@ public abstract class BaseActivity extends AppCompatActivity implements SwipeBac
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
+//        // 允许使用transitions
+//        getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
+//        // 设置一个exit transition
+//        getWindow().setExitTransition(new Explode());
+//        getWindow().setEnterTransition(new Explode());
 
         super.onCreate(savedInstanceState);
         mHelper = new SwipeBackActivityHelper(this);

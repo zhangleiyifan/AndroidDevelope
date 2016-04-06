@@ -89,6 +89,15 @@
             android:layout_below="@+id/btnHome"
             android:text="wave" />
 
+
+        <Button
+            android:id="@+id/noToolBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+          android:layout_toRightOf="@+id/btnWave"
+            android:layout_below="@+id/btnHome"
+            android:text="noToolBar" />
+
         <com.gyz.androiddevelope.view.PasswordEditText
             android:layout_width="250dp"
             android:layout_height="@dimen/dp_40"
@@ -105,5 +114,14 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_below="@+id/retrofit" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="ABCDE人"
+            android:layout_toRightOf="@+id/btnOnClick"
+            android:includeFontPadding="true"
+            android:textSize="@dimen/sp_25"
+            android:background="@color/color_f98435"
+            android:layout_height="wrap_content" />
+
     </RelativeLayout>
 </ScrollView>

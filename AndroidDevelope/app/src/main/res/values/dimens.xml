@@ -76,4 +76,8 @@
     <dimen name="dp_35">35dp</dimen>
     <dimen name="dp_40">40dp</dimen>
     <dimen name="dp_65">65dp</dimen>
+
+
+    <dimen name="header_height">250dp</dimen>
+    <dimen name="header_logo_size">100dp</dimen>
 </resources>

@@ -18,7 +18,7 @@ import android.widget.FrameLayout;
 import com.gyz.androiddevelope.R;
 import com.gyz.androiddevelope.base.BaseActivity;
 import com.gyz.androiddevelope.base.BaseFragment;
-import com.gyz.androiddevelope.fragment.MainFragment;
+import com.gyz.androiddevelope.fragment.ZhiHuFragment;
 import com.gyz.androiddevelope.fragment.TestFragment;
 
 import butterknife.Bind;
@@ -67,7 +67,7 @@ public class HomeActivity extends BaseActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        mainFragment = new MainFragment();
+        mainFragment = new ZhiHuFragment();
         testFragment = new TestFragment();
         switchFragment(mainFragment);
 

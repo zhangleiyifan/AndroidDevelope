@@ -42,7 +42,8 @@ public class AppContants {
     public static final String BEFORE_NEWS = "news/before/{date}";
     //消息内容详情
     public static final String DETAIL_NEWS = "news/{id}";
-
+    //新闻额外内容
+    public static final String EXTRA_NEWS = "story-extra/{id}";
 
 //===========知乎==end=====================================================================
 }

@@ -45,6 +45,10 @@
         <activity
             android:name=".activity.NewsDetailActivity"/>
         <activity
+            android:name=".activity.noactionbar.NoBoringActionBarActivity"
+            android:theme="@style/TransparentTheme"
+            />
+        <activity
             android:name=".base.TestActivity"/>
     </application>
 
