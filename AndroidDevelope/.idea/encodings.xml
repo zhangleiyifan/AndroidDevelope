@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/gyz/androiddevelope/activity/noactionbar/NoBoringActionBarActivity.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/gyz/androiddevelope/view/AlphaForegroundColorSpan.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/gyz/androiddevelope/view/KenBurnsView.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/gyz/androiddevelope/view/ParallaxImageView.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/picture0.jpg" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/picture1.jpg" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/layout/activity_noboringactionbar.xml" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/layout/view_header_placeholder.xml" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/layout/view_kenburns.xml" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_header_logo.png" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_transparent.png" charset="GBK" />
     <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>
