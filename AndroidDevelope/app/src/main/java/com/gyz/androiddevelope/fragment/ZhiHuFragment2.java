@@ -49,7 +49,7 @@ public class ZhiHuFragment2 extends BaseFragment implements PullToRefreshRecyecl
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_main2, container, false);
+        View view = inflater.inflate(R.layout.fragment_zhihu2, container, false);
         ButterKnife.bind(this, view);
         return view;
     }

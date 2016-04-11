@@ -19,7 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
         <activity
-            android:name=".activity.common.LoadActivity"
+            android:name=".activity.custom.LoadActivity"
             android:label="@string/title_activity_load">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,7 +28,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activity.CircleActivity" />
+        <activity android:name=".activity.custom.CircleActivity" />
         <activity
             android:name=".activity.ShowInfoActivity"
             android:label="@string/title_activity_do_sth" />
@@ -36,20 +36,18 @@
             android:name=".activity.account.LoginActivity"
             android:label="@string/title_activity_do_sth" />
         <activity
-            android:name=".activity.common.WaveActivity"
+            android:name=".activity.custom.WaveActivity"
             android:label="WaveActivity" />
+        <activity android:name=".activity.custom.CalenderActivity" />
+        <activity android:name=".activity.custom.McalendarActivity" />
         <activity
             android:name=".activity.HomeActivity"
             android:label="@string/title_home_page"
-            android:launchMode="singleTask"/>
-        <activity
-            android:name=".activity.NewsDetailActivity"/>
+            android:launchMode="singleTask" />
+        <activity android:name=".activity.NewsDetailActivity" />
         <activity
             android:name=".activity.noactionbar.NoBoringActionBarActivity"
-            android:theme="@style/TransparentTheme"
-            />
-        <activity
-            android:name=".base.TestActivity"/>
+            android:theme="@style/TransparentTheme" />
     </application>
 
 </manifest>

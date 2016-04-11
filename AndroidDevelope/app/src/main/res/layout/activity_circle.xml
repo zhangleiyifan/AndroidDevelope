@@ -11,8 +11,14 @@
 
     <com.gyz.androiddevelope.view.QQHealthView
         android:layout_width="match_parent"
-        android:visibility="gone"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
 
-        android:layout_height="match_parent" />
+    <com.gyz.androiddevelope.view.LvProgress
+        android:id="@+id/lvProgress"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_70"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_10" />
 
 </LinearLayout>

@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/root_title"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp">
+
+            <Button
+                android:id="@+id/img_back"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:background="@null"
+                android:drawableLeft="@mipmap/ic_back"
+                android:drawablePadding="5dp"
+                android:gravity="center"
+                android:onClick="onViewClick"
+                android:text="返回"
+                android:textColor="@color/color_f98435"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:text="收益日历"
+                android:textColor="@color/color_f98435"
+                android:textSize="18sp" />
+            <Button
+                android:id="@+id/btnToday"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:background="@null"
+                android:gravity="center"
+                android:onClick="onViewClick"
+                android:layout_alignParentRight="true"
+                android:text="当日"
+                android:textColor="@color/color_f98435"
+                android:textSize="15sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center_vertical">
+
+            <Button
+                android:id="@+id/left_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="32dp"
+                android:background="@mipmap/pre_arrow"
+                android:onClick="onViewClick" />
+
+            <TextView
+                android:id="@+id/current_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="三月 2014"
+                android:textColor="#6f6f6f" />
+
+            <Button
+                android:id="@+id/next_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="32dp"
+                android:background="@mipmap/next_arrow"
+                android:onClick="onViewClick" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/calendar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="13dp"
+            android:layout_marginRight="13dp"
+            android:orientation="vertical"
+            android:paddingTop="10dp">
+
+            <LinearLayout
+                android:id="@+id/calendar_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="周一"
+                    android:textColor="#6f6f6f"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="周二"
+                    android:textColor="#6f6f6f"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="周三"
+                    android:textColor="#6f6f6f"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="周四"
+                    android:textColor="#6f6f6f"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="周五"
+                    android:textColor="#6f6f6f"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="周六"
+                    android:textColor="#6f6f6f"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="周日"
+                    android:textColor="#6f6f6f"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <com.gyz.androiddevelope.view.calendar.WrapContentGridView
+                android:id="@+id/calendar_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="10dp"
+                android:background="@android:color/transparent"
+                android:cacheColorHint="@android:color/transparent"
+                android:listSelector="@android:color/transparent"
+                android:numColumns="7" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="4dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingTop="8dp">
+
+                <TextView
+                    android:id="@+id/label1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:text="未收"
+                    android:textColor="@color/color_f98435"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/label2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="已收"
+                    android:textColor="@color/color_f98435"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/label_un_received"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_below="@+id/label1"
+                    android:layout_marginTop="5dp"
+                    android:maxLength="20"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:text="00.00"
+                    android:textColor="@color/color_f98435"
+                    android:textSize="22sp" />
+
+                <TextView
+                    android:id="@+id/label_received"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@+id/label2"
+                    android:layout_marginTop="5dp"
+                    android:maxLength="20"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:text="00.00"
+                    android:textColor="@color/color_f98435"
+                    android:textSize="22sp" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/invest_principal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:drawablePadding="15dp"
+                        android:paddingBottom="15dp"
+                        android:paddingLeft="15dp"
+                        android:paddingTop="15dp"
+                        android:singleLine="true"
+                        android:text="本金"
+                        android:textColor="#808080"
+                        android:textSize="14sp" />
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/invest_interest"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:drawablePadding="15dp"
+                        android:paddingBottom="15dp"
+                        android:paddingRight="15dp"
+                        android:paddingTop="15dp"
+                        android:singleLine="true"
+                        android:text="利息"
+                        android:textColor="#808080"
+                        android:textSize="14sp" />
+                </FrameLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="13dp"
+            android:layout_marginRight="13dp"
+            android:layout_marginTop="15dp"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/projects"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:cacheColorHint="@android:color/transparent"
+                android:divider="@android:color/transparent"
+                android:minHeight="50dp"
+                android:orientation="vertical" />
+        </LinearLayout>
+    </LinearLayout>
+
+</ScrollView>

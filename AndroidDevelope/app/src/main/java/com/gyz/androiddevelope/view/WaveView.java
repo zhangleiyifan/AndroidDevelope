@@ -15,6 +15,8 @@
  */
 package com.gyz.androiddevelope.view;
 
+import android.animation.Animator;
+import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -32,10 +34,7 @@ import android.hardware.SensorManager;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.RotateAnimation;
-
-import com.gyz.androiddevelope.util.L;
+import android.view.animation.DecelerateInterpolator;
 
 public class WaveView extends View implements SensorEventListener {
     /**
@@ -97,14 +96,13 @@ public class WaveView extends View implements SensorEventListener {
     private Context context;
 
     int rotateAngle = 0;
-    RotateAnimation animation;
 
     public WaveView(Context context) {
         this(context, null);
     }
 
     public WaveView(Context context, AttributeSet attrs) {
-       this(context, attrs, 0);
+        this(context, attrs, 0);
     }
 
     public WaveView(Context context, AttributeSet attrs, int defStyle) {
@@ -120,10 +118,10 @@ public class WaveView extends View implements SensorEventListener {
 
     }
 
-    public void registerSensorListener(){
+    public void registerSensorListener() {
 
         /**得到SensorManager对象**/
-        SensorManager mSensorMgr = (SensorManager)((Activity)context).getSystemService(Context.SENSOR_SERVICE);
+        SensorManager mSensorMgr = (SensorManager) ((Activity) context).getSystemService(Context.SENSOR_SERVICE);
         Sensor mSensor = mSensorMgr.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         // 注册listener，第三个参数是检测的精确度
         //SENSOR_DELAY_FASTEST 最灵敏 因为太快了没必要使用
@@ -295,15 +293,15 @@ public class WaveView extends View implements SensorEventListener {
             // sacle shader according to mWaveLengthRatio and mAmplitudeRatio
             // this decides the size(mWaveLengthRatio for width, mAmplitudeRatio for height) of waves
             mShaderMatrix.setScale(
-                mWaveLengthRatio / DEFAULT_WAVE_LENGTH_RATIO,
-                mAmplitudeRatio / DEFAULT_AMPLITUDE_RATIO,
-                0,
-                mDefaultWaterLevel);
+                    mWaveLengthRatio / DEFAULT_WAVE_LENGTH_RATIO,
+                    mAmplitudeRatio / DEFAULT_AMPLITUDE_RATIO,
+                    0,
+                    mDefaultWaterLevel);
             // translate shader according to mWaveShiftRatio and mWaterLevelRatio
             // this decides the start position(mWaveShiftRatio for x, mWaterLevelRatio for y) of waves
             mShaderMatrix.postTranslate(
-                mWaveShiftRatio * getWidth(),
-                (DEFAULT_WATER_LEVEL_RATIO - mWaterLevelRatio) * getHeight());
+                    mWaveShiftRatio * getWidth(),
+                    (DEFAULT_WATER_LEVEL_RATIO - mWaterLevelRatio) * getHeight());
 
             // assign matrix to invalidate the shader
             mWaveShader.setLocalMatrix(mShaderMatrix);
@@ -313,7 +311,7 @@ public class WaveView extends View implements SensorEventListener {
                 case CIRCLE:
                     if (borderWidth > 0) {
                         canvas.drawCircle(getWidth() / 2f, getHeight() / 2f,
-                            (getWidth() - borderWidth) / 2f - 1f, mBorderPaint);
+                                (getWidth() - borderWidth) / 2f - 1f, mBorderPaint);
                     }
                     float radius = getWidth() / 2f - borderWidth;
                     canvas.drawCircle(getWidth() / 2f, getHeight() / 2f, radius, mViewPaint);
@@ -321,14 +319,14 @@ public class WaveView extends View implements SensorEventListener {
                 case SQUARE:
                     if (borderWidth > 0) {
                         canvas.drawRect(
-                            borderWidth / 2f,
-                            borderWidth / 2f,
-                            getWidth() - borderWidth / 2f - 0.5f,
-                            getHeight() - borderWidth / 2f - 0.5f,
-                            mBorderPaint);
+                                borderWidth / 2f,
+                                borderWidth / 2f,
+                                getWidth() - borderWidth / 2f - 0.5f,
+                                getHeight() - borderWidth / 2f - 0.5f,
+                                mBorderPaint);
                     }
                     canvas.drawRect(borderWidth, borderWidth, getWidth() - borderWidth,
-                        getHeight() - borderWidth, mViewPaint);
+                            getHeight() - borderWidth, mViewPaint);
                     break;
             }
 
@@ -362,15 +360,14 @@ public class WaveView extends View implements SensorEventListener {
             rad = 2 * Math.PI - rad;
         }
 
-        int uiRot = ((Activity)context).getWindowManager().getDefaultDisplay().getRotation();
+        int uiRot = ((Activity) context).getWindowManager().getDefaultDisplay().getRotation();
         double uiRad = Math.PI / 2 * uiRot;
         rad -= uiRad;
 
         if (Math.abs(rotateAngle - ((int) (180 * rad / Math.PI))) > 2) {
 
             rotateAngle = (int) (180 * rad / Math.PI);
-                doAnimation(rotateAngle);
-
+            doAnimation(rotateAngle);
             Log.e("tag", "rad==" + rotateAngle);
 
         }
@@ -382,49 +379,61 @@ public class WaveView extends View implements SensorEventListener {
 
     }
 
-    private float fromeDegrees;
-    private boolean isRunning =false;
+    private float fromDegrees;
+    private boolean isRunning = false;
+    ObjectAnimator animator;
 
     private void doAnimation(float toDegree) {
 
-        if (toDegree>130 && toDegree < 270)
+        if (toDegree > 130 && toDegree < 270)
             return;
 
-        if (toDegree>180){
-            toDegree = toDegree-360;
+        if (toDegree > 180) {
+            toDegree = toDegree - 360;
         }
-        L.d("----------to="+toDegree);
 
-        if(isRunning){
-            animation.cancel();
+        fromDegrees = toDegree;
+        if (isRunning) {
+            fromDegrees = this.getRotation();
+//            偏移直
+            if (toDegree > 0 && toDegree > fromDegrees) {
+                fromDegrees = this.getRotation() - 1;
+            } else if (toDegree > 0 && fromDegrees > toDegree) {
+                fromDegrees = this.getRotation() + 1;
+            } else if (toDegree < 0 && toDegree > fromDegrees) {
+                fromDegrees = this.getRotation() + 1;
+            } else if (toDegree < 0 && toDegree < fromDegrees) {
+                fromDegrees = this.getRotation() - 1;
+            } else {
+                fromDegrees = this.getRotation();
+            }
+            animator.cancel();
         }
-        fromeDegrees = toDegree;
-        animation = new RotateAnimation(fromeDegrees, toDegree, Animation.RELATIVE_TO_SELF,
-                0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
 
-        animation.setAnimationListener(new Animation.AnimationListener() {
+        animator = ObjectAnimator.ofFloat(this, "rotation", fromDegrees, toDegree);
+        animator.setDuration(1000);
+        animator.addListener(new Animator.AnimatorListener() {
             @Override
-            public void onAnimationStart(Animation animation) {
+            public void onAnimationStart(Animator animation) {
                 isRunning = true;
             }
 
             @Override
-            public void onAnimationEnd(Animation animation) {
+            public void onAnimationEnd(Animator animation) {
                 isRunning = false;
             }
 
+            @Override
+            public void onAnimationCancel(Animator animation) {
+                isRunning = false;
+            }
 
             @Override
-            public void onAnimationRepeat(Animation animation) {
+            public void onAnimationRepeat(Animator animation) {
 
             }
         });
-
-
-
-        animation.setDuration(3000);
-        animation.setFillAfter(true);
-
-        this.startAnimation(animation);
+        animator.setInterpolator(new DecelerateInterpolator());
+        animator.start();
     }
 }

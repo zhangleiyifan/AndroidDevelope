@@ -4,10 +4,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.gyz.androiddevelope.view.DynamicWave
-        android:id="@+id/dynamicWave"
-        android:layout_width="200dp"
-        android:layout_height="200dp" />
+    <!--<com.gyz.androiddevelope.view.DynamicWave-->
+        <!--android:id="@+id/dynamicWave"-->
+        <!--android:layout_width="200dp"-->
+        <!--android:layout_height="200dp" />-->
 
 
     <com.gyz.androiddevelope.view.WaveView

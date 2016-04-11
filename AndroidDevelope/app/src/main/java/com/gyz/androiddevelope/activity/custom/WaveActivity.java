@@ -1,4 +1,4 @@
-package com.gyz.androiddevelope.activity.common;
+package com.gyz.androiddevelope.activity.custom;
 
 import android.os.Bundle;
 import android.view.animation.RotateAnimation;
@@ -6,7 +6,6 @@ import android.view.animation.RotateAnimation;
 import com.gyz.androiddevelope.R;
 import com.gyz.androiddevelope.base.BaseActivity;
 import com.gyz.androiddevelope.util.WaveHelper;
-import com.gyz.androiddevelope.view.DynamicWave;
 import com.gyz.androiddevelope.view.WaveView;
 
 import butterknife.Bind;
@@ -18,8 +17,8 @@ import butterknife.ButterKnife;
  */
 public class WaveActivity extends BaseActivity{
     private static final String TAG = "WaveActivity";
-    @Bind(R.id.dynamicWave)
-    DynamicWave dynamicWave;
+//    @Bind(R.id.dynamicWave)
+//    DynamicWave dynamicWave;
     @Bind(R.id.waveView)
     WaveView waveView;
 
@@ -61,7 +60,7 @@ public class WaveActivity extends BaseActivity{
 
     @Override
     protected void loadData() {
-        dynamicWave.setProcess(58);
+//        dynamicWave.setProcess(58);
     }
 
     @Override

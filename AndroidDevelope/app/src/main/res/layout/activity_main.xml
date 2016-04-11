@@ -31,6 +31,13 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/btnOnClick"
             android:text="do sth." />
+        <Button
+            android:id="@+id/btnMCalendar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btnOnClick"
+            android:layout_toRightOf="@+id/btnGo"
+            android:text="M calendar" />
 
         <Button
             android:id="@+id/btnOkHttp"
@@ -97,6 +104,14 @@
           android:layout_toRightOf="@+id/btnWave"
             android:layout_below="@+id/btnHome"
             android:text="noToolBar" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:id="@+id/btnCalendar"
+            android:layout_toRightOf="@+id/noToolBar"
+            android:layout_below="@+id/btnHome"
+            android:text="calender"
+            android:layout_height="wrap_content" />
 
         <com.gyz.androiddevelope.view.PasswordEditText
             android:layout_width="250dp"

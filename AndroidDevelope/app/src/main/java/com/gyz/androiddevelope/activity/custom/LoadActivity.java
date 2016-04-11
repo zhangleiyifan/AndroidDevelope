@@ -1,4 +1,4 @@
-package com.gyz.androiddevelope.activity.common;
+package com.gyz.androiddevelope.activity.custom;
 
 import android.content.Intent;
 import android.graphics.BitmapFactory;

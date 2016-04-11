@@ -15,17 +15,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gyz.androiddevelope.R;
-import com.gyz.androiddevelope.activity.CircleActivity;
+import com.gyz.androiddevelope.activity.custom.CircleActivity;
 import com.gyz.androiddevelope.activity.HomeActivity;
 import com.gyz.androiddevelope.activity.ShowInfoActivity;
 import com.gyz.androiddevelope.activity.account.LoginActivity;
-import com.gyz.androiddevelope.activity.common.WaveActivity;
+import com.gyz.androiddevelope.activity.custom.CalenderActivity;
+import com.gyz.androiddevelope.activity.custom.McalendarActivity;
+import com.gyz.androiddevelope.activity.custom.WaveActivity;
+import com.gyz.androiddevelope.activity.noactionbar.NoBoringActionBarActivity;
 import com.gyz.androiddevelope.base.BaseFragment;
 import com.gyz.androiddevelope.engine.AppContants;
 import com.gyz.androiddevelope.engine.User;
 import com.gyz.androiddevelope.net.RequestParams;
 import com.gyz.androiddevelope.net.okhttp.OkHttpClientManager;
-import com.gyz.androiddevelope.activity.noactionbar.NoBoringActionBarActivity;
 import com.gyz.androiddevelope.request_bean.ReqHealthInfoList;
 import com.gyz.androiddevelope.request_bean.ReqUserInfoBean;
 import com.gyz.androiddevelope.response_bean.Axiba;
@@ -92,20 +94,24 @@ public class TestFragment extends BaseFragment {
 
     }
 
-    @OnClick({R.id.btnWave,R.id.noToolBar,
+    @OnClick({R.id.btnWave,R.id.noToolBar,R.id.btnCalendar,R.id.btnMCalendar,
             R.id.btnHome, R.id.btnOnClick, R.id.btnGo, R.id.btnOkHttp, R.id.btnOkHttp3, R.id.view, R.id.retrofit, R.id.btnHealth, R.id.btnHealthList})
     public void OnClick(View view) {
 
         switch (view.getId()) {
-            case R.id.noToolBar:
+            case R.id.btnMCalendar:
+                startActivity(new Intent(context,McalendarActivity.class));
+                break;
 
+            case R.id.btnCalendar:
+                startActivity(new Intent(context,CalenderActivity.class));
+                break;
+            case R.id.noToolBar:
                 startActivity(new Intent(context, NoBoringActionBarActivity.class));
                 break;
             case R.id.btnWave:
-
                 startActivity(new Intent(context, WaveActivity.class));
                 break;
-
             case R.id.btnHome:
                 context.startActivity(new Intent(context, HomeActivity.class));
                 break;

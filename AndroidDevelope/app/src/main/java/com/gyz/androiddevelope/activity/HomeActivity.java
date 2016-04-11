@@ -1,7 +1,6 @@
 package com.gyz.androiddevelope.activity;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -12,14 +11,13 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.FrameLayout;
 
 import com.gyz.androiddevelope.R;
 import com.gyz.androiddevelope.base.BaseActivity;
 import com.gyz.androiddevelope.base.BaseFragment;
-import com.gyz.androiddevelope.fragment.ZhiHuFragment;
 import com.gyz.androiddevelope.fragment.TestFragment;
+import com.gyz.androiddevelope.fragment.ZhiHuFragment;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -49,14 +47,14 @@ public class HomeActivity extends BaseActivity
         getSwipeBackLayout().setEnableGesture(false);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//            }
+//        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(

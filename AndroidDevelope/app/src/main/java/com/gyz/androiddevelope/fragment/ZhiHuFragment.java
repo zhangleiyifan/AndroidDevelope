@@ -4,6 +4,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -50,6 +51,8 @@ public class ZhiHuFragment extends BaseFragment implements SwipeRefreshLayout.On
     @Bind(R.id.swipeRefreshLayout)
     SwipeRefreshLayout swipeRefreshLayout;
 
+    @Bind(R.id.floatingActionButton)
+    FloatingActionButton floatingActionButton;
     HomeNewsAdapter adapter;
     MarqueeView marqueeView;
     LinearLayoutManager mLayoutManager;
@@ -60,7 +63,7 @@ public class ZhiHuFragment extends BaseFragment implements SwipeRefreshLayout.On
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_main, container, false);
+        View view = inflater.inflate(R.layout.fragment_zhihu, container, false);
 
         ButterKnife.bind(this, view);
         return view;
@@ -107,7 +110,7 @@ public class ZhiHuFragment extends BaseFragment implements SwipeRefreshLayout.On
                 }
 
                 //跳转至详情页
-                NewsDetailActivity.startActivity(context,object.id);
+                NewsDetailActivity.startActivity(context, object.id);
 //                TransitionAnimation 跳转
 //                Intent intent = new Intent(context, NewsDetailActivity.class);
 //                intent.putExtra(NewsDetailActivity.NEWS_ID, object.id);
@@ -133,6 +136,15 @@ public class ZhiHuFragment extends BaseFragment implements SwipeRefreshLayout.On
                     requestAddData();
                 }
 
+            }
+        });
+
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ToastUtil.showShort(context,"why so serious");
+                isLoadMore = false;
+                requestFirstData();
             }
         });
 

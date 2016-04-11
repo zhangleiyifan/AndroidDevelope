@@ -50,4 +50,22 @@
         <item name="android:textColor">@android:color/white</item>
     </style>
 
+
+    //======日历================================================
+
+    <style name="TextAppearance.MaterialCalendarWidget.Header"
+        parent="android:TextAppearance.DeviceDefault.Small">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.MaterialCalendarWidget.Date"
+        parent="android:TextAppearance.DeviceDefault.Small">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/mcv_text_date_light</item>
+    </style>
+
+    <style name="TextAppearance.MaterialCalendarWidget.WeekDay"
+        parent="android:TextAppearance.DeviceDefault.Small">
+        <item name="android:textSize">12sp</item>
+    </style>
 </resources>
