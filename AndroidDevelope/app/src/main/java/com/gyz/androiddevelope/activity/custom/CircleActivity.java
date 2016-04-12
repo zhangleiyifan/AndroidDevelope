@@ -39,7 +39,7 @@ public class CircleActivity extends BaseActivity {
             public void run() {
 
                 String[] Ls = getResources().getStringArray(R.array.lvs);
-                lvProgress.setValue(4000, 150, "V1", Arrays.asList(Ls));
+                lvProgress.setValue(4000, 500, "V3", Arrays.asList(Ls));
             }
         }, 100);
 
