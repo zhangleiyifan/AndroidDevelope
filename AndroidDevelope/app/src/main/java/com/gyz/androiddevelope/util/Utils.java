@@ -45,13 +45,18 @@ public class Utils {
         return dialog;
     }
 
+    /**
+     * 获取符合要求的等级数组
+     * @param currentLv
+     * @return
+     */
     public static List<String> getLvs(int currentLv) {
 
         List<String> list = new ArrayList<>();
 
         if ((currentLv - 3) <= 0) {
             for (int i = 0; i < 7; i++) {
-                list.add("L"+i);
+                list.add("V" + i);
             }
             list.add("...");
             return list;
@@ -61,7 +66,7 @@ public class Utils {
 
             list.add("...");
             for (int i = 4; i < 11; i++) {
-                list.add("L"+i);
+                list.add("V" + i);
             }
             return list;
         }
@@ -69,13 +74,14 @@ public class Utils {
         if ((currentLv > 3) && (currentLv < 7)) {
 
             list.add("...");
-            list.add("L"+(currentLv-3));
-            list.add("L"+(currentLv-2));
-            list.add("L"+(currentLv-1));
-            list.add("L"+(currentLv));
-            list.add("L"+(currentLv+1));
-            list.add("L"+(currentLv+2));
-            list.add("L"+(currentLv+3));
+            int temp = -3;
+
+            while (temp <= 3) {
+
+                list.add("V" + (currentLv + temp));
+                temp++;
+            }
+
             list.add("...");
             return list;
 

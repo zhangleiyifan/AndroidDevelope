@@ -14,7 +14,7 @@
         android:layout_height="match_parent"
         android:visibility="gone" />
 
-    <com.gyz.androiddevelope.view.LvProgress
+    <com.gyz.androiddevelope.view.ExperienceProgress
         android:id="@+id/lvProgress"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_70"

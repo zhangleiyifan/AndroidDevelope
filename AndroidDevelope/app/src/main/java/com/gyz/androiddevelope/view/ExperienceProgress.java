@@ -8,33 +8,32 @@ import android.view.View;
 
 import com.gyz.androiddevelope.R;
 import com.gyz.androiddevelope.util.DensityUtils;
-import com.gyz.androiddevelope.util.L;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
  * @author: guoyazhou
  * @date: 2016-04-11 10:23
+ * 用户等级  动画进度条
  */
-public class LvProgress extends View {
+public class ExperienceProgress extends View {
     private static final String TAG = "LvProgress";
     //毫秒
     private static final int MSECONDS = 50;
     //    每次递增的坐标值
-    private static final int RISE_PX = 10;
-
-    private static final int PARTITION = 8;
+    private static final int RISE_PX = 15;
 
     //    等级每一段 线段长
     private float partX;
 
     private Paint paintBg, paintLv, paintLvTotal, paintMain;
     private Context context;
-    private float width, height, bgStartX, bgStartY, bgStopX, bgStopY, mainStopX, riseX;
+    private float width, height, bgStartX, bgStartY, bgStopX, bgStopY;
+    // 蓝色经验值结束坐标   ，每次递增的坐标
+    private float mainStopX, riseX;
     //经验值
-    private int totalValue = 3000, lvValue = 0;
+    private int totalValue = 4000, lvValue = 0;
     // 用于显示的经验值
     private int lvForPaint;
     //数字每次递增值
@@ -49,17 +48,18 @@ public class LvProgress extends View {
     private List<String> lvs;
     private List<Integer> experValue;
     private String LV = "V0";
+    private int currentLv;
     private float[] lvX = new float[9];
 
-    public LvProgress(Context context) {
+    public ExperienceProgress(Context context) {
         this(context, null);
     }
 
-    public LvProgress(Context context, AttributeSet attrs) {
+    public ExperienceProgress(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public LvProgress(Context context, AttributeSet attrs, int defStyleAttr) {
+    public ExperienceProgress(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         this.context = context;
         init();
@@ -67,14 +67,12 @@ public class LvProgress extends View {
 
     private void init() {
 
-        lvs = Arrays.asList(context.getResources().getStringArray(R.array.lvs));
+//        lvs = Arrays.asList(context.getResources().getStringArray(R.array.lvs));
         experValue = new ArrayList<>();
         int[] a = context.getResources().getIntArray(R.array.experValue);
-        for (int i : a){
+        for (int i : a) {
             experValue.add(i);
         }
-
-
 //        experValue = Arrays.asList(context.getResources().getIntArray(R.array.experValue));
 
         paintBg = new Paint();
@@ -103,11 +101,26 @@ public class LvProgress extends View {
 
     }
 
-    public void setValue(int totalValue, int lvValue, String lv, List<String> lvs) {
-        this.totalValue = totalValue;
+    /**
+     * 通过设置经验值  完成初始化设置操作
+     * @param lvValue
+     */
+    public void setLvValue(int lvValue) {
+
         this.lvValue = lvValue;
-        this.LV = lv;
-        this.lvs = lvs;
+        if (lvValue > experValue.get(10)) {
+            currentLv = 10;
+            this.lvValue = totalValue;
+        } else {
+            for (int i = 0; i < experValue.size(); i++) {
+                if (experValue.get(i) > lvValue) {
+                    currentLv = i - 1;
+                    break;
+                }
+            }
+        }
+        this.LV = "V" + currentLv;
+        this.lvs =  getLvs(currentLv);
         calculateSize();
         invalidate();
     }
@@ -125,7 +138,6 @@ public class LvProgress extends View {
 //        初始化递增X 处于起始X点
         riseX = bgStartX;
         lvHeightY = bgStartY * 3 / 2;
-        partX = (bgStopX - bgStartX) / PARTITION;
 
         calculateSize();
     }
@@ -150,19 +162,19 @@ public class LvProgress extends View {
         }
 
 //        draw gray LV
-        for (int i = 0; i < PARTITION + 1; i++) {
+        for (int i = 0; i < lvs.size(); i++) {
             canvas.drawText(lvs.get(i), bgStartX + i * partX - (paintLvTotal.measureText("V0") / 2), lvHeightY, paintLvTotal);
             lvX[i] = bgStartX + i * partX - (paintLvTotal.measureText("V0") / 2);
         }
 
 //        //画蓝色lv
-        for (int i = 0; i < lvX.length; i++) {
-            if (riseX >=( lvX[i]+paintLvTotal.measureText("V0") / 2)) {
+        for (int i = 0; i < lvs.size(); i++) {
+            if (riseX >= (lvX[i] + paintLvTotal.measureText("V0") / 2)) {
 
-                L.e(TAG," lvX[i]===="+ lvX[i]);
                 canvas.drawText(lvs.get(i), lvX[i], lvHeightY, paintLv);
-                if (i > 0)
+                if (i > 0) {
                     canvas.drawText(lvs.get(i - 1), lvX[i - 1], lvHeightY, paintLvTotal);
+                }
             }
         }
 
@@ -174,29 +186,29 @@ public class LvProgress extends View {
     }
 
     private void calculateSize() {
+
+        partX = (bgStopX - bgStartX) / (lvs.size() - 1);
         //计算边界坐标
         if (lvValue <= 0 || totalValue <= 0) {
             mainStopX = bgStartX;
         } else {
-//            mainStopX = (width - bgStartX) * lvValue / totalValue;
-            //根据传入的等级数  来确定蓝色进度条的位置
+            //根据传入的等级数  来确定蓝色进度条的模糊位置
             int index = lvs.indexOf(LV);
-            mainStopX = index * partX +bgStartX;
+            mainStopX = index * partX + bgStartX;
 
-            if (index > 0) {
+            if ((index > 0) && (index < (lvs.size() - 1))) {
 //              通过比例的方式，算出超过等级多少坐标像素
-                if ((lvValue - experValue.get(index)) > 0)
-                    mainStopX += (partX * (lvValue - experValue.get(index))) / (experValue.get(index + 1) - experValue.get(index));
-            } else {
+                if ((lvValue - experValue.get(currentLv)) > 0)
+                    mainStopX += (partX * (lvValue - experValue.get(currentLv))) / (experValue.get(currentLv + 1) - experValue.get(currentLv));
+            } else if (index <= 0) {
                 if (lvValue > 0)
-                    mainStopX += (partX * lvValue) / experValue.get(index + 1);
+                    mainStopX += (partX * lvValue) / experValue.get(currentLv + 1);
             }
-            L.e(TAG,"mainStopX----------------------------"+mainStopX);
         }
-        //计算数字每次递增的值
+        //计算经验值数字每次递增的值
         if (lvValue > 0 && mainStopX != 0) {
             txtGrowNum = lvValue / ((mainStopX - riseX) / RISE_PX) + 1;
-            if (txtGrowNum <0)
+            if (txtGrowNum < 0)
                 txtGrowNum = lvValue;
         }
     }
@@ -208,10 +220,8 @@ public class LvProgress extends View {
 //            蓝色进度条增加
             if ((riseX + RISE_PX) < mainStopX) {
                 riseX += RISE_PX;
-                L.e(TAG,"risex+=="+riseX);
             } else {
                 riseX = mainStopX;
-                L.e(TAG,"risex=="+riseX);
             }
 
 //            经验值增加
@@ -230,4 +240,48 @@ public class LvProgress extends View {
             invalidate();
         }
     };
+
+    /**
+     * 获取符合要求的等级数组
+     * @param currentLv
+     * @return
+     */
+    public List<String> getLvs(int currentLv) {
+
+        List<String> list = new ArrayList<>();
+
+        if ((currentLv - 3) <= 0) {
+            for (int i = 0; i < 7; i++) {
+                list.add("V" + i);
+            }
+            list.add("...");
+            return list;
+        }
+
+        if ((currentLv + 3) >= 10) {
+
+            list.add("...");
+            for (int i = 4; i < 11; i++) {
+                list.add("V" + i);
+            }
+            return list;
+        }
+
+        if ((currentLv > 3) && (currentLv < 7)) {
+
+            list.add("...");
+            int temp = -3;
+
+            while (temp <= 3) {
+                list.add("V" + (currentLv + temp));
+                temp++;
+            }
+
+            list.add("...");
+            return list;
+
+        }
+
+        return list;
+    }
 }

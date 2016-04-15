@@ -1,13 +1,10 @@
 package com.gyz.androiddevelope.activity.custom;
 
 import android.os.Bundle;
-import android.os.Handler;
 
 import com.gyz.androiddevelope.R;
 import com.gyz.androiddevelope.base.BaseActivity;
-import com.gyz.androiddevelope.view.LvProgress;
-
-import java.util.Arrays;
+import com.gyz.androiddevelope.view.ExperienceProgress;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -19,7 +16,7 @@ import butterknife.ButterKnife;
 public class CircleActivity extends BaseActivity {
     private static final String TAG = "CircleActivity";
     @Bind(R.id.lvProgress)
-    LvProgress lvProgress;
+    ExperienceProgress lvProgress;
 
     protected void initVariables() {
 
@@ -32,16 +29,7 @@ public class CircleActivity extends BaseActivity {
 
     protected void loadData() {
 
-
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-
-                String[] Ls = getResources().getStringArray(R.array.lvs);
-                lvProgress.setValue(4000, 500, "V3", Arrays.asList(Ls));
-            }
-        }, 100);
+        lvProgress.setLvValue(1839);
 
 
     }
