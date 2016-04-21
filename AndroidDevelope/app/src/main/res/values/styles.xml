@@ -68,4 +68,11 @@
         parent="android:TextAppearance.DeviceDefault.Small">
         <item name="android:textSize">12sp</item>
     </style>
+    // tabLayout=========================
+    <!-- 我的客户 tabLayout栏text属性-->
+    <style name="MyTabLayoutText" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">@dimen/sp_18</item>
+        <item name="android:textColor">@color/color_a4a4a4</item>
+    </style>
+
 </resources>

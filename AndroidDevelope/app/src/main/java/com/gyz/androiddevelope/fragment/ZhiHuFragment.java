@@ -155,6 +155,11 @@ public class ZhiHuFragment extends BaseFragment implements SwipeRefreshLayout.On
         requestFirstData();
     }
 
+    @Override
+    public String getTitle() {
+            return getResources().getString(R.string.title_zhihu);
+    }
+
 
     @Override
     public void onRefresh() {

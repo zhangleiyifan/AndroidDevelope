@@ -85,6 +85,11 @@ public class ZhiHuFragment2 extends BaseFragment implements PullToRefreshRecyecl
         requestNetData();
     }
 
+    @Override
+    public String getTitle() {
+        return getResources().getString(R.string.title_zhihu);
+    }
+
     private void requestNetData() {
         RxUtil.subscribeAll(new Func1<String, Observable<LatestNewsBean>>() {
             @Override

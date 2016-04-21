@@ -3,7 +3,6 @@ package com.gyz.androiddevelope.activity;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -123,9 +122,8 @@ public class HomeActivity extends BaseActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-
             switchFragment(mainFragment);
-            toolbar.setTitle(R.string.title_home_page);
+            toolbar.setTitle(getString(R.string.title_zhihu));
 
         } else if (id == R.id.nav_test) {
 
@@ -138,6 +136,7 @@ public class HomeActivity extends BaseActivity
             if (tngouPicFragment ==null)
                 tngouPicFragment = new TngouPicFragment();
             switchFragment(tngouPicFragment);
+            toolbar.setTitle(getString(R.string.title_tngou));
 
         } else if (id == R.id.nav_manage) {
 
@@ -152,7 +151,7 @@ public class HomeActivity extends BaseActivity
     }
 
 
-    protected void switchFragment(Fragment fragment) {
+    protected void switchFragment(BaseFragment fragment) {
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 
@@ -160,6 +159,7 @@ public class HomeActivity extends BaseActivity
             ft.replace(R.id.contain_home, fragment);
         }
         ft.commit();
+
     }
 
 }

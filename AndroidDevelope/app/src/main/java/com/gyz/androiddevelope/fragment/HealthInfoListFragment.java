@@ -96,6 +96,11 @@ public class HealthInfoListFragment extends BaseFragment implements SwipeRefresh
         requestNetData();
     }
 
+    @Override
+    public String getTitle() {
+        return "健康列表";
+    }
+
 
     @Override
     public void onRefresh() {

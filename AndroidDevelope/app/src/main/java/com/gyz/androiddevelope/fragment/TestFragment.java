@@ -94,6 +94,11 @@ public class TestFragment extends BaseFragment {
 
     }
 
+    @Override
+    public String getTitle() {
+        return "test";
+    }
+
     @OnClick({R.id.btnWave,R.id.noToolBar,R.id.btnCalendar,R.id.btnMCalendar,
             R.id.btnHome, R.id.btnOnClick, R.id.btnGo, R.id.btnOkHttp, R.id.btnOkHttp3, R.id.view, R.id.retrofit, R.id.btnHealth, R.id.btnHealthList})
     public void OnClick(View view) {

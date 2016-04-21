@@ -20,8 +20,9 @@
     <string name="action_zan">点赞</string>
     <string name="action_share">分享</string>
     <string name="hello_world">hell world</string>
-    <string name="zhihu">知乎日报</string>
-    <string name="txt_place">...</string>
+    <string name="txt_place">…</string>
     <string name="weibo">微博</string>
     <string name="pic">美图欣赏</string>
+    <string name="title_tngou">美图欣赏</string>
+    <string name="title_zhihu">知乎日报</string>
 </resources>

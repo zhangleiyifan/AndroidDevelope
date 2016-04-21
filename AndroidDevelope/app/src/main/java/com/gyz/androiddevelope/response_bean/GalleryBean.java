@@ -11,7 +11,7 @@ public class GalleryBean {
     private String title;
     private String keywords;
     private String description;
-    private int seq;//排序 从0。。。。10开始
+    private int seq;//排序 从1。。。。10开始
 
     public int getId() {
         return id;
