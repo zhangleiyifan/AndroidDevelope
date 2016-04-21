@@ -110,7 +110,7 @@ public class HealthInfoListFragment extends BaseFragment implements SwipeRefresh
         RxUtil.subscribeAll(new Func1<String, Observable<HealthInfoList>>() {
             @Override
             public Observable<HealthInfoList> call(String s) {
-                return ReUtil.getApiManager().getHealthNewsInfoList(new ReqHealthInfoList(page, rows, id));
+                return ReUtil.getApiManager(true).getHealthNewsInfoList(new ReqHealthInfoList(page, rows, id));
             }
         }, new Subscriber<HealthInfoList>() {
             @Override

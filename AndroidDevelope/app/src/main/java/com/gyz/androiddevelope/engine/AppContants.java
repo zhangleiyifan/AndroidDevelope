@@ -16,7 +16,8 @@ public class AppContants {
 
     public static final String BUGLY_APP_ID = "900021343";
 
-    public static final String BASE_URL="http://news-at.zhihu.com/api/4/";
+    public static final String BASE_URL_ZHIHU ="http://news-at.zhihu.com/api/4/";
+    public static final String BASE_URL_TNGOU ="http://www.tngou.net/";
 
     public static final int TITLE_TYPE = 101;
 
@@ -45,5 +46,9 @@ public class AppContants {
     //新闻额外内容
     public static final String EXTRA_NEWS = "story-extra/{id}";
 
-//===========知乎==end=====================================================================
+//===========天狗云==begin=====================================================================
+
+    //热点分类接口
+    public static final String GALLERY_CLASS="tnfs/api/classify";
+
 }

@@ -142,7 +142,7 @@ public class ZhiHuFragment extends BaseFragment implements SwipeRefreshLayout.On
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ToastUtil.showShort(context, "why so serious");
+
                 isLoadMore = false;
                 requestFirstData();
             }
@@ -170,20 +170,13 @@ public class ZhiHuFragment extends BaseFragment implements SwipeRefreshLayout.On
         if (swipeRefreshLayout != null) {
             swipeRefreshLayout.setRefreshing(true);
         }
-        L.d(TAG, "----------isShow==" + swipeRefreshLayout.isShown());
 
-//        swipeRefreshLayout.post(new Runnable() {
-//            @Override
-//            public void run() {
-//                swipeRefreshLayout.setRefreshing(true);
-//            }
-//        });
-
+        recyclerView.smoothScrollToPosition(0);
 
         RxUtil.subscribeAll(new Func1<String, Observable<LatestNewsBean>>() {
             @Override
             public Observable<LatestNewsBean> call(String s) {
-                return ReUtil.getApiManager().getLatestNews();
+                return ReUtil.getApiManager(true).getLatestNews();
             }
         }, new Subscriber<LatestNewsBean>() {
             @Override
@@ -222,7 +215,7 @@ public class ZhiHuFragment extends BaseFragment implements SwipeRefreshLayout.On
         RxUtil.subscribeAll(new Func1<String, Observable<BeforeNewsBean>>() {
             @Override
             public Observable<BeforeNewsBean> call(String s) {
-                return ReUtil.getApiManager().getBeforeNews(date);
+                return ReUtil.getApiManager(true).getBeforeNews(date);
             }
         }, new Subscriber<BeforeNewsBean>() {
             @Override

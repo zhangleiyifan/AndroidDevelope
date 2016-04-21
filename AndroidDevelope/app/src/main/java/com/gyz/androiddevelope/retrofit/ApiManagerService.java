@@ -6,6 +6,7 @@ import com.gyz.androiddevelope.request_bean.ReqUserInfoBean;
 import com.gyz.androiddevelope.request_bean.ReqWeatherBean;
 import com.gyz.androiddevelope.response_bean.Axiba;
 import com.gyz.androiddevelope.response_bean.BeforeNewsBean;
+import com.gyz.androiddevelope.response_bean.GalleryBean;
 import com.gyz.androiddevelope.response_bean.HealthInfoList;
 import com.gyz.androiddevelope.response_bean.InfoList;
 import com.gyz.androiddevelope.response_bean.LatestNewsBean;
@@ -50,7 +51,12 @@ public interface ApiManagerService {
     @GET(AppContants.EXTRA_NEWS)
     Observable<StoryExtraBean> getNewsExtra(@Path("id") int id);
 
-    //===================================================================================================
+    //==========天狗云=========================================================================================
+
+    //热点分类接口
+    @GET(AppContants.GALLERY_CLASS)
+    Observable<GalleryBean> getGalleryClass();
+
 
     @FormUrlEncoded
     @POST("/data/sk/101010100.html")

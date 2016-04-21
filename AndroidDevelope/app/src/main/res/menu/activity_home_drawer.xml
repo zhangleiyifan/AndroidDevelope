@@ -7,13 +7,13 @@
             android:icon="@drawable/ic_menu_camera"
             android:title="@string/zhihu" />
         <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/nav_picshow"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="@string/weibo" />
+            android:title="@string/pic" />
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/nav_test"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
+            android:title="@string/test" />
         <item
             android:id="@+id/nav_manage"
             android:icon="@drawable/ic_menu_manage"

@@ -89,7 +89,7 @@ public class ZhiHuFragment2 extends BaseFragment implements PullToRefreshRecyecl
         RxUtil.subscribeAll(new Func1<String, Observable<LatestNewsBean>>() {
             @Override
             public Observable<LatestNewsBean> call(String s) {
-                return ReUtil.getApiManager().getLatestNews();
+                return ReUtil.getApiManager(true).getLatestNews();
             }
         }, new Subscriber<LatestNewsBean>() {
             @Override

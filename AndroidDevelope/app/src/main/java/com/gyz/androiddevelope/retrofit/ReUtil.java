@@ -14,16 +14,20 @@ import retrofit2.RxJavaCallAdapterFactory;
  */
 public class ReUtil {
 
-    public static ApiManagerService getApiManager(){
+    public static ApiManagerService getApiManager(boolean isZhihu){
+
+        String baseUrl=AppContants.BASE_URL_ZHIHU;
+        if (!isZhihu){
+            baseUrl = AppContants.BASE_URL_TNGOU;
+        }
 
         LoggingInterceptor loggingInterceptor = new LoggingInterceptor();
 
         OkHttpClient okHttpClient =  new OkHttpClient.Builder()
                 .addNetworkInterceptor(new StethoInterceptor()).addInterceptor(loggingInterceptor)
                 .build();
-//        OkHttpClient okHttpClient = new OkHttpClient().newBuilder().addInterceptor(loggingInterceptor).build();
 
-        Retrofit retrofit = new Retrofit.Builder().client(okHttpClient).baseUrl(AppContants.BASE_URL)
+        Retrofit retrofit = new Retrofit.Builder().client(okHttpClient).baseUrl(baseUrl)
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create()).build();
         ApiManagerService apiManagerService = retrofit.create(ApiManagerService.class);

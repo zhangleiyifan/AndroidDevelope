@@ -111,7 +111,7 @@ public class NewsDetailActivity extends BaseActivity implements Toolbar.OnMenuIt
         RxUtil.subscribeAll(new Func1<String, Observable<NewsDetailBean>>() {
             @Override
             public Observable<NewsDetailBean> call(String s) {
-                return ReUtil.getApiManager().getNewsDetail(newsID);
+                return ReUtil.getApiManager(true).getNewsDetail(newsID);
             }
         }, new MySubscriber<NewsDetailBean>() {
 
@@ -157,7 +157,7 @@ public class NewsDetailActivity extends BaseActivity implements Toolbar.OnMenuIt
         RxUtil.subscribeAll(new Func1<String, Observable<StoryExtraBean>>() {
             @Override
             public Observable<StoryExtraBean> call(String s) {
-                return ReUtil.getApiManager().getNewsExtra(newsID);
+                return ReUtil.getApiManager(true).getNewsExtra(newsID);
             }
         }, new MySubscriber<StoryExtraBean>() {
             @Override

@@ -122,7 +122,7 @@ public class TestFragment extends BaseFragment {
                     public Observable<InfoList> call(String s) {
 
                         ReqHealthInfoList list = new ReqHealthInfoList(3, 10, 1);
-                        return ReUtil.getApiManager().getHealthInfoList(list);
+                        return ReUtil.getApiManager(true).getHealthInfoList(list);
                     }
                 }, new Action1<InfoList>() {
                     @Override
@@ -140,7 +140,7 @@ public class TestFragment extends BaseFragment {
                 RxUtil.subscribeAll(new Func1<String, Observable<Tngou>>() {
                     @Override
                     public Observable<Tngou> call(String s) {
-                        return ReUtil.getApiManager().getInfoList();
+                        return ReUtil.getApiManager(true).getInfoList();
                     }
                 }, new Subscriber<Tngou>() {
                     @Override
@@ -172,7 +172,7 @@ public class TestFragment extends BaseFragment {
 
 //                        Observable<UserInfo> observable =  ReUtil.getApiManager().getUserInfo(bean);
 //                        return observable;
-                        return ReUtil.getApiManager().getUserInfo("a4fe0465b9464ae8fbl54da04bfd6e2f");
+                        return ReUtil.getApiManager(true).getUserInfo("a4fe0465b9464ae8fbl54da04bfd6e2f");
                     }
                 }, new Subscriber<UserInfo>() {
                     @Override

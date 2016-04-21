@@ -17,6 +17,7 @@ import com.gyz.androiddevelope.R;
 import com.gyz.androiddevelope.base.BaseActivity;
 import com.gyz.androiddevelope.base.BaseFragment;
 import com.gyz.androiddevelope.fragment.TestFragment;
+import com.gyz.androiddevelope.fragment.TngouPicFragment;
 import com.gyz.androiddevelope.fragment.ZhiHuFragment;
 
 import butterknife.Bind;
@@ -31,7 +32,7 @@ public class HomeActivity extends BaseActivity
     @Bind(R.id.contain_home)
     FrameLayout containHome;
 
-    private BaseFragment mainFragment, testFragment;
+    private BaseFragment mainFragment,tngouPicFragment, testFragment;
     long firstTime = 0;
 
     @Override
@@ -66,7 +67,6 @@ public class HomeActivity extends BaseActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         mainFragment = new ZhiHuFragment();
-        testFragment = new TestFragment();
         switchFragment(mainFragment);
 
     }
@@ -127,10 +127,17 @@ public class HomeActivity extends BaseActivity
             switchFragment(mainFragment);
             toolbar.setTitle(R.string.title_home_page);
 
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_test) {
+
+            if (testFragment == null)
+                testFragment = new TestFragment();
             switchFragment(testFragment);
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_picshow) {
+
+            if (tngouPicFragment ==null)
+                tngouPicFragment = new TngouPicFragment();
+            switchFragment(tngouPicFragment);
 
         } else if (id == R.id.nav_manage) {
 
