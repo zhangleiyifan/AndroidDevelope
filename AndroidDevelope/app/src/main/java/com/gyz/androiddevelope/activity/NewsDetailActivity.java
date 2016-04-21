@@ -31,7 +31,6 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import rx.Observable;
-import rx.Subscriber;
 import rx.functions.Func1;
 
 /**
@@ -114,9 +113,18 @@ public class NewsDetailActivity extends BaseActivity implements Toolbar.OnMenuIt
             public Observable<NewsDetailBean> call(String s) {
                 return ReUtil.getApiManager().getNewsDetail(newsID);
             }
-        }, new Subscriber<NewsDetailBean>() {
+        }, new MySubscriber<NewsDetailBean>() {
+
+            @Override
+            public void onStart() {
+                super.onStart();
+                dlg.show();
+            }
+
             @Override
             public void onCompleted() {
+                super.onCompleted();
+                dlg.hide();
             }
 
             @Override

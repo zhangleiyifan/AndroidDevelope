@@ -142,7 +142,7 @@ public class ZhiHuFragment extends BaseFragment implements SwipeRefreshLayout.On
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ToastUtil.showShort(context,"why so serious");
+                ToastUtil.showShort(context, "why so serious");
                 isLoadMore = false;
                 requestFirstData();
             }
@@ -160,23 +160,24 @@ public class ZhiHuFragment extends BaseFragment implements SwipeRefreshLayout.On
     public void onRefresh() {
 //      下拉时会调用
         isLoadMore = false;
-        L.d(TAG,"触发下拉刷新");
+        L.d(TAG, "触发下拉刷新");
         requestFirstData();
     }
 
     //下拉刷新
     private void requestFirstData() {
 
-        if (swipeRefreshLayout!=null)
+        if (swipeRefreshLayout != null) {
             swipeRefreshLayout.setRefreshing(true);
-        L.d(TAG,"----------isShow=="+swipeRefreshLayout.isShown());
+        }
+        L.d(TAG, "----------isShow==" + swipeRefreshLayout.isShown());
 
-        swipeRefreshLayout.post(new Runnable() {
-            @Override
-            public void run() {
-                swipeRefreshLayout.setRefreshing(true);
-            }
-        });
+//        swipeRefreshLayout.post(new Runnable() {
+//            @Override
+//            public void run() {
+//                swipeRefreshLayout.setRefreshing(true);
+//            }
+//        });
 
 
         RxUtil.subscribeAll(new Func1<String, Observable<LatestNewsBean>>() {
@@ -187,8 +188,8 @@ public class ZhiHuFragment extends BaseFragment implements SwipeRefreshLayout.On
         }, new Subscriber<LatestNewsBean>() {
             @Override
             public void onCompleted() {
-                if (swipeRefreshLayout!=null)
-                swipeRefreshLayout.setRefreshing(false);
+                if (swipeRefreshLayout != null)
+                    swipeRefreshLayout.setRefreshing(false);
             }
 
             @Override
@@ -253,7 +254,7 @@ public class ZhiHuFragment extends BaseFragment implements SwipeRefreshLayout.On
 
     }
 
-    private void afterPullRefresh(LatestNewsBean latestNewsBean){
+    private void afterPullRefresh(LatestNewsBean latestNewsBean) {
         L.e(TAG, "LatestNewsBean=" + latestNewsBean.date);
         date = latestNewsBean.date;
         adapter.clearDatas();

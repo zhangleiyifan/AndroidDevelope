@@ -9,6 +9,11 @@ import rx.Subscriber;
 public class MySubscriber<T> extends Subscriber<T> {
 
     @Override
+    public void onStart() {
+        super.onStart();
+    }
+
+    @Override
     public void onCompleted() {
 
     }

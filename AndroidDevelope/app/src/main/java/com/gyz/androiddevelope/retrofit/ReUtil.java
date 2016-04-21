@@ -1,5 +1,6 @@
 package com.gyz.androiddevelope.retrofit;
 
+import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.gyz.androiddevelope.engine.AppContants;
 
 import okhttp3.OkHttpClient;
@@ -13,23 +14,27 @@ import retrofit2.RxJavaCallAdapterFactory;
  */
 public class ReUtil {
 
-
     public static ApiManagerService getApiManager(){
 
         LoggingInterceptor loggingInterceptor = new LoggingInterceptor();
 
-        OkHttpClient okHttpClient = new OkHttpClient().newBuilder().addInterceptor(loggingInterceptor).build();
+        OkHttpClient okHttpClient =  new OkHttpClient.Builder()
+                .addNetworkInterceptor(new StethoInterceptor()).addInterceptor(loggingInterceptor)
+                .build();
+//        OkHttpClient okHttpClient = new OkHttpClient().newBuilder().addInterceptor(loggingInterceptor).build();
 
         Retrofit retrofit = new Retrofit.Builder().client(okHttpClient).baseUrl(AppContants.BASE_URL)
-//        Retrofit retrofit = new Retrofit.Builder().client(okHttpClient).baseUrl("http://www.tngou.net/")
-//        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://www.weather.com.cn/")
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create()).build();
-        ApiManagerService service = retrofit.create(ApiManagerService.class);
+        ApiManagerService apiManagerService = retrofit.create(ApiManagerService.class);
 
-        return service;
+        return apiManagerService;
 
     }
+
+
+
+
 
 
 }

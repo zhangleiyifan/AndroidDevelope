@@ -34,9 +34,14 @@ public abstract class BaseActivity extends AppCompatActivity implements SwipeBac
         mHelper = new SwipeBackActivityHelper(this);
         mHelper.onActivityCreate();
         dbHelper = new WebCacheDbHelper(getApplicationContext(), AppContants.DATABASE_VERSION);
+        initBaseView();
         initVariables();
         initViews(savedInstanceState);
         loadData();
+    }
+
+    private  void initBaseView(){
+        dlg = new ProgressDialog(this);
     }
 
     /*
@@ -93,4 +98,12 @@ public abstract class BaseActivity extends AppCompatActivity implements SwipeBac
         getSwipeBackLayout().scrollToFinishActivity();
     }
 //======SwipeBack==end===========================
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (dlg !=null)
+            dlg.dismiss();
+    }
 }
