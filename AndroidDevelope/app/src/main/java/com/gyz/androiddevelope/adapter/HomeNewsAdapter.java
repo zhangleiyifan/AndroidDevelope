@@ -60,6 +60,7 @@ public class HomeNewsAdapter extends BaseRecyclerAdapter<Story> {
             viewHolder.txtTopic.setVisibility(View.GONE);
             Picasso.with(context).load(story.images.get(0)).into(viewHolder.img);
             viewHolder.txtTitle.setText(story.title);
+
         }
     }
 

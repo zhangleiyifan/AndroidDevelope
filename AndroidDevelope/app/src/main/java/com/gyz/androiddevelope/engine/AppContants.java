@@ -19,6 +19,7 @@ public class AppContants {
     public static final String BASE_URL_ZHIHU ="http://news-at.zhihu.com/api/4/";
     public static final String BASE_URL_TNGOU ="http://www.tngou.net/";
 
+//    仅为标题
     public static final int TITLE_TYPE = 101;
 
     public static final String READ_ID = "read_id";
@@ -32,7 +33,7 @@ public class AppContants {
 
     public static final String NEED_CALLBACK = "need_callback";
 
-    public static final String IMAGE_HEAD="http://tnfs.tngou.net/image";
+    public static final String TG_IMAGE_HEAD ="http://tnfs.tngou.net/image";
 //===========知乎==begin===================================================================
 
     // loading 图片
@@ -50,5 +51,10 @@ public class AppContants {
 
     //热点分类接口
     public static final String GALLERY_CLASS="tnfs/api/classify";
+
+    //图片列表接口
+    public static final String GALLERY_BEAN_LIST="tnfs/api/list";
+
+
 
 }

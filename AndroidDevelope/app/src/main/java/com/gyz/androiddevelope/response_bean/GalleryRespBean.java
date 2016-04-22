@@ -8,9 +8,11 @@ import java.util.List;
  * @author: guoyazhou
  * @date: 2016-04-21 14:35
  */
-public class GalleryListRespBean {
+public class GalleryRespBean {
 
     private boolean status;
+
+    private int total;
 
     @SerializedName(value = "tngou")
     private List<GalleryBean> tngouList;
@@ -29,5 +31,13 @@ public class GalleryListRespBean {
 
     public void setTngouList(List<GalleryBean> tngouList) {
         this.tngouList = tngouList;
+    }
+
+    public int getTotal() {
+        return total;
+    }
+
+    public void setTotal(int total) {
+        this.total = total;
     }
 }

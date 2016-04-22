@@ -6,7 +6,8 @@ import com.gyz.androiddevelope.request_bean.ReqUserInfoBean;
 import com.gyz.androiddevelope.request_bean.ReqWeatherBean;
 import com.gyz.androiddevelope.response_bean.Axiba;
 import com.gyz.androiddevelope.response_bean.BeforeNewsBean;
-import com.gyz.androiddevelope.response_bean.GalleryListRespBean;
+import com.gyz.androiddevelope.response_bean.GalleryRespBean;
+import com.gyz.androiddevelope.response_bean.GalleryTypeRespBean;
 import com.gyz.androiddevelope.response_bean.HealthInfoList;
 import com.gyz.androiddevelope.response_bean.InfoList;
 import com.gyz.androiddevelope.response_bean.LatestNewsBean;
@@ -55,9 +56,14 @@ public interface ApiManagerService {
 
     //热点分类接口
     @GET(AppContants.GALLERY_CLASS)
-    Observable<GalleryListRespBean> getGalleryClass();
+    Observable<GalleryTypeRespBean> getGalleryTypeList();
+
+    @FormUrlEncoded
+    @POST(AppContants.GALLERY_BEAN_LIST)
+    Observable<GalleryRespBean> getGalleryBeanList( @Field("id") int id,@Field("page") int page,@Field("rows") int rows);
 
 
+//=============================================================================================================
     @FormUrlEncoded
     @POST("/data/sk/101010100.html")
     Observable<Axiba> getWeather(@Field("cityId") String cityId,@Field("cityName") String cityName);

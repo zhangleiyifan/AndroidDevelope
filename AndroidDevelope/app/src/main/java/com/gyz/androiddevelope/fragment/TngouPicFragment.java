@@ -11,8 +11,8 @@ import android.view.ViewGroup;
 import com.gyz.androiddevelope.R;
 import com.gyz.androiddevelope.adapter.TngouPicViewPagerAdapter;
 import com.gyz.androiddevelope.base.BaseFragment;
-import com.gyz.androiddevelope.response_bean.GalleryBean;
-import com.gyz.androiddevelope.response_bean.GalleryListRespBean;
+import com.gyz.androiddevelope.response_bean.GalleryTypeBean;
+import com.gyz.androiddevelope.response_bean.GalleryTypeRespBean;
 import com.gyz.androiddevelope.retrofit.MySubscriber;
 import com.gyz.androiddevelope.retrofit.ReUtil;
 import com.gyz.androiddevelope.retrofit.RxUtil;
@@ -22,7 +22,6 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import jp.co.recruit_lifestyle.android.widget.WaveSwipeRefreshLayout;
 import rx.Observable;
 import rx.functions.Func1;
 
@@ -30,7 +29,7 @@ import rx.functions.Func1;
  * @author: guoyazhou
  * @date: 2016-04-21 13:08
  */
-public class TngouPicFragment extends BaseFragment implements WaveSwipeRefreshLayout.OnRefreshListener {
+public class TngouPicFragment extends BaseFragment{
     private static final String TAG = "TngouPicFragment";
 
     @Bind(R.id.tabLayout)
@@ -75,22 +74,17 @@ public class TngouPicFragment extends BaseFragment implements WaveSwipeRefreshLa
         ButterKnife.unbind(this);
     }
 
-    @Override
-    public void onRefresh() {
-//        刷新
-        initData();
-    }
 
     /**
      * 获取顶部列表信息
      */
     public void getTypeList() {
-        RxUtil.subscribeAll(new Func1<String, Observable<GalleryListRespBean>>() {
+        RxUtil.subscribeAll(new Func1<String, Observable<GalleryTypeRespBean>>() {
             @Override
-            public Observable<GalleryListRespBean> call(String s) {
-                return ReUtil.getApiManager(false).getGalleryClass();
+            public Observable<GalleryTypeRespBean> call(String s) {
+                return ReUtil.getApiManager(false).getGalleryTypeList();
             }
-        }, new MySubscriber<GalleryListRespBean>() {
+        }, new MySubscriber<GalleryTypeRespBean>() {
             @Override
             public void onCompleted() {
                 super.onCompleted();
@@ -98,7 +92,7 @@ public class TngouPicFragment extends BaseFragment implements WaveSwipeRefreshLa
             }
 
             @Override
-            public void onNext(GalleryListRespBean o) {
+            public void onNext(GalleryTypeRespBean o) {
                 initTabView(o);
 
             }
@@ -111,11 +105,11 @@ public class TngouPicFragment extends BaseFragment implements WaveSwipeRefreshLa
         });
     }
 
-    private void initTabView(GalleryListRespBean listRespBean) {
+    private void initTabView(GalleryTypeRespBean listRespBean) {
 
         List<String> list = getTabTitle(listRespBean);
 
-        for (GalleryBean bean : listRespBean.getTngouList()) {
+        for (GalleryTypeBean bean : listRespBean.getTngouList()) {
             fragmentList.add(new TgPicListFragment(bean.getId(), bean.getTitle()));
         }
 
@@ -124,10 +118,10 @@ public class TngouPicFragment extends BaseFragment implements WaveSwipeRefreshLa
         tabLayout.setupWithViewPager(viewpager);
     }
 
-    private List<String> getTabTitle(GalleryListRespBean o) {
+    private List<String> getTabTitle(GalleryTypeRespBean o) {
         List<String> list = new ArrayList<>();
         if (!o.getTngouList().isEmpty()) {
-            for (GalleryBean bean : o.getTngouList()) {
+            for (GalleryTypeBean bean : o.getTngouList()) {
                 list.add(bean.getTitle());
             }
         }

@@ -51,7 +51,7 @@ public class HealthInfoAdapter extends RecyclerView.Adapter {
         final HealthInfoList.HealthInfo healthInfo = list.get(position);
         viewHolder.txtKeyWords.setText(healthInfo.keywords);
         viewHolder.txtTitle.setText(healthInfo.title);
-        Picasso.with(context).load(AppContants.IMAGE_HEAD+healthInfo.img).into(viewHolder.img);
+        Picasso.with(context).load(AppContants.TG_IMAGE_HEAD +healthInfo.img).into(viewHolder.img);
 
 
         viewHolder.rootView.setOnClickListener(new View.OnClickListener() {
