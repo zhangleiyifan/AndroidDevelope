@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.gyz.androiddevelope.R;
 import com.gyz.androiddevelope.engine.AppContants;
@@ -46,17 +47,21 @@ public class TgPicListAdapter extends BaseRecyclerAdapter<GalleryBean> {
         Picasso.with(context).load(AppContants.TG_IMAGE_HEAD + data.getImg())
                 .resize(imgWidth, imgHeight)
                 .config(Bitmap.Config.RGB_565)
+                .centerCrop()
+                .tag(new Object())
                 .into(viewHolder.img);
-
+        viewHolder.txtCount.setText(String.valueOf(data.getSize()));
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
 
         public RecyclerImageView img;
+        public TextView txtCount;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             img = (RecyclerImageView) itemView.findViewById(R.id.item_img);
+            txtCount = (TextView) itemView.findViewById(R.id.txtImgCount);
         }
     }
 }

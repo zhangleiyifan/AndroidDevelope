@@ -48,6 +48,9 @@
         <activity
             android:name=".activity.noactionbar.NoBoringActionBarActivity"
             android:theme="@style/TransparentTheme" />
+        <activity
+            android:name=".activity.tngou.AlbumDetailActivity"
+            />
     </application>
 
 </manifest>

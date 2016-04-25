@@ -1,4 +1,4 @@
-package com.gyz.androiddevelope.fragment;
+package com.gyz.androiddevelope.fragment.Tngou;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.gyz.androiddevelope.R;
+import com.gyz.androiddevelope.activity.tngou.AlbumDetailActivity;
+import com.gyz.androiddevelope.adapter.BaseRecyclerAdapter;
 import com.gyz.androiddevelope.adapter.TgPicListAdapter;
 import com.gyz.androiddevelope.base.BaseFragment;
 import com.gyz.androiddevelope.response_bean.GalleryBean;
@@ -18,9 +20,7 @@ import com.gyz.androiddevelope.retrofit.MySubscriber;
 import com.gyz.androiddevelope.retrofit.ReUtil;
 import com.gyz.androiddevelope.retrofit.RxUtil;
 import com.gyz.androiddevelope.util.L;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.squareup.picasso.Picasso;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -31,7 +31,7 @@ import rx.functions.Func1;
  * @author: guoyazhou
  * @date: 2016-04-21 15:33
  */
-public class TgPicListFragment extends BaseFragment {
+public class TgPicListFragment extends BaseFragment implements BaseRecyclerAdapter.OnItemClickListener<GalleryBean> {
     private static final String TAG = "TgPicListFragment";
     @Bind(R.id.recyclerView)
     RecyclerView recyclerView;
@@ -63,16 +63,42 @@ public class TgPicListFragment extends BaseFragment {
 
     @Override
     public void initView() {
-        List<GalleryBean> tngouList = new ArrayList<>();
-        mSimpleRecyclerAdapter = new TgPicListAdapter(getActivity() );
-        recyclerView.setAdapter(mSimpleRecyclerAdapter);
-
         mLayoutManager = new GridLayoutManager(context,2,LinearLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(mLayoutManager);
+
+        mSimpleRecyclerAdapter = new TgPicListAdapter(getActivity() );
+        recyclerView.setAdapter(mSimpleRecyclerAdapter);
+        mSimpleRecyclerAdapter.setOnItemClickListener(this);
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+               if (newState == RecyclerView.SCROLL_STATE_IDLE){
+                   Picasso.with(context).resumeTag(new Object());
+               }else {
+                   Picasso.with(context).pauseTag(new Object());
+               }
+
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                int lastVisibleItem = mLayoutManager.findLastVisibleItemPosition();
+                int totalItemCount = mLayoutManager.getItemCount();
+
+                if (lastVisibleItem >= totalItemCount - 1 ) {
+                    L.i("-------------ADD more photos--------------------------");
+                    page++;
+                    requestData();
+                }
+
+            }
+        });
+
     }
 
-    @Override
-    public void initData() {
+    private void requestData() {
 
         RxUtil.subscribeAll(new Func1<String, Observable<GalleryRespBean>>() {
             @Override
@@ -80,16 +106,30 @@ public class TgPicListFragment extends BaseFragment {
                 return ReUtil.getApiManager(false).getGalleryBeanList(id, page, rows);
             }
         }, new MySubscriber<GalleryRespBean>() {
+
+            @Override
+            public void onStart() {
+                dlg.show();
+            }
+
             @Override
             public void onNext(GalleryRespBean o) {
-                L.e(TAG, o.getTngouList().get(1).getTitle() + "______________________________");
-
                 mSimpleRecyclerAdapter.addDatas(o.getTngouList());
                 mSimpleRecyclerAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCompleted() {
+                dlg.hide();
             }
         });
 
 
+    }
+
+    @Override
+    public void initData() {
+        requestData();
     }
 
     @Override
@@ -101,5 +141,11 @@ public class TgPicListFragment extends BaseFragment {
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
+    }
+
+    @Override
+    public void onItemClick(int position, GalleryBean bean, View parent) {
+
+        AlbumDetailActivity.startActivity(bean.getId());
     }
 }

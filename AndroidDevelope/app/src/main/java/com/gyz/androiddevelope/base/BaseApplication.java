@@ -15,12 +15,17 @@ public class BaseApplication extends Application {
 
     private static final String TAG = "BaseApplication";
 
+    private static BaseApplication instance;
     @Override
     public void onCreate() {
         super.onCreate();
+        instance = this;
         Stetho.initializeWithDefaults(this);
         CrashReport.initCrashReport(getApplicationContext(), AppContants.BUGLY_APP_ID, false);
         CacheManager.getInstance().initCacheDir();
     }
 
+    public static BaseApplication getInstantce(){
+        return instance;
+    }
 }

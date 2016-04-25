@@ -1,4 +1,4 @@
-package com.gyz.androiddevelope.fragment;
+package com.gyz.androiddevelope.fragment.Tngou;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

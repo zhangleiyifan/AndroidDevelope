@@ -16,8 +16,8 @@ import com.gyz.androiddevelope.R;
 import com.gyz.androiddevelope.base.BaseActivity;
 import com.gyz.androiddevelope.base.BaseFragment;
 import com.gyz.androiddevelope.fragment.TestFragment;
-import com.gyz.androiddevelope.fragment.TngouPicFragment;
-import com.gyz.androiddevelope.fragment.ZhiHuFragment;
+import com.gyz.androiddevelope.fragment.Tngou.TngouPicFragment;
+import com.gyz.androiddevelope.fragment.zhihu.ZhiHuFragment;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;

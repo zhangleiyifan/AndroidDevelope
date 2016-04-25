@@ -1,5 +1,6 @@
 package com.gyz.androiddevelope.base;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -18,6 +19,7 @@ public abstract class BaseFragment extends Fragment {
     private CacheDbHelper cacheDbHelper;
     public Context context;
     private Gson gson;
+    protected ProgressDialog dlg;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -30,6 +32,8 @@ public abstract class BaseFragment extends Fragment {
         context= getActivity();
         cacheDbHelper = new CacheDbHelper(context, AppContants.DATABASE_VERSION);
         gson = new GsonBuilder().create();
+
+        dlg = new ProgressDialog(context);
         initView();
         initData();
     }
@@ -52,5 +56,13 @@ public abstract class BaseFragment extends Fragment {
 
     public Gson getGson(){
         return gson;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (dlg!=null){
+            dlg.dismiss();
+        }
     }
 }

@@ -55,6 +55,9 @@ public class AppContants {
     //图片列表接口
     public static final String GALLERY_BEAN_LIST="tnfs/api/list";
 
+    //相册详情列表接口
+    public static final String ALBUM_DETAIL_LIST="tnfs/api/show";
+
 
 
 }

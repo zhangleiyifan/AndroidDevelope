@@ -1,4 +1,4 @@
-package com.gyz.androiddevelope.fragment;
+package com.gyz.androiddevelope.fragment.zhihu;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -119,11 +119,6 @@ public class ZhiHuFragment extends BaseFragment implements SwipeRefreshLayout.On
         });
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-
-            }
 
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {

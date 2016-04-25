@@ -4,6 +4,7 @@ import com.gyz.androiddevelope.engine.AppContants;
 import com.gyz.androiddevelope.request_bean.ReqHealthInfoList;
 import com.gyz.androiddevelope.request_bean.ReqUserInfoBean;
 import com.gyz.androiddevelope.request_bean.ReqWeatherBean;
+import com.gyz.androiddevelope.response_bean.AlbumDetailListBean;
 import com.gyz.androiddevelope.response_bean.Axiba;
 import com.gyz.androiddevelope.response_bean.BeforeNewsBean;
 import com.gyz.androiddevelope.response_bean.GalleryRespBean;
@@ -62,6 +63,9 @@ public interface ApiManagerService {
     @POST(AppContants.GALLERY_BEAN_LIST)
     Observable<GalleryRespBean> getGalleryBeanList( @Field("id") int id,@Field("page") int page,@Field("rows") int rows);
 
+    @FormUrlEncoded
+    @POST(AppContants.ALBUM_DETAIL_LIST)
+    Observable<AlbumDetailListBean> getAlbumDetailList(@Field("id") int id);
 
 //=============================================================================================================
     @FormUrlEncoded
