@@ -37,8 +37,6 @@ public class CardItemView extends FrameLayout {
 
     public void fillData(CardDataItem itemData)  {
 
-//        imageView.setImageURI(Uri.parse(itemData.imagePath));
-
         DraweeController controller = Fresco.newDraweeControllerBuilder()
                 .setUri(Uri.parse(itemData.imagePath))
                 .setTapToRetryEnabled(true)

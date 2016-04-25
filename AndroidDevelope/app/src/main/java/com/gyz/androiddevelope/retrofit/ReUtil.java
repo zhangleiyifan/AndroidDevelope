@@ -22,6 +22,7 @@ public class ReUtil {
         }
 
         LoggingInterceptor loggingInterceptor = new LoggingInterceptor();
+        HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
 
         OkHttpClient okHttpClient =  new OkHttpClient.Builder()
                 .addNetworkInterceptor(new StethoInterceptor()).addInterceptor(loggingInterceptor)
@@ -35,10 +36,5 @@ public class ReUtil {
         return apiManagerService;
 
     }
-
-
-
-
-
 
 }

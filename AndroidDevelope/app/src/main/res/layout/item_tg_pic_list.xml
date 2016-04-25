@@ -17,13 +17,20 @@
         android:layout_height="match_parent"
         android:padding="@dimen/dp_5">
 
-        <com.gyz.androiddevelope.view.RecyclerImageView
+        <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/item_img"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerHorizontal="true"
-            android:scaleType="fitXY"
-            android:src="@drawable/picture0" />
+            android:layout_width="170dp"
+            android:layout_height="250dp"
+            android:scaleType="centerCrop"
+            app:retryImageScaleType="centerCrop"
+            app:retryImage="@mipmap/icon_retry"
+            app:progressBarImage="@mipmap/prograss"
+            app:progressBarImageScaleType="centerInside"
+            app:progressBarAutoRotateInterval="2000"
+            app:roundedCornerRadius="14dp"
+            app:fadeDuration="800"
+            app:placeholderImage="@drawable/poster_holder_shape"
+            />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -31,7 +38,7 @@
                 android:padding="@dimen/dp_6"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
-                android:background="@color/color_d2d2d2"
+                android:background="@drawable/poster_holder_shape"
                 android:layout_height="wrap_content" />
 
     </RelativeLayout>

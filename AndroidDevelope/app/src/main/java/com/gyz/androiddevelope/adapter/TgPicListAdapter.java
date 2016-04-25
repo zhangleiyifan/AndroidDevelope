@@ -2,19 +2,18 @@ package com.gyz.androiddevelope.adapter;
 
 
 import android.content.Context;
-import android.graphics.Bitmap;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.gyz.androiddevelope.R;
 import com.gyz.androiddevelope.engine.AppContants;
 import com.gyz.androiddevelope.response_bean.GalleryBean;
 import com.gyz.androiddevelope.util.ScreenUtils;
-import com.gyz.androiddevelope.view.RecyclerImageView;
-import com.squareup.picasso.Picasso;
 
 /**
  * @author: guoyazhou
@@ -44,23 +43,24 @@ public class TgPicListAdapter extends BaseRecyclerAdapter<GalleryBean> {
 
         MyViewHolder viewHolder = (MyViewHolder) holder;
 
-        Picasso.with(context).load(AppContants.TG_IMAGE_HEAD + data.getImg())
-                .resize(imgWidth, imgHeight)
-                .config(Bitmap.Config.RGB_565)
-                .centerCrop()
-                .tag(new Object())
-                .into(viewHolder.img);
+//        Picasso.with(context).load(AppContants.TG_IMAGE_HEAD + data.getImg())
+//                .resize(imgWidth, imgHeight)
+//                .config(Bitmap.Config.RGB_565)
+//                .centerCrop()
+//                .tag(new Object())
+//                .into(viewHolder.img);
+        viewHolder.img.setImageURI(Uri.parse(AppContants.TG_IMAGE_HEAD + data.getImg()));
         viewHolder.txtCount.setText(String.valueOf(data.getSize()));
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
 
-        public RecyclerImageView img;
+        public SimpleDraweeView img;
         public TextView txtCount;
 
         public MyViewHolder(View itemView) {
             super(itemView);
-            img = (RecyclerImageView) itemView.findViewById(R.id.item_img);
+            img = (SimpleDraweeView) itemView.findViewById(R.id.item_img);
             txtCount = (TextView) itemView.findViewById(R.id.txtImgCount);
         }
     }
