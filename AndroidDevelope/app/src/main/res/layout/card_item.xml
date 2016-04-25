@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/card_image_view"
+        android:layout_width="330dp"
+        android:layout_height="510dp"
+        android:scaleType="centerCrop"
+        app:retryImageScaleType="centerCrop"
+        app:retryImage="@mipmap/icon_retry"
+        app:progressBarImage="@mipmap/prograss"
+        app:progressBarImageScaleType="centerInside"
+        app:progressBarAutoRotateInterval="2000"
+        app:roundedCornerRadius="14dp"
+        app:fadeDuration="1500"
+        app:placeholderImage="@drawable/poster_holder_shape"
+        />
+
+    <View
+        android:id="@+id/shade"
+        android:layout_width="330dp"
+        android:layout_height="20dp" />
+
+</FrameLayout>

@@ -23,7 +23,7 @@ public class AlbumDetailListBean {
     private String url;
     private String msg;
 
-    class Picture {
+    public class Picture {
         private int id;
         private int gallery; //图片库
         private String src; //图片地址

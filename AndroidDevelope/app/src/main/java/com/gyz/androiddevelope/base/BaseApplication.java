@@ -2,6 +2,7 @@ package com.gyz.androiddevelope.base;
 
 import android.app.Application;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.stetho.Stetho;
 import com.gyz.androiddevelope.cache.CacheManager;
 import com.gyz.androiddevelope.engine.AppContants;
@@ -21,6 +22,7 @@ public class BaseApplication extends Application {
         super.onCreate();
         instance = this;
         Stetho.initializeWithDefaults(this);
+        Fresco.initialize(this);
         CrashReport.initCrashReport(getApplicationContext(), AppContants.BUGLY_APP_ID, false);
         CacheManager.getInstance().initCacheDir();
     }
