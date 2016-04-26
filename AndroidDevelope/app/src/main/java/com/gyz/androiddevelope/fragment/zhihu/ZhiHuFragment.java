@@ -203,6 +203,7 @@ public class ZhiHuFragment extends BaseFragment implements SwipeRefreshLayout.On
 
             @Override
             public void onNext(LatestNewsBean latestNewsBean) {
+                L.e(TAG,"latestNewsBean============"+latestNewsBean);
                 afterPullRefresh(latestNewsBean);
                 //存入数据库
                 SQLiteDatabase database = getCacheDbHelper().getWritableDatabase();

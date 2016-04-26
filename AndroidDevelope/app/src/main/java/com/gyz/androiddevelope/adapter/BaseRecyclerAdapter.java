@@ -30,6 +30,9 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
         return mHeaderView;
     }
     public void addDatas(List<T> datas) {
+        if (mDatas==null){
+            mDatas = new ArrayList<>();
+        }
         mDatas.addAll(datas);
         notifyDataSetChanged();
     }

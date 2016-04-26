@@ -16,9 +16,16 @@ android {
         }
     }
     buildTypes {
-        release {
-            minifyEnabled false
+        debug{
+            versionNameSuffix ".dev"
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        release {
+            debuggable false
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
         }
     }
     useLibrary 'org.apache.http.legacy'

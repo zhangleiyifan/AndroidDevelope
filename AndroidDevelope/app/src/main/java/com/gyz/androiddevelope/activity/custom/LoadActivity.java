@@ -19,7 +19,6 @@ import com.gyz.androiddevelope.util.FileUtil;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
-import java.io.IOException;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -98,7 +97,8 @@ public class LoadActivity extends BaseActivity {
                             public void run() {
                                 try {
                                     FileUtil.saveMyBitmap(file, Picasso.with(LoadActivity.this).load(loadImageBean.img).get());
-                                } catch (IOException e) {
+//                                    FileUtil.saveImgFromNet(loadImageBean.img,file);
+                                } catch (Exception e) {
                                     e.printStackTrace();
                                 }
 
