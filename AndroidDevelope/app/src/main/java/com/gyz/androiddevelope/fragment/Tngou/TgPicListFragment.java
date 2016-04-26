@@ -44,13 +44,23 @@ public class TgPicListFragment extends BaseFragment implements BaseRecyclerAdapt
     private int page = 1;
     private String title;
 
+    private static final String ID="id";
+    private static final String TITLE="title";
+
     TgPicListAdapter mSimpleRecyclerAdapter;
 
-    public TgPicListFragment(int id, String title) {
-        super();
-        this.id = id;
-        this.title = title;
+    public static TgPicListFragment startFragment(int id, String title) {
+        TgPicListFragment tgPicListFragment = new TgPicListFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt(ID,id);
+        bundle.putString(TITLE,title);
+        tgPicListFragment.setArguments(bundle);
+        return tgPicListFragment;
     }
+
+    public TgPicListFragment() {
+    }
+
 
     @Nullable
     @Override
@@ -63,6 +73,10 @@ public class TgPicListFragment extends BaseFragment implements BaseRecyclerAdapt
 
     @Override
     public void initView() {
+        Bundle bundle = this.getArguments();
+        id = bundle.getInt(ID,1);
+        title = bundle.getString(TITLE);
+
         mLayoutManager = new GridLayoutManager(context,2,LinearLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(mLayoutManager);
 

@@ -196,6 +196,9 @@ public class ZhiHuFragment extends BaseFragment implements SwipeRefreshLayout.On
                     String json = cursor.getString(cursor.getColumnIndex("json"));
                     afterPullRefresh(getGson().fromJson(json, LatestNewsBean.class));
                 }
+                if (swipeRefreshLayout != null)
+                    swipeRefreshLayout.setRefreshing(false);
+
             }
 
             @Override

@@ -110,7 +110,7 @@ public class TngouPicFragment extends BaseFragment{
         List<String> list = getTabTitle(listRespBean);
 
         for (GalleryTypeBean bean : listRespBean.getTngouList()) {
-            fragmentList.add(new TgPicListFragment(bean.getId(), bean.getTitle()));
+            fragmentList.add(  TgPicListFragment.startFragment(bean.getId(), bean.getTitle()));
         }
 
         pagerAdapter = new TngouPicViewPagerAdapter(getActivity().getSupportFragmentManager(), fragmentList, list);

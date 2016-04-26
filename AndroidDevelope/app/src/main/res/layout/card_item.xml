@@ -16,7 +16,7 @@
         app:progressBarImageScaleType="centerInside"
         app:progressBarAutoRotateInterval="2000"
         app:roundedCornerRadius="14dp"
-        app:fadeDuration="1500"
+        app:fadeDuration="700"
         app:placeholderImage="@drawable/poster_holder_shape"
         />
 
