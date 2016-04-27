@@ -12,8 +12,8 @@ import android.widget.TextView;
 import com.gyz.androiddevelope.R;
 import com.gyz.androiddevelope.engine.AppContants;
 import com.gyz.androiddevelope.response_bean.Story;
+import com.gyz.androiddevelope.util.ImageUtils;
 import com.gyz.androiddevelope.util.SPUtils;
-import com.squareup.picasso.Picasso;
 
 /**
  * @author: guoyazhou
@@ -58,7 +58,8 @@ public class HomeNewsAdapter extends BaseRecyclerAdapter<Story> {
             viewHolder.img.setVisibility(View.VISIBLE);
             viewHolder.txtTitle.setVisibility(View.VISIBLE);
             viewHolder.txtTopic.setVisibility(View.GONE);
-            Picasso.with(context).load(story.images.get(0)).into(viewHolder.img);
+            ImageUtils.loadImageByPicasso(context,story.images.get(0),viewHolder.img);
+//            Picasso.with(context).load(story.images.get(0)).into(viewHolder.img);
             viewHolder.txtTitle.setText(story.title);
 
         }

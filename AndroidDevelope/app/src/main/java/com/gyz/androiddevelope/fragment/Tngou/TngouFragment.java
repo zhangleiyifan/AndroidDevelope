@@ -29,8 +29,8 @@ import rx.functions.Func1;
  * @author: guoyazhou
  * @date: 2016-04-21 13:08
  */
-public class TngouPicFragment extends BaseFragment{
-    private static final String TAG = "TngouPicFragment";
+public class TngouFragment extends BaseFragment{
+    private static final String TAG = "TngouFragment";
 
     @Bind(R.id.tabLayout)
     TabLayout tabLayout;

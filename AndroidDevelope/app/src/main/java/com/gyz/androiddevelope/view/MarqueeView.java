@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import com.gyz.androiddevelope.R;
 import com.gyz.androiddevelope.response_bean.LatestNewsBean;
-import com.squareup.picasso.Picasso;
+import com.gyz.androiddevelope.util.ImageUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -95,15 +95,18 @@ public class MarqueeView extends FrameLayout implements View.OnClickListener {
             TextView tv_title = (TextView) fm.findViewById(R.id.tv_title);
             iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
             if (i == 0) {
-                Picasso.with(context).load(topStoriesEntities.get(len - 1).getImage()).into(iv);
+                ImageUtils.loadImageByPicasso(context,topStoriesEntities.get(len - 1).getImage(),iv);
+//                Picasso.with(context).load(topStoriesEntities.get(len - 1).getImage()).into(iv);
                 tv_title.setText(topStoriesEntities.get(len - 1).getTitle());
 
             } else if (i == len + 1) {
-                Picasso.with(context).load(topStoriesEntities.get(0).getImage()).into(iv);
+                ImageUtils.loadImageByPicasso(context,topStoriesEntities.get(0).getImage(),iv);
+//                Picasso.with(context).load(topStoriesEntities.get(0).getImage()).into(iv);
                 tv_title.setText(topStoriesEntities.get(0).getTitle());
 
             } else {
-                Picasso.with(context).load(topStoriesEntities.get(i-1).getImage()).into(iv);
+                ImageUtils.loadImageByPicasso(context,topStoriesEntities.get(i-1).getImage(),iv);
+//                Picasso.with(context).load(topStoriesEntities.get(i-1).getImage()).into(iv);
                 tv_title.setText(topStoriesEntities.get(i - 1).getTitle());
             }
             fm.setOnClickListener(this);

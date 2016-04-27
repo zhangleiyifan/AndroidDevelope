@@ -23,9 +23,9 @@ import com.gyz.androiddevelope.base.BaseActivity;
 import com.gyz.androiddevelope.response_bean.NewsDetailBean;
 import com.gyz.androiddevelope.response_bean.StoryExtraBean;
 import com.gyz.androiddevelope.retrofit.MySubscriber;
+import com.gyz.androiddevelope.util.ImageUtils;
 import com.gyz.androiddevelope.retrofit.ReUtil;
 import com.gyz.androiddevelope.retrofit.RxUtil;
-import com.squareup.picasso.Picasso;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -145,7 +145,8 @@ public class NewsDetailActivity extends BaseActivity implements Toolbar.OnMenuIt
 
                 txtTitle.setText(newsDetailBean.getTitle());
                 initWebContent(newsDetailBean.getBody());
-                Picasso.with(getApplicationContext()).load(newsDetailBean.getImage()).into(imgTitle);
+                ImageUtils.loadImageByPicasso(getApplicationContext(),newsDetailBean.getImage(),imgTitle);
+//                Picasso.with(getApplicationContext()).load(newsDetailBean.getImage()).into(imgTitle);
                 //存入db
                 SQLiteDatabase database = getDbHelper().getWritableDatabase();
                 database.execSQL("replace into webCache(newsId,json) values( " + newsDetailBean.getId() + ",'" + newsDetailBean.getBody() + "')");

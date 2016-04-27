@@ -16,7 +16,7 @@ import com.gyz.androiddevelope.R;
 import com.gyz.androiddevelope.base.BaseActivity;
 import com.gyz.androiddevelope.base.BaseFragment;
 import com.gyz.androiddevelope.fragment.TestFragment;
-import com.gyz.androiddevelope.fragment.Tngou.TngouPicFragment;
+import com.gyz.androiddevelope.fragment.Tngou.TngouFragment;
 import com.gyz.androiddevelope.fragment.zhihu.ZhiHuFragment;
 
 import butterknife.Bind;
@@ -134,7 +134,7 @@ public class HomeActivity extends BaseActivity
         } else if (id == R.id.nav_picshow) {
 
             if (tngouPicFragment ==null)
-                tngouPicFragment = new TngouPicFragment();
+                tngouPicFragment = new TngouFragment();
             switchFragment(tngouPicFragment);
             toolbar.setTitle(getString(R.string.title_tngou));
 

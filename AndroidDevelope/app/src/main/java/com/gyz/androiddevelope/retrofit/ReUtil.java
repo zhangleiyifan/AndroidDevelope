@@ -4,6 +4,7 @@ import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.gyz.androiddevelope.engine.AppContants;
 
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.GsonConverterFactory;
 import retrofit2.Retrofit;
 import retrofit2.RxJavaCallAdapterFactory;
@@ -21,11 +22,15 @@ public class ReUtil {
             baseUrl = AppContants.BASE_URL_TNGOU;
         }
 
-        LoggingInterceptor loggingInterceptor = new LoggingInterceptor();
+//        LoggingInterceptor loggingInterceptor = new LoggingInterceptor();
+//        OkHttpClient okHttpClient =  new OkHttpClient.Builder()
+//                .addNetworkInterceptor(new StethoInterceptor()).addInterceptor(loggingInterceptor)
+//                .build();
+//        Log 打印
+        HttpLoggingInterceptor loggingInterceptor1 = new HttpLoggingInterceptor();
+        loggingInterceptor1.setLevel(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient okHttpClient = new OkHttpClient.Builder().addNetworkInterceptor(new StethoInterceptor()).addInterceptor(loggingInterceptor1).build();
 
-        OkHttpClient okHttpClient =  new OkHttpClient.Builder()
-                .addNetworkInterceptor(new StethoInterceptor()).addInterceptor(loggingInterceptor)
-                .build();
 
         Retrofit retrofit = new Retrofit.Builder().client(okHttpClient).baseUrl(baseUrl)
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())

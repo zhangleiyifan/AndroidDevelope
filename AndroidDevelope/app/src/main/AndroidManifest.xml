@@ -51,6 +51,9 @@
         <activity
             android:name=".activity.tngou.AlbumDetailActivity"
             />
+        <activity
+            android:name=".activity.SettingsActivity"
+            />
     </application>
 
 </manifest>

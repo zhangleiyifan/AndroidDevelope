@@ -2,7 +2,6 @@ package com.gyz.androiddevelope.adapter;
 
 
 import android.content.Context;
-import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +12,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.gyz.androiddevelope.R;
 import com.gyz.androiddevelope.engine.AppContants;
 import com.gyz.androiddevelope.response_bean.GalleryBean;
+import com.gyz.androiddevelope.util.ImageUtils;
 import com.gyz.androiddevelope.util.ScreenUtils;
 
 /**
@@ -49,7 +49,8 @@ public class TgPicListAdapter extends BaseRecyclerAdapter<GalleryBean> {
 //                .centerCrop()
 //                .tag(new Object())
 //                .into(viewHolder.img);
-        viewHolder.img.setImageURI(Uri.parse(AppContants.TG_IMAGE_HEAD + data.getImg()));
+        ImageUtils.loadImageByFresco(context,viewHolder.img,AppContants.TG_IMAGE_HEAD + data.getImg());
+//        viewHolder.img.setImageURI(Uri.parse(AppContants.TG_IMAGE_HEAD + data.getImg()));
         viewHolder.txtCount.setText(String.valueOf(data.getSize()));
     }
 

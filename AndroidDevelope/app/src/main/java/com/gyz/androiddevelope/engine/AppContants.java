@@ -12,6 +12,8 @@ public class AppContants {
 
     public static final String FIRST_LOAD="first_load";
 
+    public static final String SP_LOAD_PIC_BY_MOBILE_NET="load_pic_with_mobile_network";
+
     public static final boolean isDebug = true;
 
     public static final String BUGLY_APP_ID = "900021343";
