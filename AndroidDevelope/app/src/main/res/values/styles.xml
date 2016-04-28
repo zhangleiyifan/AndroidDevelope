@@ -14,6 +14,11 @@
         <item name="android:windowIsTranslucent">true</item>
     </style>
 
+    <!-- 单独为MainActivity设置不透明，解决SwipeBackLayout返回时显示桌面而不是上一层的Bug -->
+    <style name="AppThemeNotTranslucent" parent="AppTheme.NoActionBar">
+        <item name="android:windowIsTranslucent">false</item>
+    </style>
+
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />

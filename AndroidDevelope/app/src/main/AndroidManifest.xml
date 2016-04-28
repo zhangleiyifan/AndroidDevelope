@@ -43,6 +43,7 @@
         <activity
             android:name=".activity.HomeActivity"
             android:label="@string/title_home_page"
+            android:theme="@style/AppThemeNotTranslucent"
             android:launchMode="singleTask" />
         <activity android:name=".activity.NewsDetailActivity" />
         <activity

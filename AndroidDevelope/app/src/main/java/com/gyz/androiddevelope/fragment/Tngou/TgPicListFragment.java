@@ -132,7 +132,7 @@ public class TgPicListFragment extends BaseFragment implements BaseRecyclerAdapt
 
             @Override
             public void onError(Throwable e) {
-                super.onError(e);
+//                super.onError(e);
                 //   从数据库中获取缓存json
                 SQLiteDatabase database =BaseApplication.getInstantce().getTngouListDbHelper().getReadableDatabase();
                 Cursor cursor = database.rawQuery("select * from tngouList where id = " + id, null);
