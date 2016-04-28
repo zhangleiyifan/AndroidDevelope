@@ -2,6 +2,7 @@ package com.gyz.androiddevelope.util;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.os.Build;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import com.gyz.androiddevelope.R;
+
+import java.lang.reflect.Field;
 
 /**
  * @author: guoyazhou
@@ -23,7 +26,7 @@ public class ToolBarHelper {
     private View mUserView;
     /*toolbar*/
     private Toolbar mToolBar;
-     /*视图构造器*/
+    /*视图构造器*/
     private LayoutInflater mInflater;
     /*
     * 两个属性
@@ -84,4 +87,31 @@ public class ToolBarHelper {
         return mToolBar;
     }
 
+
+    public static int getTitleHeight(Context context) {
+        int titleHeight = 0;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            titleHeight = getStatusBarHeight(context);
+        }
+
+        return titleHeight;
+    }
+
+    public static int getStatusBarHeight(Context context) {
+        Class<?> c = null;
+        Object obj = null;
+        Field field = null;
+        int x = 0, statusBarHeight = 0;
+        try {
+            c = Class.forName("com.android.internal.R$dimen");
+            obj = c.newInstance();
+            field = c.getField("status_bar_height");
+            x = Integer.parseInt(field.get(obj).toString());
+            statusBarHeight = context.getResources().getDimensionPixelSize(x);
+        } catch (Exception e1) {
+            e1.printStackTrace();
+        }
+        return statusBarHeight;
+    }
 }

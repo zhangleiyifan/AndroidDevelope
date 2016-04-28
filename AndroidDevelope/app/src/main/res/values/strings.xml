@@ -25,4 +25,5 @@
     <string name="pic">美图欣赏</string>
     <string name="title_tngou">美图欣赏</string>
     <string name="title_zhihu">知乎日报</string>
+    <string name="add_pic">移动网络下加载图片</string>
 </resources>

@@ -18,6 +18,7 @@ import com.gyz.androiddevelope.R;
 import com.gyz.androiddevelope.activity.NewsDetailActivity;
 import com.gyz.androiddevelope.adapter.BaseRecyclerAdapter;
 import com.gyz.androiddevelope.adapter.HomeNewsAdapter;
+import com.gyz.androiddevelope.base.BaseApplication;
 import com.gyz.androiddevelope.base.BaseFragment;
 import com.gyz.androiddevelope.engine.AppContants;
 import com.gyz.androiddevelope.response_bean.BeforeNewsBean;
@@ -58,6 +59,8 @@ public class ZhiHuFragment extends BaseFragment implements SwipeRefreshLayout.On
     LinearLayoutManager mLayoutManager;
     private String date;
     private boolean isLoadMore;
+
+    SQLiteDatabase database;
 
 
     @Nullable
@@ -152,9 +155,8 @@ public class ZhiHuFragment extends BaseFragment implements SwipeRefreshLayout.On
 
     @Override
     public String getTitle() {
-            return getResources().getString(R.string.title_zhihu);
+        return getResources().getString(R.string.title_zhihu);
     }
-
 
     @Override
     public void onRefresh() {
@@ -189,7 +191,7 @@ public class ZhiHuFragment extends BaseFragment implements SwipeRefreshLayout.On
             public void onError(Throwable e) {
                 e.printStackTrace();
 //                从数据库中获取缓存json
-                SQLiteDatabase database = getCacheDbHelper().getReadableDatabase();
+                SQLiteDatabase database = BaseApplication.getInstantce().getCacheDbHelper().getReadableDatabase();
                 Cursor cursor = database.rawQuery("select * from CacheList where date = " + AppContants.LATEST_COLUMN, null);
                 if (cursor.moveToFirst()) {
 
@@ -203,11 +205,11 @@ public class ZhiHuFragment extends BaseFragment implements SwipeRefreshLayout.On
 
             @Override
             public void onNext(LatestNewsBean latestNewsBean) {
-                L.e(TAG,"latestNewsBean============"+latestNewsBean);
                 afterPullRefresh(latestNewsBean);
                 //存入数据库
-                SQLiteDatabase database = getCacheDbHelper().getWritableDatabase();
+                database = BaseApplication.getInstantce().getCacheDbHelper().getWritableDatabase();
                 L.e(TAG, "sql=====" + "replace into CacheList(date,json) values (" + AppContants.LATEST_COLUMN + ",'" + getGson().toJson(latestNewsBean, LatestNewsBean.class) + "')");
+
                 database.execSQL("replace into CacheList(date,json) values (" + AppContants.LATEST_COLUMN + ",'" + getGson().toJson(latestNewsBean, LatestNewsBean.class) + "')");
             }
         });
@@ -264,5 +266,6 @@ public class ZhiHuFragment extends BaseFragment implements SwipeRefreshLayout.On
         super.onDestroyView();
         ButterKnife.unbind(this);
     }
+
 
 }

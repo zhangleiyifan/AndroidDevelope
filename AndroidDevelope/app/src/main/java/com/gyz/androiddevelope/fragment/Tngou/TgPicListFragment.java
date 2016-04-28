@@ -1,5 +1,7 @@
 package com.gyz.androiddevelope.fragment.Tngou;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
@@ -13,7 +15,9 @@ import com.gyz.androiddevelope.R;
 import com.gyz.androiddevelope.activity.tngou.AlbumDetailActivity;
 import com.gyz.androiddevelope.adapter.BaseRecyclerAdapter;
 import com.gyz.androiddevelope.adapter.TgPicListAdapter;
+import com.gyz.androiddevelope.base.BaseApplication;
 import com.gyz.androiddevelope.base.BaseFragment;
+import com.gyz.androiddevelope.engine.AppContants;
 import com.gyz.androiddevelope.response_bean.GalleryBean;
 import com.gyz.androiddevelope.response_bean.GalleryRespBean;
 import com.gyz.androiddevelope.retrofit.MySubscriber;
@@ -127,9 +131,38 @@ public class TgPicListFragment extends BaseFragment implements BaseRecyclerAdapt
             }
 
             @Override
+            public void onError(Throwable e) {
+                super.onError(e);
+                //   从数据库中获取缓存json
+                SQLiteDatabase database =BaseApplication.getInstantce().getTngouListDbHelper().getReadableDatabase();
+                Cursor cursor = database.rawQuery("select * from tngouList where id = " + id, null);
+                L.e(TAG," 从数据库中获取缓存json    id="+id);
+                if (cursor.moveToFirst()) {
+
+                    String json = cursor.getString(cursor.getColumnIndex("json"));
+                    GalleryRespBean o=getGson().fromJson(json, GalleryRespBean.class);
+                    L.e(TAG,"  缓存数据为="+json);
+                    mSimpleRecyclerAdapter.addDatas(o.getTngouList());
+                    mSimpleRecyclerAdapter.notifyDataSetChanged();
+
+                }
+                cursor.close();
+                database.close();
+                dlg.hide();
+            }
+
+            @Override
             public void onNext(GalleryRespBean o) {
                 mSimpleRecyclerAdapter.addDatas(o.getTngouList());
                 mSimpleRecyclerAdapter.notifyDataSetChanged();
+
+//                存入数据库  insert into sc(sno,cno) values('95020','1')
+                SQLiteDatabase database = BaseApplication.getInstantce().getTngouListDbHelper().getWritableDatabase();
+
+                database.execSQL("replace into tngouList(date,typeid,json)  values( "+ AppContants.LATEST_COLUMN +","+id+",'"+getGson().toJson(o ,GalleryRespBean.class)+"')");
+                L.e(TAG,"++++++"+"replace into tngouList(date,typeid,json)  values( "+ AppContants.LATEST_COLUMN +","+id+",'"+getGson().toJson(o ,GalleryRespBean.class)+"')");
+                database.close();
+
             }
 
             @Override

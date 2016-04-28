@@ -43,7 +43,6 @@ public class HomeActivity extends BaseActivity
     protected void initViews(Bundle savedInstanceState) {
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
-
         getSwipeBackLayout().setEnableGesture(false);
         setSupportActionBar(toolbar);
 
@@ -102,13 +101,12 @@ public class HomeActivity extends BaseActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+                SettingsActivity.startActivity();
             return true;
         }
 

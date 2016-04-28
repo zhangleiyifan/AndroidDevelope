@@ -43,6 +43,9 @@ public class TngouPicViewPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
+        if (position>=titleList.size()){
+            return titleList.get(titleList.size()-1);
+        }
         return titleList.get(position);
     }
 

@@ -5,9 +5,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.gyz.androiddevelope.db.WebCacheDbHelper;
-import com.gyz.androiddevelope.engine.AppContants;
-
 import me.imid.swipebacklayout.lib.SwipeBackLayout;
 import me.imid.swipebacklayout.lib.Utils;
 import me.imid.swipebacklayout.lib.app.SwipeBackActivityBase;
@@ -18,7 +15,6 @@ public abstract class BaseActivity extends AppCompatActivity implements SwipeBac
 
     public static final String TAG = "BaseActivity";
     protected ProgressDialog dlg;
-    private WebCacheDbHelper dbHelper;
     private SwipeBackActivityHelper mHelper;
 
     @Override
@@ -30,17 +26,17 @@ public abstract class BaseActivity extends AppCompatActivity implements SwipeBac
 //        getWindow().setExitTransition(new Explode());
 //        getWindow().setEnterTransition(new Explode());
 
+
         super.onCreate(savedInstanceState);
         mHelper = new SwipeBackActivityHelper(this);
         mHelper.onActivityCreate();
-        dbHelper = new WebCacheDbHelper(getApplicationContext(), AppContants.DATABASE_VERSION);
         initBaseView();
         initVariables();
         initViews(savedInstanceState);
         loadData();
     }
 
-    private  void initBaseView(){
+    private void initBaseView() {
         dlg = new ProgressDialog(this);
     }
 
@@ -61,9 +57,6 @@ public abstract class BaseActivity extends AppCompatActivity implements SwipeBac
 
 
     //==================================================
-    public WebCacheDbHelper getDbHelper() {
-        return dbHelper;
-    }
 
 //======SwipeBack==begin===========================
 
@@ -103,7 +96,7 @@ public abstract class BaseActivity extends AppCompatActivity implements SwipeBac
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (dlg !=null)
+        if (dlg != null)
             dlg.dismiss();
     }
 }

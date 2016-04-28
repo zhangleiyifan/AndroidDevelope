@@ -49,9 +49,17 @@ public class ImageUtils {
                 simpleDraweeView.setImageResource(R.mipmap.prograss);
             }
         }
+
     }
 
 
+    /**
+     * CardItemView 图片展示
+     * @param context
+     * @param simpleDraweeView
+     * @param picUrl
+     * @param retryEnable
+     */
     public static void setControllerByFresco(Context context, SimpleDraweeView simpleDraweeView, String picUrl, boolean retryEnable) {
 
         boolean boo = (boolean) SPUtils.get(context, AppContants.SP_LOAD_PIC_BY_MOBILE_NET, false);

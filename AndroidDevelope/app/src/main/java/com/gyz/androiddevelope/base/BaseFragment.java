@@ -7,8 +7,6 @@ import android.support.v4.app.Fragment;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.gyz.androiddevelope.db.CacheDbHelper;
-import com.gyz.androiddevelope.engine.AppContants;
 
 /**
  * @author: guoyazhou
@@ -16,7 +14,6 @@ import com.gyz.androiddevelope.engine.AppContants;
  */
 public abstract class BaseFragment extends Fragment {
     private static final String TAG = "BaseFragment";
-    private CacheDbHelper cacheDbHelper;
     public Context context;
     private Gson gson;
     protected ProgressDialog dlg;
@@ -30,7 +27,6 @@ public abstract class BaseFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         context= getActivity();
-        cacheDbHelper = new CacheDbHelper(context, AppContants.DATABASE_VERSION);
         gson = new GsonBuilder().create();
 
         dlg = new ProgressDialog(context);
@@ -49,10 +45,6 @@ public abstract class BaseFragment extends Fragment {
     public abstract  void  initData();
 
     public abstract String getTitle();
-
-    public CacheDbHelper getCacheDbHelper(){
-        return cacheDbHelper;
-    }
 
     public Gson getGson(){
         return gson;

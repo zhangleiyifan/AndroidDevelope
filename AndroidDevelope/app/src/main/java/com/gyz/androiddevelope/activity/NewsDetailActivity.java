@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.gyz.androiddevelope.R;
 import com.gyz.androiddevelope.base.BaseActivity;
+import com.gyz.androiddevelope.base.BaseApplication;
 import com.gyz.androiddevelope.response_bean.NewsDetailBean;
 import com.gyz.androiddevelope.response_bean.StoryExtraBean;
 import com.gyz.androiddevelope.retrofit.MySubscriber;
@@ -131,7 +132,7 @@ public class NewsDetailActivity extends BaseActivity implements Toolbar.OnMenuIt
             public void onError(Throwable e) {
                 e.printStackTrace();
                 //从数据库取出数据
-                SQLiteDatabase database = getDbHelper().getReadableDatabase();
+                SQLiteDatabase database = BaseApplication.getInstantce().getWebCacheDbHelper().getReadableDatabase();
                 Cursor cursor = database.rawQuery("select * from webCache where newsId = " + newsID, null);
                 if (cursor.moveToFirst()) {
                     initWebContent(cursor.getString(cursor.getColumnIndex("newsId")));
@@ -148,7 +149,7 @@ public class NewsDetailActivity extends BaseActivity implements Toolbar.OnMenuIt
                 ImageUtils.loadImageByPicasso(getApplicationContext(),newsDetailBean.getImage(),imgTitle);
 //                Picasso.with(getApplicationContext()).load(newsDetailBean.getImage()).into(imgTitle);
                 //存入db
-                SQLiteDatabase database = getDbHelper().getWritableDatabase();
+                SQLiteDatabase database = BaseApplication.getInstantce().getWebCacheDbHelper().getWritableDatabase();
                 database.execSQL("replace into webCache(newsId,json) values( " + newsDetailBean.getId() + ",'" + newsDetailBean.getBody() + "')");
                 database.close();
 

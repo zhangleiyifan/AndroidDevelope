@@ -101,7 +101,7 @@ public class AlbumDetailActivity extends BaseActivity {
 
         for (AlbumDetailListBean.Picture picture: list){
 
-            dataList.add(new CardDataItem(  AppContants.TG_IMAGE_HEAD+picture.getSrc()+"_720x480"));
+            dataList.add(new CardDataItem(  AppContants.TG_IMAGE_HEAD+picture.getSrc()));
         }
         slidePanel.fillData(dataList);
     }
