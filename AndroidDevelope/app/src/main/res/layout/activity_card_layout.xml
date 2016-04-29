@@ -4,8 +4,8 @@
     android:id="@+id/image_slide_panel"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:clipToPadding="false"
     android:background="@color/color_ef5350"
+    android:clipToPadding="false"
     android:paddingTop="70dp"
     card:yOffsetStep="-28dp">
 
@@ -38,10 +38,17 @@
     <LinearLayout
         android:id="@+id/card_bottom_layout"
         android:layout_width="fill_parent"
-        android:layout_height="180dp"
+        android:layout_height="80dp"
         android:background="#f7f7f7"
         android:gravity="center"
-        android:orientation="horizontal"
-        android:visibility="gone" />
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/txtCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dp_12" />
+
+    </LinearLayout>
 
 </com.gyz.androiddevelope.view.cardslidepanel.CardSlidePanel>

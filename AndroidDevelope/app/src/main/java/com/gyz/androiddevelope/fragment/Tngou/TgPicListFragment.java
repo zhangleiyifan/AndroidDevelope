@@ -17,7 +17,6 @@ import com.gyz.androiddevelope.adapter.BaseRecyclerAdapter;
 import com.gyz.androiddevelope.adapter.TgPicListAdapter;
 import com.gyz.androiddevelope.base.BaseApplication;
 import com.gyz.androiddevelope.base.BaseFragment;
-import com.gyz.androiddevelope.engine.AppContants;
 import com.gyz.androiddevelope.response_bean.GalleryBean;
 import com.gyz.androiddevelope.response_bean.GalleryRespBean;
 import com.gyz.androiddevelope.retrofit.MySubscriber;
@@ -135,7 +134,7 @@ public class TgPicListFragment extends BaseFragment implements BaseRecyclerAdapt
 //                super.onError(e);
                 //   从数据库中获取缓存json
                 SQLiteDatabase database =BaseApplication.getInstantce().getTngouListDbHelper().getReadableDatabase();
-                Cursor cursor = database.rawQuery("select * from tngouList where id = " + id, null);
+                Cursor cursor = database.rawQuery("select * from tngouList where typeid = " + id, null);
                 L.e(TAG," 从数据库中获取缓存json    id="+id);
                 if (cursor.moveToFirst()) {
 
@@ -159,8 +158,8 @@ public class TgPicListFragment extends BaseFragment implements BaseRecyclerAdapt
 //                存入数据库  insert into sc(sno,cno) values('95020','1')
                 SQLiteDatabase database = BaseApplication.getInstantce().getTngouListDbHelper().getWritableDatabase();
 
-                database.execSQL("replace into tngouList(date,typeid,json)  values( "+ AppContants.LATEST_COLUMN +","+id+",'"+getGson().toJson(o ,GalleryRespBean.class)+"')");
-                L.e(TAG,"++++++"+"replace into tngouList(date,typeid,json)  values( "+ AppContants.LATEST_COLUMN +","+id+",'"+getGson().toJson(o ,GalleryRespBean.class)+"')");
+                database.execSQL("replace into tngouList( typeid,json)  values( "+id+",'"+getGson().toJson(o ,GalleryRespBean.class)+"')");
+                L.e(TAG,"++++++"+"replace into tngouList( typeid,json)  values( "+id+",'"+getGson().toJson(o ,GalleryRespBean.class)+"')");
                 database.close();
 
             }

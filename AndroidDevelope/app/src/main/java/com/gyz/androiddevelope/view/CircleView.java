@@ -9,6 +9,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 /**
+ * 变色的弧度
  * @author: guoyazhou
  * @date: 2016-02-03 11:48
  */

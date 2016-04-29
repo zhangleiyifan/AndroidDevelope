@@ -40,15 +40,15 @@ public class ImageUtils {
 
         boolean boo = (boolean) SPUtils.get(context, AppContants.SP_LOAD_PIC_BY_MOBILE_NET, false);
 
-        if (boo) {
+//        if (boo) {
             simpleDraweeView.setImageURI(Uri.parse(picUrl));
-        } else {
-            if (NetworkUtils.isWifi(context)) {
-                simpleDraweeView.setImageURI(Uri.parse(picUrl));
-            } else {
-                simpleDraweeView.setImageResource(R.mipmap.prograss);
-            }
-        }
+//        } else {
+//            if (NetworkUtils.isWifi(context)) {
+//                simpleDraweeView.setImageURI(Uri.parse(picUrl));
+//            } else {
+//                simpleDraweeView.setImageResource(R.mipmap.prograss);
+//            }
+//        }
 
     }
 

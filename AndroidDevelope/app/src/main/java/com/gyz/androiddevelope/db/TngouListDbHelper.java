@@ -23,7 +23,7 @@ public class TngouListDbHelper extends SQLiteOpenHelper {
         L.i(TAG,"create table tngouListDbHelper_____________________________");
         db.execSQL("create table if not exists tngouList " +
                 "(id INTEGER primary key autoincrement," +
-                "date INTEGER unique," +
+
                 "typeid INTEGER ,"+
                 "json text)");
     }

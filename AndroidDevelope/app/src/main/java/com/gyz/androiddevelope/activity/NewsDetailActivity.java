@@ -184,7 +184,7 @@ public class NewsDetailActivity extends BaseActivity implements Toolbar.OnMenuIt
         String msg = "";
         switch (view.getId()) {
             case R.id.imgShare:
-                msg += "Click share   啊啊啊啊啊";
+                msg += "Click share ";
                 SettingsActivity.startActivity();
                 break;
 

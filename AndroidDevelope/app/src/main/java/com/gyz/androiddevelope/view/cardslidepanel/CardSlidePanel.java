@@ -7,6 +7,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.gyz.androiddevelope.R;
 
@@ -58,6 +59,8 @@ public class CardSlidePanel extends ViewGroup {
     private List<CardDataItem> dataList; // 存储的数据链表
     private int isShowing = 0; // 当前正在显示的小项
 
+    private TextView txtCount;
+
     public CardSlidePanel(Context context) {
         this(context, null);
     }
@@ -100,6 +103,8 @@ public class CardSlidePanel extends ViewGroup {
     }
 
     private void initBottomLayout() {
+//    TODO
+
     }
 
     /**

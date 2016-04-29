@@ -10,7 +10,6 @@ import com.gyz.androiddevelope.db.TngouDbHelper;
 import com.gyz.androiddevelope.db.TngouListDbHelper;
 import com.gyz.androiddevelope.db.WebCacheDbHelper;
 import com.gyz.androiddevelope.engine.AppContants;
-import com.gyz.androiddevelope.util.ConfigConstants;
 import com.tencent.bugly.crashreport.CrashReport;
 
 /**
@@ -31,8 +30,8 @@ public class BaseApplication extends Application {
         super.onCreate();
         instance = this;
         Stetho.initializeWithDefaults(this);
-        Fresco.initialize(this, ConfigConstants.getImagePipelineConfig(this));
-
+//        Fresco.initialize(this, ConfigConstants.getImagePipelineConfig(this));
+        Fresco.initialize(this);
         CrashReport.initCrashReport(getApplicationContext(), AppContants.BUGLY_APP_ID, false);
         CacheManager.getInstance().initCacheDir();
     }
