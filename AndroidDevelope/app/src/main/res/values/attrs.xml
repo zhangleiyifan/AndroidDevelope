@@ -58,4 +58,8 @@
         <attr name="shadowDrawable" format="reference" />
         <attr name="shadowVisible" format="boolean" />
     </declare-styleable>
+
+
+    //===应用主题切换====================================
+
 </resources>
