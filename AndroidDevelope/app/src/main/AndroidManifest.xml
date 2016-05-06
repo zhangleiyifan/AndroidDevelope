@@ -2,14 +2,31 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.gyz.androiddevelope">
 
-    <uses-permission android:name="android.permission.INTERNET" />
     <!-- 往sdcard中写入数据的权限 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <!-- 在sdcard中创建/删除文件的权限 -->
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- ###################声明SDK使用的相关权限###################### -->
+    <!-- 检测网络状态 -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- 获取mac地址作为用户的备用唯一标识 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- 获取用户手机的IMEI，用来唯一的标识用户 -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!-- 允许应用程序联网，以便向我们的服务器端发送数据 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- QQ、QQ空间所需权限 -->
+    <uses-permission android:name="android.permission.GET_TASKS" />
+
+    <uses-permission android:name="android.permission.READ_LOGS" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.SET_DEBUG_APP" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
 
     <application
         android:name=".base.BaseApplication"
@@ -43,18 +60,70 @@
         <activity
             android:name=".activity.HomeActivity"
             android:label="@string/title_home_page"
-            android:theme="@style/AppThemeNotTranslucent"
-            android:launchMode="singleTask" />
+            android:launchMode="singleTask"
+            android:theme="@style/AppThemeNotTranslucent" />
         <activity android:name=".activity.NewsDetailActivity" />
         <activity
             android:name=".activity.noactionbar.NoBoringActionBarActivity"
             android:theme="@style/TransparentTheme" />
+        <activity android:name=".activity.tngou.AlbumDetailActivity" />
+        <activity android:name=".activity.SettingsActivity" />
+        <activity android:name=".activity.custom.MountainViewActivity" />
+        <activity android:name=".activity.custom.FlyViewActivity" />
+        <!-- ################友盟###注册SDK使用的Activity###################### -->
         <activity
-            android:name=".activity.tngou.AlbumDetailActivity"
-            />
+            android:name="com.umeng.socialize.editorpage.ShareActivity"
+            android:excludeFromRecents="true"
+            android:theme="@style/Theme.UMDefault" />
+        <!--微信平台-->
         <activity
-            android:name=".activity.SettingsActivity"
-            />
+            android:name=".wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <!--新浪微博-->
+        <activity
+            android:name=".WBShareActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.sina.weibo.sdk.component.WeiboSdkBrowser"
+            android:configChanges="keyboardHidden|orientation"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize"></activity>
+
+        <service
+            android:name="com.sina.weibo.sdk.net.DownloadService"
+            android:exported="false"></service>
+        <!--QQ、Qzone-->
+        <activity
+            android:name="com.tencent.tauth.AuthActivity"
+            android:launchMode="singleTask"
+            android:noHistory="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="tencent100424468" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.tencent.connect.common.AssistActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="572abe00e0f55a35d900051c"></meta-data>
     </application>
 
 </manifest>

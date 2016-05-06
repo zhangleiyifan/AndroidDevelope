@@ -89,6 +89,25 @@
             android:layout_below="@+id/btnHealthList"
             android:text="Home" />
 
+
+        <Button
+            android:id="@+id/btnM"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/btnHome"
+            android:layout_below="@+id/btnHealthList"
+            android:text="三角" />
+
+        <Button
+            android:id="@+id/btnFly"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/btnM"
+            android:layout_below="@+id/btnHealthList"
+            android:text="指点飞行" />
+
+
+
         <Button
             android:id="@+id/btnWave"
             android:layout_width="wrap_content"

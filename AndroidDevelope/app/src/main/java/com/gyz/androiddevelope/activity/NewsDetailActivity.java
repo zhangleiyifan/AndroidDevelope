@@ -24,9 +24,20 @@ import com.gyz.androiddevelope.base.BaseApplication;
 import com.gyz.androiddevelope.response_bean.NewsDetailBean;
 import com.gyz.androiddevelope.response_bean.StoryExtraBean;
 import com.gyz.androiddevelope.retrofit.MySubscriber;
-import com.gyz.androiddevelope.util.ImageUtils;
 import com.gyz.androiddevelope.retrofit.ReUtil;
 import com.gyz.androiddevelope.retrofit.RxUtil;
+import com.gyz.androiddevelope.util.ImageUtils;
+import com.gyz.androiddevelope.util.L;
+import com.umeng.socialize.ShareAction;
+import com.umeng.socialize.UMAuthListener;
+import com.umeng.socialize.UMShareAPI;
+import com.umeng.socialize.UMShareListener;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.media.UMImage;
+import com.umeng.socialize.media.UMVideo;
+import com.umeng.socialize.media.UMusic;
+
+import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -69,6 +80,8 @@ public class NewsDetailActivity extends BaseActivity implements Toolbar.OnMenuIt
     @Bind(R.id.txtZanCount)
     TextView txtZanCount;
     private int newsID;
+
+    NewsDetailBean detailBean;
 
     public static void startActivity(Context context, int id) {
         context.startActivity(new Intent(context, NewsDetailActivity.class).putExtra(NEWS_ID, id));
@@ -145,6 +158,7 @@ public class NewsDetailActivity extends BaseActivity implements Toolbar.OnMenuIt
             public void onNext(NewsDetailBean newsDetailBean) {
 
                 txtTitle.setText(newsDetailBean.getTitle());
+                detailBean = newsDetailBean;
                 initWebContent(newsDetailBean.getBody());
                 ImageUtils.loadImageByPicasso(getApplicationContext(),newsDetailBean.getImage(),imgTitle);
 //                Picasso.with(getApplicationContext()).load(newsDetailBean.getImage()).into(imgTitle);
@@ -185,7 +199,7 @@ public class NewsDetailActivity extends BaseActivity implements Toolbar.OnMenuIt
         switch (view.getId()) {
             case R.id.imgShare:
                 msg += "Click share ";
-                SettingsActivity.startActivity();
+                shareAuth();
                 break;
 
             case R.id.imgComment:
@@ -193,6 +207,9 @@ public class NewsDetailActivity extends BaseActivity implements Toolbar.OnMenuIt
                 break;
 
             case R.id.imgZan:
+                UMShareAPI mShareAPI = UMShareAPI.get(this);
+                SHARE_MEDIA platform = SHARE_MEDIA.SINA;
+                mShareAPI.doOauthVerify(this, platform, umAuthListener);
                 msg += "Click imgZan";
                 break;
 
@@ -202,6 +219,29 @@ public class NewsDetailActivity extends BaseActivity implements Toolbar.OnMenuIt
         }
     }
 
+    private void shareAuth() {
+
+        UMImage image = new UMImage(NewsDetailActivity.this, "http://www.umeng.com/images/pic/social/integrated_3.png");
+        UMusic music = new UMusic("http://music.huoxing.com/upload/20130330/1364651263157_1085.mp3");
+        music.setTitle("This is music title");
+        music.setThumb(new UMImage(NewsDetailActivity.this, "http://www.umeng.com/images/pic/social/chart_1.png"));
+        UMVideo video = new UMVideo("http://video.sina.com.cn/p/sports/cba/v/2013-10-22/144463050817.html");
+        String url =detailBean.getShareUrl();
+
+//        new ShareAction(this).setPlatform(SHARE_MEDIA.SINA).setCallback(umShareListener)
+//                .withText("umeng")
+//                .withMedia(image)
+////                       .withExtra(new UMImage(ShareActivity.this,R.drawable.ic_launcher))
+//                .withTargetUrl("http://dev.umeng.com")
+//                .share();
+
+        new ShareAction(this).setDisplayList(SHARE_MEDIA.SINA,SHARE_MEDIA.QQ,SHARE_MEDIA.QZONE,SHARE_MEDIA.WEIXIN,SHARE_MEDIA.WEIXIN_CIRCLE)
+                .withText("来自友盟分享面板")
+                .withMedia(image)
+                .setCallback(umShareListener)
+                .open();
+    }
+
     @Override
     public boolean onMenuItemClick(MenuItem item) {
         String msg = "";
@@ -209,6 +249,7 @@ public class NewsDetailActivity extends BaseActivity implements Toolbar.OnMenuIt
 
             case R.id.imgShare:
                 msg += "Click share";
+                shareAuth();
                 break;
 
             case R.id.imgComment:
@@ -226,5 +267,47 @@ public class NewsDetailActivity extends BaseActivity implements Toolbar.OnMenuIt
         }
         return false;
     }
+
+
+    /** auth callback interface **/
+    private UMAuthListener umAuthListener = new UMAuthListener() {
+        @Override
+        public void onComplete(SHARE_MEDIA platform, int action,
+                               Map<String, String> data) {
+            Toast.makeText(getApplicationContext(), "Authorize succeed",
+                    Toast.LENGTH_SHORT).show();
+
+        }
+
+        @Override
+        public void onError(SHARE_MEDIA platform, int action, Throwable t) {
+            Toast.makeText(getApplicationContext(), "Authorize fail",
+                    Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onCancel(SHARE_MEDIA platform, int action) {
+            Toast.makeText(getApplicationContext(), "Authorize cancel",
+                    Toast.LENGTH_SHORT).show();
+        }
+    };
+    private UMShareListener umShareListener = new UMShareListener() {
+        @Override
+        public void onResult(SHARE_MEDIA platform) {
+            L.d("plat","platform"+platform);
+            Toast.makeText(NewsDetailActivity.this, platform + " 分享成功啦", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onError(SHARE_MEDIA platform, Throwable t) {
+           t.printStackTrace();
+            Toast.makeText(NewsDetailActivity.this,platform + " 分享失败啦", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onCancel(SHARE_MEDIA platform) {
+            Toast.makeText(NewsDetailActivity.this,platform + " 分享取消了", Toast.LENGTH_SHORT).show();
+        }
+    };
 
 }
