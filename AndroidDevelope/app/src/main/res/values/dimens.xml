@@ -81,4 +81,5 @@
     <dimen name="header_height">250dp</dimen>
     <dimen name="header_logo_size">100dp</dimen>
     <dimen name="dp_70">70dp</dimen>
+    <dimen name="viewpager_margin">25dp</dimen>
 </resources>

@@ -23,6 +23,7 @@ import com.gyz.androiddevelope.activity.custom.CalenderActivity;
 import com.gyz.androiddevelope.activity.custom.FlyViewActivity;
 import com.gyz.androiddevelope.activity.custom.McalendarActivity;
 import com.gyz.androiddevelope.activity.custom.MountainViewActivity;
+import com.gyz.androiddevelope.activity.custom.NearBySearchActivity;
 import com.gyz.androiddevelope.activity.custom.WaveActivity;
 import com.gyz.androiddevelope.activity.noactionbar.NoBoringActionBarActivity;
 import com.gyz.androiddevelope.base.BaseFragment;
@@ -101,11 +102,15 @@ public class TestFragment extends BaseFragment {
         return "test";
     }
 
-    @OnClick({R.id.btnWave,R.id.noToolBar,R.id.btnCalendar,R.id.btnMCalendar,R.id.btnM,R.id.btnFly,
+    @OnClick({R.id.btnWave,R.id.noToolBar,R.id.btnCalendar,R.id.btnMCalendar,R.id.btnM,R.id.btnFly,R.id.btnNearBy,
             R.id.btnHome, R.id.btnOnClick, R.id.btnGo, R.id.btnOkHttp, R.id.btnOkHttp3, R.id.view, R.id.retrofit, R.id.btnHealth, R.id.btnHealthList})
     public void OnClick(View view) {
 
         switch (view.getId()) {
+            case R.id.btnNearBy:
+                startActivity(new Intent(context,NearBySearchActivity.class));
+
+                break;
             case R.id.btnMCalendar:
                 startActivity(new Intent(context,McalendarActivity.class));
                 break;

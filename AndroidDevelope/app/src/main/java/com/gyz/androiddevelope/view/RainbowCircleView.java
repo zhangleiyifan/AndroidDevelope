@@ -13,7 +13,7 @@ import android.view.View;
  * @author: guoyazhou
  * @date: 2016-02-03 11:48
  */
-public class CircleView extends View {
+public class RainbowCircleView extends View {
     private static final String TAG = "CircleView";
 
     private float mMinSize = 1.88f;
@@ -24,15 +24,15 @@ public class CircleView extends View {
 
     private Paint paintLine;
 
-    public CircleView(Context context) {
+    public RainbowCircleView(Context context) {
         this(context, null);
     }
 
-    public CircleView(Context context, AttributeSet attrs) {
+    public RainbowCircleView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public CircleView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public RainbowCircleView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init();
     }
