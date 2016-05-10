@@ -90,6 +90,13 @@
             android:layout_below="@+id/btnHealth"
             android:layout_toRightOf="@+id/btnHealthList"
             android:text="附近的人" />
+        <Button
+            android:id="@+id/btnMatrix"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btnHealth"
+            android:layout_toRightOf="@+id/btnNearBy"
+            android:text="Matrix" />
 
         <Button
             android:id="@+id/btnHome"

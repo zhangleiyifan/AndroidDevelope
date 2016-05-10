@@ -20,6 +20,7 @@ import com.gyz.androiddevelope.activity.HomeActivity;
 import com.gyz.androiddevelope.activity.ShowInfoActivity;
 import com.gyz.androiddevelope.activity.account.LoginActivity;
 import com.gyz.androiddevelope.activity.custom.CalenderActivity;
+import com.gyz.androiddevelope.activity.custom.ConcatMatrixActivity;
 import com.gyz.androiddevelope.activity.custom.FlyViewActivity;
 import com.gyz.androiddevelope.activity.custom.McalendarActivity;
 import com.gyz.androiddevelope.activity.custom.MountainViewActivity;
@@ -102,11 +103,14 @@ public class TestFragment extends BaseFragment {
         return "test";
     }
 
-    @OnClick({R.id.btnWave,R.id.noToolBar,R.id.btnCalendar,R.id.btnMCalendar,R.id.btnM,R.id.btnFly,R.id.btnNearBy,
+    @OnClick({R.id.btnWave,R.id.noToolBar,R.id.btnCalendar,R.id.btnMCalendar,R.id.btnM,R.id.btnFly,R.id.btnNearBy,R.id.btnMatrix,
             R.id.btnHome, R.id.btnOnClick, R.id.btnGo, R.id.btnOkHttp, R.id.btnOkHttp3, R.id.view, R.id.retrofit, R.id.btnHealth, R.id.btnHealthList})
     public void OnClick(View view) {
 
         switch (view.getId()) {
+            case R.id.btnMatrix:
+                startActivity(new Intent(context,ConcatMatrixActivity.class));
+                break;
             case R.id.btnNearBy:
                 startActivity(new Intent(context,NearBySearchActivity.class));
 

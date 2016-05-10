@@ -71,6 +71,7 @@
         <activity android:name=".activity.custom.MountainViewActivity" />
         <activity android:name=".activity.custom.FlyViewActivity" />
         <activity android:name=".activity.custom.NearBySearchActivity" />
+        <activity android:name=".activity.custom.ConcatMatrixActivity" />
 
         <meta-data
             android:name="UMENG_APPKEY"
