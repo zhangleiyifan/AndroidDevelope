@@ -40,8 +40,14 @@
             android:label="@string/title_activity_load">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:scheme="androiddevelope"/>
             </intent-filter>
         </activity>
 
@@ -61,7 +67,9 @@
             android:name=".activity.HomeActivity"
             android:label="@string/title_home_page"
             android:launchMode="singleTask"
-            android:theme="@style/AppThemeNotTranslucent" />
+            android:theme="@style/AppThemeNotTranslucent"  >
+
+            </activity>
         <activity android:name=".activity.NewsDetailActivity" />
         <activity
             android:name=".activity.noactionbar.NoBoringActionBarActivity"

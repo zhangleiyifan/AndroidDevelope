@@ -16,9 +16,11 @@ import com.gyz.androiddevelope.response_bean.LoadImageBean;
 import com.gyz.androiddevelope.retrofit.ReUtil;
 import com.gyz.androiddevelope.retrofit.RxUtil;
 import com.gyz.androiddevelope.util.FileUtil;
+import com.gyz.androiddevelope.util.L;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
+import java.net.URL;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -39,7 +41,25 @@ public class LoadActivity extends BaseActivity {
 
     @Override
     protected void initVariables() {
+        Intent intent = getIntent();
+        if (intent.getExtras()!=null){
+            String data = intent.getDataString();
+             ;
+            L.e(TAG,"DATA===+++++++++++++++++++++++++++"+data+"      getEncodedAuthority="+ intent.getData().getEncodedAuthority()
+            +"    getAuthority="+getIntent().getData().getAuthority()
+                    +"    getEncodedFragment="+getIntent().getData().getEncodedFragment()
+            +"     getEncodedPath="+getIntent().getData().getEncodedPath()+"     getEncodedQuery="+getIntent().getData().getEncodedQuery()
+            +"     getEncodedSchemeSpecificPart="+getIntent().getData().getEncodedSchemeSpecificPart()
+            +"    getEncodedUserInfo="+getIntent().getData().getEncodedUserInfo()+"    getFragment="+getIntent().getData().getFragment()
+            +"    getHost="+getIntent().getData().getHost()+"    getScheme="+getIntent().getData().getScheme());
 
+        }
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
     }
 
     @Override
