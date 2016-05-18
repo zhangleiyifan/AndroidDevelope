@@ -31,6 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/btnOnClick"
             android:text="do sth." />
+
         <Button
             android:id="@+id/btnMCalendar"
             android:layout_width="wrap_content"
@@ -45,7 +46,13 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/btnGo"
             android:text="okHttp2.5" />
-
+        <Button
+            android:id="@+id/btnProgress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/btnOkHttp"
+            android:layout_below="@+id/btnGo"
+            android:text="progressBar" />
         <Button
             android:id="@+id/btnOkHttp3"
             android:layout_width="wrap_content"
@@ -90,6 +97,7 @@
             android:layout_below="@+id/btnHealth"
             android:layout_toRightOf="@+id/btnHealthList"
             android:text="附近的人" />
+
         <Button
             android:id="@+id/btnMatrix"
             android:layout_width="wrap_content"
@@ -110,18 +118,17 @@
             android:id="@+id/btnM"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/btnHome"
             android:layout_below="@+id/btnHealthList"
+            android:layout_toRightOf="@+id/btnHome"
             android:text="三角" />
 
         <Button
             android:id="@+id/btnFly"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/btnM"
             android:layout_below="@+id/btnHealthList"
+            android:layout_toRightOf="@+id/btnM"
             android:text="指点飞行" />
-
 
 
         <Button
@@ -136,42 +143,41 @@
             android:id="@+id/noToolBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-          android:layout_toRightOf="@+id/btnWave"
             android:layout_below="@+id/btnHome"
+            android:layout_toRightOf="@+id/btnWave"
             android:text="noToolBar" />
 
         <Button
-            android:layout_width="wrap_content"
             android:id="@+id/btnCalendar"
-            android:layout_toRightOf="@+id/noToolBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/btnHome"
-            android:text="calender"
-            android:layout_height="wrap_content" />
+            android:layout_toRightOf="@+id/noToolBar"
+            android:text="calender" />
 
         <com.gyz.androiddevelope.view.PasswordEditText
             android:layout_width="250dp"
             android:layout_height="@dimen/dp_40"
-            android:layout_toRightOf="@+id/view"
             android:layout_alignBaseline="@+id/view"
+            android:layout_toRightOf="@+id/view"
+            android:inputType="number"
             pwd:boundColor="@color/color_4c4c4c"
             pwd:textColor="@color/color_f98435"
-            android:inputType="number"
             pwd:textLength="6"
-            pwd:textSize="20" />
+            pwd:textSize="20sp" />
 
         <com.gyz.androiddevelope.view.PwdView
             android:id="@+id/pwdView"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_below="@+id/retrofit" />
-        <TextView
+
+        <Button
             android:layout_width="wrap_content"
-            android:text="ABCDE人"
+            android:id="@+id/btnMyListview"
+            android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/btnOnClick"
-            android:includeFontPadding="true"
-            android:textSize="@dimen/sp_25"
-            android:background="@color/color_f98435"
-            android:layout_height="wrap_content" />
+            android:text="myListview" />
 
     </RelativeLayout>
 </ScrollView>

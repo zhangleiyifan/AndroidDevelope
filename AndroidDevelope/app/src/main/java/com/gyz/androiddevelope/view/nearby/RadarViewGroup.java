@@ -183,7 +183,7 @@ public class RadarViewGroup extends ViewGroup implements RadarView.IScanningList
             if (mDatas.get(i).getSex()) {
                 circleView.setPaintColor(getResources().getColor(R.color.color_ef5350));
             } else {
-                circleView.setPaintColor(getResources().getColor(R.color.main));
+                circleView.setPaintColor(getResources().getColor(R.color.color_63C3FF));
             }
             //根据远近距离的不同计算得到的应该占的半径比例 0.312-0.832
             circleView.setProportion((mDatas.get(i).getDistance() / max + 0.6f) * 0.52f);

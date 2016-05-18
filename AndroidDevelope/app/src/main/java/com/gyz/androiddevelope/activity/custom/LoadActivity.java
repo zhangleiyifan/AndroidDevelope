@@ -44,14 +44,13 @@ public class LoadActivity extends BaseActivity {
         Intent intent = getIntent();
         if (intent.getExtras()!=null){
             String data = intent.getDataString();
-             ;
-            L.e(TAG,"DATA===+++++++++++++++++++++++++++"+data+"      getEncodedAuthority="+ intent.getData().getEncodedAuthority()
-            +"    getAuthority="+getIntent().getData().getAuthority()
-                    +"    getEncodedFragment="+getIntent().getData().getEncodedFragment()
-            +"     getEncodedPath="+getIntent().getData().getEncodedPath()+"     getEncodedQuery="+getIntent().getData().getEncodedQuery()
-            +"     getEncodedSchemeSpecificPart="+getIntent().getData().getEncodedSchemeSpecificPart()
-            +"    getEncodedUserInfo="+getIntent().getData().getEncodedUserInfo()+"    getFragment="+getIntent().getData().getFragment()
-            +"    getHost="+getIntent().getData().getHost()+"    getScheme="+getIntent().getData().getScheme());
+//            L.e(TAG,"DATA===+++++++++++++++++++++++++++"+data+"      getEncodedAuthority="+ intent.getData().getEncodedAuthority()
+//            +"    getAuthority="+getIntent().getData().getAuthority()
+//                    +"    getEncodedFragment="+getIntent().getData().getEncodedFragment()
+//            +"     getEncodedPath="+getIntent().getData().getEncodedPath()+"     getEncodedQuery="+getIntent().getData().getEncodedQuery()
+//            +"     getEncodedSchemeSpecificPart="+getIntent().getData().getEncodedSchemeSpecificPart()
+//            +"    getEncodedUserInfo="+getIntent().getData().getEncodedUserInfo()+"    getFragment="+getIntent().getData().getFragment()
+//            +"    getHost="+getIntent().getData().getHost()+"    getScheme="+getIntent().getData().getScheme());
 
         }
     }

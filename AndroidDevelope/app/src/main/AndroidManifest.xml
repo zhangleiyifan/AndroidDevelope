@@ -79,6 +79,8 @@
         <activity android:name=".activity.custom.MountainViewActivity" />
         <activity android:name=".activity.custom.FlyViewActivity" />
         <activity android:name=".activity.custom.NearBySearchActivity" />
+        <activity android:name=".activity.custom.MyListViewActivity" />
+        <activity android:name=".activity.custom.MyProgressBarActivity" />
         <activity android:name=".activity.custom.ConcatMatrixActivity" />
 
         <meta-data

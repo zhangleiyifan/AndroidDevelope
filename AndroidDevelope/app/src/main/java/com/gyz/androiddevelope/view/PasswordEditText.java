@@ -39,7 +39,7 @@ public class PasswordEditText extends EditText {
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.PasswordEditText);
         txtLength = typedArray.getInteger(R.styleable.PasswordEditText_textLength,4);
         txtColor= typedArray.getInteger(R.styleable.PasswordEditText_textColor,R.color.colorBlack);
-        txtSize = typedArray.getInteger(R.styleable.PasswordEditText_textSize,12);
+        txtSize = (int) typedArray.getDimension(R.styleable.PasswordEditText_textSize, 12);
         txtSize = DensityUtils.dp2px(context,txtSize);
         boundColor = typedArray.getInteger(R.styleable.PasswordEditText_boundColor,R.color.color_cacaca);
         typedArray.recycle();
