@@ -16,4 +16,15 @@
         app:textColor="@color/color_f98435"
         app:textSize="16sp" />
 
+<Button
+    android:layout_width="wrap_content"
+    android:id="@+id/btn"
+    android:text="add"
+    android:layout_height="wrap_content" />
+
+    <com.gyz.androiddevelope.view.LoveLayout
+        android:id="@+id/loveLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
 </LinearLayout>

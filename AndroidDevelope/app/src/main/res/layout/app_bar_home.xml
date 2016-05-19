@@ -16,6 +16,8 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:background="?attr/colorPrimary"
+            app:layout_collapseMode="pin"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:layout_height="?attr/actionBarSize"
             app:popupTheme="@style/AppTheme.NoActionBar.PopupOverlay" />
 

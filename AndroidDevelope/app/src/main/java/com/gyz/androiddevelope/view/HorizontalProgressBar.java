@@ -10,6 +10,8 @@ import android.widget.ProgressBar;
 import com.gyz.androiddevelope.R;
 import com.gyz.androiddevelope.util.DensityUtils;
 
+import java.util.Random;
+
 /**
  * @version V1.0
  * @FileName: com.gyz.androiddevelope.view.HorizontalProgressBar.java

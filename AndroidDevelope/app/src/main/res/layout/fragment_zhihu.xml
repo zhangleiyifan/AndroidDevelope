@@ -24,6 +24,7 @@
         android:id="@+id/floatingActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:layout_behavior="com.gyz.androiddevelope.behavior.FbtnBehavior"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
         app:borderWidth="@dimen/dp_0"
