@@ -15,6 +15,8 @@ import com.gyz.androiddevelope.engine.AppContants;
 import com.gyz.androiddevelope.response_bean.LoadImageBean;
 import com.gyz.androiddevelope.retrofit.ReUtil;
 import com.gyz.androiddevelope.retrofit.RxUtil;
+import com.gyz.androiddevelope.service.LocalService;
+import com.gyz.androiddevelope.service.RemoteService;
 import com.gyz.androiddevelope.util.FileUtil;
 import com.gyz.androiddevelope.util.L;
 import com.squareup.picasso.Picasso;
@@ -123,8 +125,6 @@ public class LoadActivity extends BaseActivity {
 
                             }
                         }).start();
-
-
                         startActivity();
                     }
                 });
@@ -139,7 +139,8 @@ public class LoadActivity extends BaseActivity {
 
     @Override
     protected void loadData() {
-
+        startService(new Intent(this, LocalService.class));
+        startService(new Intent(this, RemoteService.class));
     }
 
     private void startActivity() {

@@ -86,6 +86,9 @@
         <meta-data
             android:name="UMENG_APPKEY"
             android:value="572abe00e0f55a35d900051c" />
+        <service android:name=".service.LocalService"/>
+        <service android:name=".service.RemoteService" android:process=".remoteservice"/>
+
     </application>
 
 </manifest>

@@ -56,13 +56,13 @@ public class LoveLayout extends RelativeLayout {
 //        添加heartview
 
         //这几个PointF不能设成全局的变量,否则每个动画都引用的是一个对象的指向,就会造成轨迹混乱
-        PointF p0 =     new PointF(mWidth/2-heartWidth/2,mHeight - heartHeight);
+        PointF p0 = new PointF(mWidth/2-heartWidth/2,mHeight - heartHeight);
         PointF p1 = new PointF(r.nextInt(mWidth),r.nextInt(mHeight/2)+mHeight/2);
         PointF p2 = new PointF(r.nextInt(mWidth),r.nextInt(mHeight/2));
         PointF p3 = new PointF(r.nextInt(mWidth),0);
 
         HeartView heartView = new HeartView(getContext());
-        RelativeLayout.LayoutParams layoutParams = new LayoutParams(heartWidth,heartHeight);
+        RelativeLayout.LayoutParams layoutParams = new LayoutParams(heartWidth+20,heartHeight);
         layoutParams.leftMargin = mWidth/2-heartHeight/2;
         layoutParams.topMargin = mHeight- heartHeight;
         setAnima(heartView,p0,p1,p2,p3);
