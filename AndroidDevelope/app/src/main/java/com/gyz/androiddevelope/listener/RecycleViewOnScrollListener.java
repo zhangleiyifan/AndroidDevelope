@@ -19,17 +19,22 @@ public abstract class RecycleViewOnScrollListener extends RecyclerView.OnScrollL
     public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
         super.onScrolled(recyclerView, dx, dy);
 
-        if (dy < 0 && isVisible ) {
+        if (dy < 0 && isVisible && moveDistance > MOVE_DISTANCE) {
             //做显示操作
             show();
             isVisible = false;
-
-        } else if (dy > 0 && !isVisible) {
+            moveDistance = 0;
+        } else if (dy > 0 && !isVisible && moveDistance > MOVE_DISTANCE) {
 //            做隐藏操作
             hide();
             isVisible = true;
-
+            moveDistance = 0;
         }
+
+        if (dy < 0 || dy > 0) {
+            moveDistance += Math.abs(dy);
+        }
+
         normalScroll();
     }
 
