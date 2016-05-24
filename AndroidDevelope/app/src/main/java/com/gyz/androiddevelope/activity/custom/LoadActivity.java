@@ -24,6 +24,8 @@ import com.squareup.picasso.Picasso;
 import java.io.File;
 import java.net.URL;
 
+import javax.xml.transform.Transformer;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import rx.Observable;

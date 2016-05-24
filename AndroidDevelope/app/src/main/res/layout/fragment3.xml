@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:id="@+id/layoutRoot"
+    android:background="@color/color_ef5350"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_toRightOf="@+id/rrrr"
+        android:layout_width="wrap_content"
+        android:src="@drawable/sina_web_default"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="@dimen/dp_20"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        android:src="@mipmap/prograss"
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="@dimen/dp_45"
+        android:id="@+id/asdf"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:src="@mipmap/ic_header_logo"
+        android:id="@+id/kkkk"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="@dimen/dp_20"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:src="@drawable/ic_menu_share"
+        android:layout_below="@+id/kkkk"
+        android:layout_marginTop="20dp"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="@dimen/dp_20"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:src="@mipmap/icon_retry"
+        android:id="@+id/rrrr"
+        android:layout_marginTop="20dp"
+        android:layout_toRightOf="@+id/asdf"
+        android:layout_marginLeft="@dimen/dp_20"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>

@@ -53,6 +53,7 @@ public class RemoteService extends Service {
 
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
+            ToastUtil.show(getBaseContext(), "与本地连接建立关联", Toast.LENGTH_SHORT);
             L.e(TAG, "与本地连接建立关联");
         }
 

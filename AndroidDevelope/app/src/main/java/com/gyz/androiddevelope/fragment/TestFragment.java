@@ -27,6 +27,7 @@ import com.gyz.androiddevelope.activity.custom.MountainViewActivity;
 import com.gyz.androiddevelope.activity.custom.MyListViewActivity;
 import com.gyz.androiddevelope.activity.custom.MyProgressBarActivity;
 import com.gyz.androiddevelope.activity.custom.NearBySearchActivity;
+import com.gyz.androiddevelope.activity.custom.Transform3DActivity;
 import com.gyz.androiddevelope.activity.custom.WaveActivity;
 import com.gyz.androiddevelope.activity.noactionbar.NoBoringActionBarActivity;
 import com.gyz.androiddevelope.base.BaseFragment;
@@ -148,22 +149,22 @@ public class TestFragment extends BaseFragment {
                 context.startActivity(new Intent(context, HomeActivity.class));
                 break;
             case R.id.btnHealthList:
-
-                RxUtil.subscribeOnNext(new Func1<String, Observable<InfoList>>() {
-                    @Override
-                    public Observable<InfoList> call(String s) {
-
-                        ReqHealthInfoList list = new ReqHealthInfoList(3, 10, 1);
-                        return ReUtil.getApiManager(true).getHealthInfoList(list);
-                    }
-                }, new Action1<InfoList>() {
-                    @Override
-                    public void call(InfoList infoList) {
-
-                        InfoList.Info info = infoList.infos.get(0);
-                        Toast.makeText(context, "infoList==" + info.description, Toast.LENGTH_SHORT).show();
-                    }
-                });
+                startActivity(new Intent(context, Transform3DActivity.class));
+//                RxUtil.subscribeOnNext(new Func1<String, Observable<InfoList>>() {
+//                    @Override
+//                    public Observable<InfoList> call(String s) {
+//
+//                        ReqHealthInfoList list = new ReqHealthInfoList(3, 10, 1);
+//                        return ReUtil.getApiManager(true).getHealthInfoList(list);
+//                    }
+//                }, new Action1<InfoList>() {
+//                    @Override
+//                    public void call(InfoList infoList) {
+//
+//                        InfoList.Info info = infoList.infos.get(0);
+//                        Toast.makeText(context, "infoList==" + info.description, Toast.LENGTH_SHORT).show();
+//                    }
+//                });
 
                 break;
 

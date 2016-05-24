@@ -12,6 +12,7 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.gyz.androiddevelope.R;
@@ -21,6 +22,7 @@ import com.gyz.androiddevelope.adapter.HomeNewsAdapter;
 import com.gyz.androiddevelope.base.BaseApplication;
 import com.gyz.androiddevelope.base.BaseFragment;
 import com.gyz.androiddevelope.engine.AppContants;
+import com.gyz.androiddevelope.listener.RecycleViewOnScrollListener;
 import com.gyz.androiddevelope.response_bean.BeforeNewsBean;
 import com.gyz.androiddevelope.response_bean.LatestNewsBean;
 import com.gyz.androiddevelope.response_bean.Story;
@@ -121,11 +123,19 @@ public class ZhiHuFragment extends BaseFragment implements SwipeRefreshLayout.On
             }
         });
 
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        recyclerView.addOnScrollListener(new RecycleViewOnScrollListener() {
+            @Override
+            public void show() {
+                floatingActionButton.animate().translationY(0);
+            }
 
             @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
+            public void hide() {
+                floatingActionButton.animate().translationY(floatingActionButton.getHeight() + ((FrameLayout.LayoutParams) floatingActionButton.getLayoutParams()).bottomMargin);
+            }
+
+            @Override
+            public void normalScroll() {
                 int lastVisibleItem = mLayoutManager.findLastVisibleItemPosition();
                 int totalItemCount = mLayoutManager.getItemCount();
 
@@ -133,7 +143,6 @@ public class ZhiHuFragment extends BaseFragment implements SwipeRefreshLayout.On
                     isLoadMore = true;
                     requestAddData();
                 }
-
             }
         });
 

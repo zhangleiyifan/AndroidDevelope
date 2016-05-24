@@ -81,6 +81,7 @@
         <activity android:name=".activity.custom.NearBySearchActivity" />
         <activity android:name=".activity.custom.MyListViewActivity" />
         <activity android:name=".activity.custom.MyProgressBarActivity" />
+        <activity android:name=".activity.custom.Transform3DActivity" />
         <activity android:name=".activity.custom.ConcatMatrixActivity" />
 
         <meta-data
