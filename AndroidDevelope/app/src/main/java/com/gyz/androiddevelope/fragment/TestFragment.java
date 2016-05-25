@@ -26,6 +26,7 @@ import com.gyz.androiddevelope.activity.custom.McalendarActivity;
 import com.gyz.androiddevelope.activity.custom.MountainViewActivity;
 import com.gyz.androiddevelope.activity.custom.MyListViewActivity;
 import com.gyz.androiddevelope.activity.custom.MyProgressBarActivity;
+import com.gyz.androiddevelope.activity.custom.MyWebActivity;
 import com.gyz.androiddevelope.activity.custom.NearBySearchActivity;
 import com.gyz.androiddevelope.activity.custom.Transform3DActivity;
 import com.gyz.androiddevelope.activity.custom.WaveActivity;
@@ -113,7 +114,8 @@ public class TestFragment extends BaseFragment {
 
         switch (view.getId()) {
             case R.id.btnProgress:
-                startActivity(new Intent(context, MyProgressBarActivity.class));
+                startActivity(new Intent(context, MyWebActivity.class));
+//                startActivity(new Intent(context, MyProgressBarActivity.class));
                 break;
             case R.id.btnMyListview:
                 startActivity(new Intent(context, MyListViewActivity.class));

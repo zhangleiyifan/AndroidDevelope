@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -107,6 +108,9 @@ public class NewsDetailActivity extends BaseActivity implements Toolbar.OnMenuIt
         webView.getSettings().setDatabaseEnabled(true);
         // 开启Application Cache功能
         webView.getSettings().setAppCacheEnabled(true);
+        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT){
+            webView.removeJavascriptInterface("searchBoxJavaBridge_");
+        }
 
     }
 

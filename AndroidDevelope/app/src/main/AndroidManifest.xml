@@ -83,6 +83,7 @@
         <activity android:name=".activity.custom.MyProgressBarActivity" />
         <activity android:name=".activity.custom.Transform3DActivity" />
         <activity android:name=".activity.custom.ConcatMatrixActivity" />
+        <activity android:name=".activity.custom.MyWebActivity" />
 
         <meta-data
             android:name="UMENG_APPKEY"
