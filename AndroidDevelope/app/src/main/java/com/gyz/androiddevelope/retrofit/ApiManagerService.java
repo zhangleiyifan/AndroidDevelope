@@ -98,6 +98,4 @@ public interface ApiManagerService {
     @POST("api/info/list")
     Observable<HealthInfoList> getHealthNewsInfoList(@Body ReqHealthInfoList list );
 
-
-
 }

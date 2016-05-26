@@ -20,6 +20,7 @@ public class ReUtil {
         String baseUrl=AppContants.BASE_URL_ZHIHU;
         if (!isZhihu){
             baseUrl = AppContants.BASE_URL_TNGOU;
+//            baseUrl = "http://jiazhuang.siruoit.com/";
         }
 
 //        LoggingInterceptor loggingInterceptor = new LoggingInterceptor();

@@ -33,9 +33,7 @@ import com.gyz.androiddevelope.util.L;
 import com.gyz.androiddevelope.util.SPUtils;
 import com.gyz.androiddevelope.util.ToastUtil;
 import com.gyz.androiddevelope.view.MarqueeView;
-
 import java.util.List;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import rx.Observable;
@@ -149,7 +147,6 @@ public class ZhiHuFragment extends BaseFragment implements SwipeRefreshLayout.On
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 isLoadMore = false;
                 requestFirstData();
             }
@@ -177,7 +174,6 @@ public class ZhiHuFragment extends BaseFragment implements SwipeRefreshLayout.On
 
     //下拉刷新
     private void requestFirstData() {
-
         if (swipeRefreshLayout != null) {
             swipeRefreshLayout.setRefreshing(true);
         }

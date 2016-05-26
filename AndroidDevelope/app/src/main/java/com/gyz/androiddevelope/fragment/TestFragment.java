@@ -28,28 +28,22 @@ import com.gyz.androiddevelope.activity.custom.MyListViewActivity;
 import com.gyz.androiddevelope.activity.custom.MyProgressBarActivity;
 import com.gyz.androiddevelope.activity.custom.MyWebActivity;
 import com.gyz.androiddevelope.activity.custom.NearBySearchActivity;
+import com.gyz.androiddevelope.activity.custom.ToolbarTestActivity;
 import com.gyz.androiddevelope.activity.custom.Transform3DActivity;
 import com.gyz.androiddevelope.activity.custom.WaveActivity;
 import com.gyz.androiddevelope.activity.noactionbar.NoBoringActionBarActivity;
 import com.gyz.androiddevelope.base.BaseFragment;
 import com.gyz.androiddevelope.engine.AppContants;
 import com.gyz.androiddevelope.engine.User;
-import com.gyz.androiddevelope.net.RequestParams;
 import com.gyz.androiddevelope.net.okhttp.OkHttpClientManager;
-import com.gyz.androiddevelope.request_bean.ReqHealthInfoList;
 import com.gyz.androiddevelope.request_bean.ReqUserInfoBean;
 import com.gyz.androiddevelope.response_bean.Axiba;
-import com.gyz.androiddevelope.response_bean.InfoList;
 import com.gyz.androiddevelope.response_bean.Tngou;
 import com.gyz.androiddevelope.response_bean.UserInfo;
 import com.gyz.androiddevelope.retrofit.ReUtil;
 import com.gyz.androiddevelope.retrofit.RxUtil;
 import com.gyz.androiddevelope.util.Utils;
-import com.gyz.androiddevelope.view.MyListView;
 import com.gyz.androiddevelope.view.PwdView;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -57,7 +51,6 @@ import butterknife.OnClick;
 import okhttp3.Request;
 import rx.Observable;
 import rx.Subscriber;
-import rx.functions.Action1;
 import rx.functions.Func1;
 
 public class TestFragment extends BaseFragment {
@@ -108,14 +101,21 @@ public class TestFragment extends BaseFragment {
         return "test";
     }
 
-    @OnClick({ R.id.btnProgress,R.id.btnMyListview,R.id.btnWave,R.id.noToolBar,R.id.btnCalendar,R.id.btnMCalendar,R.id.btnM,R.id.btnFly,R.id.btnNearBy,R.id.btnMatrix,
+    @OnClick({ R.id.btnToolbar, R.id.btnWebView, R.id.btnProgress,R.id.btnMyListview,R.id.btnWave,R.id.noToolBar,R.id.btnCalendar,R.id.btnMCalendar,R.id.btnM,R.id.btnFly,R.id.btnNearBy,R.id.btnMatrix,
             R.id.btnHome, R.id.btnOnClick, R.id.btnGo, R.id.btnOkHttp, R.id.btnOkHttp3, R.id.view, R.id.retrofit, R.id.btnHealth, R.id.btnHealthList})
     public void OnClick(View view) {
 
         switch (view.getId()) {
+            case R.id.btnToolbar:
+
+                startActivity(new Intent(context, ToolbarTestActivity.class));
+
+                break;
             case R.id.btnProgress:
+                startActivity(new Intent(context, MyProgressBarActivity.class));
+                break;
+            case R.id.btnWebView:
                 startActivity(new Intent(context, MyWebActivity.class));
-//                startActivity(new Intent(context, MyProgressBarActivity.class));
                 break;
             case R.id.btnMyListview:
                 startActivity(new Intent(context, MyListViewActivity.class));
@@ -152,21 +152,6 @@ public class TestFragment extends BaseFragment {
                 break;
             case R.id.btnHealthList:
                 startActivity(new Intent(context, Transform3DActivity.class));
-//                RxUtil.subscribeOnNext(new Func1<String, Observable<InfoList>>() {
-//                    @Override
-//                    public Observable<InfoList> call(String s) {
-//
-//                        ReqHealthInfoList list = new ReqHealthInfoList(3, 10, 1);
-//                        return ReUtil.getApiManager(true).getHealthInfoList(list);
-//                    }
-//                }, new Action1<InfoList>() {
-//                    @Override
-//                    public void call(InfoList infoList) {
-//
-//                        InfoList.Info info = infoList.infos.get(0);
-//                        Toast.makeText(context, "infoList==" + info.description, Toast.LENGTH_SHORT).show();
-//                    }
-//                });
 
                 break;
 
@@ -181,6 +166,7 @@ public class TestFragment extends BaseFragment {
                     @Override
                     public void onCompleted() {
                         Toast.makeText(context, "onCompleted==", Toast.LENGTH_SHORT).show();
+
                     }
 
                     @Override
@@ -349,13 +335,13 @@ public class TestFragment extends BaseFragment {
 
             case R.id.btnOnClick:
 
-                dlg.show();
+//                dlg.show();
 
                 //网络操作.
-                List<RequestParams> paramses = new ArrayList<>();
-                paramses.add(new RequestParams("cityId", "111"));
-                paramses.add(new RequestParams("cityName", "Beijing"));
-
+//                List<RequestParams> paramses = new ArrayList<>();
+//                paramses.add(new RequestParams("cityId", "111"));
+//                paramses.add(new RequestParams("cityName", "Beijing"));
+//
 //                RemoteService.getInstance().invoke(this, "getWeatherInfo", paramses, new AbstractRequestCallback() {
 //                    @Override
 //                    public void onSuccess(String result) {
