@@ -1,6 +1,7 @@
 package com.gyz.androiddevelope.activity.custom;
 
 import android.os.Bundle;
+import android.widget.Toolbar;
 
 import com.gyz.androiddevelope.R;
 import com.gyz.androiddevelope.base.BaseToolbarActivity;
@@ -22,7 +23,6 @@ public class ToolbarTestActivity extends BaseToolbarActivity {
 
     @Override
     protected void initViews(Bundle savedInstanceState) {
-
         setContentView(R.layout.activity_mountain);
     }
 
@@ -32,9 +32,7 @@ public class ToolbarTestActivity extends BaseToolbarActivity {
     }
 
     @Override
-    protected void onResume() {
-
-        super.onResume();
-        toolbar.setTitle("sddffdsfds");
+    protected String currActivityName() {
+        return "toolbar测试";
     }
 }

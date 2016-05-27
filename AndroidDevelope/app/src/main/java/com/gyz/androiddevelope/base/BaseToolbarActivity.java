@@ -2,12 +2,12 @@ package com.gyz.androiddevelope.base;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import com.gyz.androiddevelope.R;
-import com.gyz.androiddevelope.util.ToolBarHelper;
+import com.gyz.androiddevelope.view.AppBar;
+
 import me.imid.swipebacklayout.lib.SwipeBackLayout;
 import me.imid.swipebacklayout.lib.Utils;
 import me.imid.swipebacklayout.lib.app.SwipeBackActivityBase;
@@ -22,8 +22,7 @@ import me.imid.swipebacklayout.lib.app.SwipeBackActivityHelper;
 public abstract class BaseToolbarActivity extends AppCompatActivity implements SwipeBackActivityBase {
     private static final String TAG = "BaseToolbarActivity";
 
-    public Toolbar toolbar;
-    public ToolBarHelper toolBarHelper;
+    private AppBar appBar;
     private SwipeBackActivityHelper mHelper;
 
     @Override
@@ -31,21 +30,33 @@ public abstract class BaseToolbarActivity extends AppCompatActivity implements S
         super.onCreate(savedInstanceState);
         mHelper = new SwipeBackActivityHelper(this);
         mHelper.onActivityCreate();
-        super.setContentView(R.layout.app_bar_home);
+        super.setContentView(R.layout.activity_base_toolbar);
         initToolbar();
-        toolBarHelper = new ToolBarHelper(this,toolbar);
         initVariables();
         initViews(savedInstanceState);
         loadData();
     }
 
     private void initToolbar() {
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        if (toolbar != null) {
-            setSupportActionBar(toolbar);
-        }
+        appBar = (AppBar)findViewById(R.id.app_bar);
+//        appBar.setBackImage(R.mipmap.back);
+        appBar.setImageBackListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finishActivity();
+            }
+        });
+        appBar.setTitle(currActivityName());
+
     }
 
+    protected void finishActivity() {
+        finish();
+    }
+
+    protected void backActivity() {
+        finish();
+    }
     /*
         初始化传入参数
          */
@@ -60,6 +71,9 @@ public abstract class BaseToolbarActivity extends AppCompatActivity implements S
     网络请求
      */
     protected abstract void loadData();
+
+    /**描述当前页面的title--便于友盟统计*/
+    protected abstract String currActivityName();
 
 
     @Override
@@ -76,6 +90,14 @@ public abstract class BaseToolbarActivity extends AppCompatActivity implements S
         }
     }
 
+
+    /**
+     * get appbar
+     * @return
+     */
+    public AppBar getAppBar(){
+        return appBar;
+    }
 
     //======SwipeBack==begin===========================
 
