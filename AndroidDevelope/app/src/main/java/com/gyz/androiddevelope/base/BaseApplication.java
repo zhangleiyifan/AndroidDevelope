@@ -10,6 +10,7 @@ import com.gyz.androiddevelope.db.TngouDbHelper;
 import com.gyz.androiddevelope.db.TngouListDbHelper;
 import com.gyz.androiddevelope.db.WebCacheDbHelper;
 import com.gyz.androiddevelope.engine.AppContants;
+import com.gyz.androiddevelope.util.ConfigConstants;
 import com.tencent.bugly.crashreport.CrashReport;
 
 /**
@@ -35,7 +36,6 @@ public class BaseApplication extends Application {
         CrashReport.initCrashReport(getApplicationContext(), AppContants.BUGLY_APP_ID, false);
         CacheManager.getInstance().initCacheDir();
 
-;
     }
 
     public static BaseApplication getInstantce(){

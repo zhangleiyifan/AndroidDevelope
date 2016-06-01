@@ -106,19 +106,22 @@ public class TngouFragment extends BaseFragment {
 //                存入数据库
                 SQLiteDatabase database = BaseApplication.getInstantce().getTngouDbHelper().getWritableDatabase();
                 database.execSQL("replace into tngouType(date,json) values (" + AppContants.LATEST_COLUMN + ",'" + getGson().toJson(o, GalleryTypeRespBean.class) + "')");
+                L.e(TAG,"存入顶部信息列表数据   replace into tngouType(date,json) values (" + AppContants.LATEST_COLUMN + ",'" + getGson().toJson(o, GalleryTypeRespBean.class) + "')");
 
+                database.close();
             }
 
             @Override
             public void onError(Throwable e) {
                 super.onError(e);
             //   从数据库中获取缓存json
-                L.e(TAG," 从数据库中获取缓存json");
                 SQLiteDatabase database =BaseApplication.getInstantce().getTngouDbHelper().getReadableDatabase();
                 Cursor cursor = database.rawQuery("select * from tngouType where date = " + AppContants.LATEST_COLUMN, null);
+                L.e(TAG," 从数据库中获取顶部信息列表缓存sql:       "+"select * from tngouType where date = " + AppContants.LATEST_COLUMN);
                 if (cursor.moveToFirst()) {
 
                     String json = cursor.getString(cursor.getColumnIndex("json"));
+                    L.e(TAG,"从数据库中获取顶部信息列表缓存json:    "+json);
                     initTabView(getGson().fromJson(json, GalleryTypeRespBean.class));
                 }
                 cursor.close();
@@ -128,7 +131,7 @@ public class TngouFragment extends BaseFragment {
     }
 
     private void initTabView(GalleryTypeRespBean listRespBean) {
-
+        L.e(TAG,"init tab view------");
         List<String> list = getTabTitle(listRespBean);
 
         for (GalleryTypeBean bean : listRespBean.getTngouList()) {

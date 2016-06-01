@@ -25,7 +25,6 @@ import butterknife.ButterKnife;
 public class HomeActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-
     @Bind(R.id.toolbar)
     Toolbar toolbar;
     @Bind(R.id.contain_home)
@@ -45,15 +44,6 @@ public class HomeActivity extends BaseActivity
         ButterKnife.bind(this);
         getSwipeBackLayout().setEnableGesture(false);
         setSupportActionBar(toolbar);
-
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(

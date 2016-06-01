@@ -2,11 +2,13 @@ package com.gyz.androiddevelope.activity.tngou;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.LinearLayout;
 
 import com.gyz.androiddevelope.R;
 import com.gyz.androiddevelope.base.BaseActivity;
 import com.gyz.androiddevelope.base.BaseApplication;
+import com.gyz.androiddevelope.base.BaseToolbarActivity;
 import com.gyz.androiddevelope.engine.AppContants;
 import com.gyz.androiddevelope.response_bean.AlbumDetailListBean;
 import com.gyz.androiddevelope.retrofit.MySubscriber;
@@ -28,7 +30,7 @@ import rx.functions.Func1;
  * @author: guoyazhou
  * @date: 2016-04-22 16:52
  */
-public class AlbumDetailActivity extends BaseActivity {
+public class AlbumDetailActivity extends BaseToolbarActivity {
     private static final String TAG = "AlbumDetailActivity";
     @Bind(R.id.card_bottom_layout)
     LinearLayout cardBottomLayout;
@@ -58,7 +60,7 @@ public class AlbumDetailActivity extends BaseActivity {
     protected void initViews(Bundle savedInstanceState) {
         setContentView(R.layout.activity_card_layout);
         ButterKnife.bind(this);
-
+        getAppBar().setVisibility(View.GONE);
         cardSwitchListener = new CardSlidePanel.CardSwitchListener() {
 
             @Override
@@ -94,6 +96,11 @@ public class AlbumDetailActivity extends BaseActivity {
 
             }
         });
+    }
+
+    @Override
+    protected String currActivityName() {
+        return "图片详情页";
     }
 
     private void prepareCardView(List<AlbumDetailListBean.Picture> list) {

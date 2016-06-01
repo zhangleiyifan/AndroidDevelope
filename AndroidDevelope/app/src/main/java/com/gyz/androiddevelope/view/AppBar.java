@@ -47,6 +47,9 @@ public class AppBar extends LinearLayout {
         mTitleView = (TextView)view.findViewById(R.id.title);
     }
 
+    public void setToolbarBackgroud(int colorId){
+        toolbar.setBackgroundColor(getResources().getColor(colorId));
+    }
 
     /**
      * set title

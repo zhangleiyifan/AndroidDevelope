@@ -47,16 +47,16 @@ public class TgPicListFragment extends BaseFragment implements BaseRecyclerAdapt
     private int page = 1;
     private String title;
 
-    private static final String ID="id";
-    private static final String TITLE="title";
+    private static final String ID = "id";
+    private static final String TITLE = "title";
 
     TgPicListAdapter mSimpleRecyclerAdapter;
 
     public static TgPicListFragment startFragment(int id, String title) {
         TgPicListFragment tgPicListFragment = new TgPicListFragment();
         Bundle bundle = new Bundle();
-        bundle.putInt(ID,id);
-        bundle.putString(TITLE,title);
+        bundle.putInt(ID, id);
+        bundle.putString(TITLE, title);
         tgPicListFragment.setArguments(bundle);
         return tgPicListFragment;
     }
@@ -76,25 +76,26 @@ public class TgPicListFragment extends BaseFragment implements BaseRecyclerAdapt
 
     @Override
     public void initView() {
+        L.e(TAG,"进入图片列表页，initview");
         Bundle bundle = this.getArguments();
-        id = bundle.getInt(ID,1);
+        id = bundle.getInt(ID, 1);
         title = bundle.getString(TITLE);
 
-        mLayoutManager = new GridLayoutManager(context,2,LinearLayoutManager.VERTICAL,false);
+        mLayoutManager = new GridLayoutManager(context, 2, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(mLayoutManager);
 
-        mSimpleRecyclerAdapter = new TgPicListAdapter(getActivity() );
+        mSimpleRecyclerAdapter = new TgPicListAdapter(getActivity());
         recyclerView.setAdapter(mSimpleRecyclerAdapter);
         mSimpleRecyclerAdapter.setOnItemClickListener(this);
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
 
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-               if (newState == RecyclerView.SCROLL_STATE_IDLE){
-                   Picasso.with(context).resumeTag(new Object());
-               }else {
-                   Picasso.with(context).pauseTag(new Object());
-               }
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    Picasso.with(context).resumeTag(new Object());
+                } else {
+                    Picasso.with(context).pauseTag(new Object());
+                }
 
             }
 
@@ -104,7 +105,7 @@ public class TgPicListFragment extends BaseFragment implements BaseRecyclerAdapt
                 int lastVisibleItem = mLayoutManager.findLastVisibleItemPosition();
                 int totalItemCount = mLayoutManager.getItemCount();
 
-                if (lastVisibleItem >= totalItemCount - 1 ) {
+                if (lastVisibleItem >= totalItemCount - 1) {
                     L.i("-------------ADD more photos--------------------------");
                     page++;
                     requestData();
@@ -116,10 +117,11 @@ public class TgPicListFragment extends BaseFragment implements BaseRecyclerAdapt
     }
 
     private void requestData() {
-
+        L.e(TAG, "图片列表页，进行网络请求");
         RxUtil.subscribeAll(new Func1<String, Observable<GalleryRespBean>>() {
             @Override
             public Observable<GalleryRespBean> call(String s) {
+                L.e(TAG, "图片列表页，进行网络请求ReUtil");
                 return ReUtil.getApiManager(false).getGalleryBeanList(id, page, rows);
             }
         }, new MySubscriber<GalleryRespBean>() {
@@ -133,14 +135,14 @@ public class TgPicListFragment extends BaseFragment implements BaseRecyclerAdapt
             public void onError(Throwable e) {
 //                super.onError(e);
                 //   从数据库中获取缓存json
-                SQLiteDatabase database =BaseApplication.getInstantce().getTngouListDbHelper().getReadableDatabase();
+                SQLiteDatabase database = BaseApplication.getInstantce().getTngouListDbHelper().getReadableDatabase();
                 Cursor cursor = database.rawQuery("select * from tngouList where typeid = " + id, null);
-                L.e(TAG," 从数据库中获取缓存json    id="+id);
+                L.e(TAG, " 从数据库中获取图片列表缓存json    id=" + id);
                 if (cursor.moveToFirst()) {
 
                     String json = cursor.getString(cursor.getColumnIndex("json"));
-                    GalleryRespBean o=getGson().fromJson(json, GalleryRespBean.class);
-                    L.e(TAG,"  缓存数据为="+json);
+                    GalleryRespBean o = getGson().fromJson(json, GalleryRespBean.class);
+                    L.e(TAG, "  图片列表缓存数据为=" + json);
                     mSimpleRecyclerAdapter.addDatas(o.getTngouList());
                     mSimpleRecyclerAdapter.notifyDataSetChanged();
 
@@ -158,8 +160,8 @@ public class TgPicListFragment extends BaseFragment implements BaseRecyclerAdapt
 //                存入数据库  insert into sc(sno,cno) values('95020','1')
                 SQLiteDatabase database = BaseApplication.getInstantce().getTngouListDbHelper().getWritableDatabase();
 
-                database.execSQL("replace into tngouList( typeid,json)  values( "+id+",'"+getGson().toJson(o ,GalleryRespBean.class)+"')");
-                L.e(TAG,"++++++"+"replace into tngouList( typeid,json)  values( "+id+",'"+getGson().toJson(o ,GalleryRespBean.class)+"')");
+                database.execSQL("replace into tngouList( typeid,json)  values( " + id + ",'" + getGson().toJson(o, GalleryRespBean.class) + "')");
+                L.e(TAG, "图片列表数据存入数据库++++++" + "replace into tngouList( typeid,json)  values( " + id + ",'" + getGson().toJson(o, GalleryRespBean.class) + "')");
                 database.close();
 
             }

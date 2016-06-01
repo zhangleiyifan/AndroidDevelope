@@ -1,11 +1,16 @@
 package com.gyz.androiddevelope.base;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
+
 import com.gyz.androiddevelope.R;
+import com.gyz.androiddevelope.util.SystemBarTintManager;
 import com.gyz.androiddevelope.view.AppBar;
 
 import me.imid.swipebacklayout.lib.SwipeBackLayout;
@@ -30,6 +35,7 @@ public abstract class BaseToolbarActivity extends AppCompatActivity implements S
         super.onCreate(savedInstanceState);
         mHelper = new SwipeBackActivityHelper(this);
         mHelper.onActivityCreate();
+//        setStatusBarColor();
         super.setContentView(R.layout.activity_base_toolbar);
         initToolbar();
         initVariables();
@@ -37,8 +43,26 @@ public abstract class BaseToolbarActivity extends AppCompatActivity implements S
         loadData();
     }
 
+//    private void setStatusBarColor() {
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+//            Window win = getWindow();
+//            WindowManager.LayoutParams winParams = win.getAttributes();
+//            final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
+//            if (true) {
+//                winParams.flags |= bits;
+//            } else {
+//                winParams.flags &= ~bits;
+//            }
+//            win.setAttributes(winParams);
+//
+//            SystemBarTintManager tintManager = new SystemBarTintManager(this);
+//            tintManager.setStatusBarTintEnabled(true);
+//            tintManager.setStatusBarTintResource(R.color.colorRed);//通知栏所需颜色
+//        }
+//    }
+
     private void initToolbar() {
-        appBar = (AppBar)findViewById(R.id.app_bar);
+        appBar = (AppBar) findViewById(R.id.app_bar);
 //        appBar.setBackImage(R.mipmap.back);
         appBar.setImageBackListener(new View.OnClickListener() {
             @Override
@@ -57,6 +81,7 @@ public abstract class BaseToolbarActivity extends AppCompatActivity implements S
     protected void backActivity() {
         finish();
     }
+
     /*
         初始化传入参数
          */
@@ -72,7 +97,9 @@ public abstract class BaseToolbarActivity extends AppCompatActivity implements S
      */
     protected abstract void loadData();
 
-    /**描述当前页面的title--便于友盟统计*/
+    /**
+     * 描述当前页面的title--便于友盟统计
+     */
     protected abstract String currActivityName();
 
 
@@ -93,9 +120,10 @@ public abstract class BaseToolbarActivity extends AppCompatActivity implements S
 
     /**
      * get appbar
+     *
      * @return
      */
-    public AppBar getAppBar(){
+    public AppBar getAppBar() {
         return appBar;
     }
 

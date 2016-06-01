@@ -11,22 +11,44 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.gyz.androiddevelope.base.BaseToolbarActivity;
+
 /**
  * @author: guoyazhou
  * @date: 2016-05-09 16:28
  */
-public class ConcatMatrixActivity extends Activity {
+public class ConcatMatrixActivity extends BaseToolbarActivity {
     private static final String TAG = "ConcatMatrixActivity";
 
 
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        getWindow().setFlags(
+//                WindowManager.LayoutParams.FLAG_FULLSCREEN,
+//                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+//        setContentView(new ConcatMatrixView(this));
+//    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(
-                WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+    protected void initVariables() {
+
+    }
+
+    @Override
+    protected void initViews(Bundle savedInstanceState) {
         setContentView(new ConcatMatrixView(this));
+    }
+
+    @Override
+    protected void loadData() {
+
+    }
+
+    @Override
+    protected String currActivityName() {
+        return "Matrix";
     }
 
     public class ConcatMatrixView extends View {

@@ -1,6 +1,7 @@
 package com.gyz.androiddevelope.fragment;
 
 import android.app.Activity;
+import android.app.Instrumentation;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -36,6 +37,7 @@ import com.gyz.androiddevelope.base.BaseFragment;
 import com.gyz.androiddevelope.engine.AppContants;
 import com.gyz.androiddevelope.engine.User;
 import com.gyz.androiddevelope.net.okhttp.OkHttpClientManager;
+import com.gyz.androiddevelope.proxy.EvilInstrumentation;
 import com.gyz.androiddevelope.request_bean.ReqUserInfoBean;
 import com.gyz.androiddevelope.response_bean.Axiba;
 import com.gyz.androiddevelope.response_bean.Tngou;
@@ -44,6 +46,9 @@ import com.gyz.androiddevelope.retrofit.ReUtil;
 import com.gyz.androiddevelope.retrofit.RxUtil;
 import com.gyz.androiddevelope.util.Utils;
 import com.gyz.androiddevelope.view.PwdView;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -276,7 +281,28 @@ public class TestFragment extends BaseFragment {
 
             case R.id.view:
 
+
+                try {
+                    Class<?> activityThreadClass = Class.forName("android.app.ActivityThread");
+                    Method currentActivityThreadMethod = activityThreadClass.getDeclaredMethod("currentActivityThread");
+                    currentActivityThreadMethod.setAccessible(true);
+                    Object currentActivityThread = currentActivityThreadMethod.invoke(null);
+                    // 拿到原始的 mInstrumentation字段
+                    Field mInstrumentationField = activityThreadClass.getDeclaredField("mInstrumentation");
+                    mInstrumentationField.setAccessible(true);
+                    Instrumentation mInstrumentation = (Instrumentation) mInstrumentationField.get(currentActivityThread);
+
+                    // 创建代理对象
+                    Instrumentation evilInstrumentation = new EvilInstrumentation(mInstrumentation);
+                    // 偷梁换柱
+                    mInstrumentationField.set(currentActivityThread,evilInstrumentation);
+
+                } catch ( Exception e) {
+                    e.printStackTrace();
+                }
+
                 context.startActivity(new Intent(context, CircleActivity.class));
+
                 break;
             case R.id.btnOkHttp3:
 
