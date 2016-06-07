@@ -17,6 +17,7 @@ import com.gyz.androiddevelope.base.BaseActivity;
 import com.gyz.androiddevelope.base.BaseFragment;
 import com.gyz.androiddevelope.fragment.TestFragment;
 import com.gyz.androiddevelope.fragment.Tngou.TngouFragment;
+import com.gyz.androiddevelope.fragment.huaban.HuabanFragment;
 import com.gyz.androiddevelope.fragment.zhihu.ZhiHuFragment;
 
 import butterknife.Bind;
@@ -30,7 +31,7 @@ public class HomeActivity extends BaseActivity
     @Bind(R.id.contain_home)
     FrameLayout containHome;
 
-    private BaseFragment mainFragment,tngouPicFragment, testFragment;
+    private BaseFragment mainFragment,tngouPicFragment, testFragment,huabanFragment;
     long firstTime = 0;
 
     @Override
@@ -131,6 +132,11 @@ public class HomeActivity extends BaseActivity
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.navTest) {
+            if (huabanFragment==null){
+                huabanFragment = new HuabanFragment();
+            }
+            switchFragment(huabanFragment);
+//            toolbar.setTitle("");
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

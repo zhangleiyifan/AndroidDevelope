@@ -2,8 +2,6 @@ package com.gyz.androiddevelope.fragment.zhihu;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,13 +9,12 @@ import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.gyz.androiddevelope.R;
 import com.gyz.androiddevelope.activity.NewsDetailActivity;
-import com.gyz.androiddevelope.adapter.BaseRecyclerAdapter;
+import com.gyz.androiddevelope.base.BaseRecyclerAdapter;
 import com.gyz.androiddevelope.adapter.HomeNewsAdapter;
 import com.gyz.androiddevelope.base.BaseApplication;
 import com.gyz.androiddevelope.base.BaseFragment;
@@ -35,7 +32,6 @@ import com.gyz.androiddevelope.util.ToastUtil;
 import com.gyz.androiddevelope.view.MarqueeView;
 import java.util.List;
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import rx.Observable;
 import rx.Subscriber;
 import rx.functions.Func1;
@@ -62,14 +58,9 @@ public class ZhiHuFragment extends BaseFragment implements SwipeRefreshLayout.On
 
     SQLiteDatabase database;
 
-
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_zhihu, container, false);
-
-        ButterKnife.bind(this, view);
-        return view;
+    public int getLayoutId() {
+        return R.layout.fragment_zhihu;
     }
 
     @Override
@@ -142,6 +133,11 @@ public class ZhiHuFragment extends BaseFragment implements SwipeRefreshLayout.On
                     requestAddData();
                 }
             }
+
+            @Override
+            public void onScrollStateChange(RecyclerView recyclerView, int newState) {
+
+            }
         });
 
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
@@ -183,7 +179,7 @@ public class ZhiHuFragment extends BaseFragment implements SwipeRefreshLayout.On
         RxUtil.subscribeAll(new Func1<String, Observable<LatestNewsBean>>() {
             @Override
             public Observable<LatestNewsBean> call(String s) {
-                return ReUtil.getApiManager(true).getLatestNews();
+                return ReUtil.getApiManager(AppContants.ZHIHU_HTTP).getLatestNews();
             }
         }, new Subscriber<LatestNewsBean>() {
             @Override
@@ -226,7 +222,7 @@ public class ZhiHuFragment extends BaseFragment implements SwipeRefreshLayout.On
         RxUtil.subscribeAll(new Func1<String, Observable<BeforeNewsBean>>() {
             @Override
             public Observable<BeforeNewsBean> call(String s) {
-                return ReUtil.getApiManager(true).getBeforeNews(date);
+                return ReUtil.getApiManager(AppContants.ZHIHU_HTTP).getBeforeNews(date);
             }
         }, new Subscriber<BeforeNewsBean>() {
             @Override
@@ -265,12 +261,4 @@ public class ZhiHuFragment extends BaseFragment implements SwipeRefreshLayout.On
         adapter.addDatas(latestNewsBean.stories);
         marqueeView.setTopEntities(latestNewsBean.topStories);
     }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        ButterKnife.unbind(this);
-    }
-
-
 }

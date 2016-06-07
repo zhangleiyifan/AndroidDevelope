@@ -45,14 +45,19 @@ public class TngouFragment extends BaseFragment {
     private List<BaseFragment> fragmentList = new ArrayList<>();
     TngouPicViewPagerAdapter pagerAdapter;
 
-    @Nullable
+//    @Nullable
+//    @Override
+//    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+//
+//        View view = inflater.inflate(R.layout.fragment_tg_pic, container, false);
+//        ButterKnife.bind(this, view);
+//        return view;
+//
+//    }
+
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
-        View view = inflater.inflate(R.layout.fragment_tg_pic, container, false);
-        ButterKnife.bind(this, view);
-        return view;
-
+    public int getLayoutId() {
+        return R.layout.fragment_tg_pic;
     }
 
     @Override
@@ -72,11 +77,11 @@ public class TngouFragment extends BaseFragment {
         return getResources().getString(R.string.title_tngou);
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        ButterKnife.unbind(this);
-    }
+//    @Override
+//    public void onDestroyView() {
+//        super.onDestroyView();
+//        ButterKnife.unbind(this);
+//    }
 
 
     /**
@@ -86,7 +91,7 @@ public class TngouFragment extends BaseFragment {
         RxUtil.subscribeAll(new Func1<String, Observable<GalleryTypeRespBean>>() {
             @Override
             public Observable<GalleryTypeRespBean> call(String s) {
-                return ReUtil.getApiManager(false).getGalleryTypeList();
+                return ReUtil.getApiManager(AppContants.TNGOU_HTTP).getGalleryTypeList();
             }
         }, new MySubscriber<GalleryTypeRespBean>() {
             @Override

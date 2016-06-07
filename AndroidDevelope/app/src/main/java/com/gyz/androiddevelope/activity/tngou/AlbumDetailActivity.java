@@ -82,7 +82,7 @@ public class AlbumDetailActivity extends BaseToolbarActivity {
         RxUtil.subscribeAll(new Func1<String, Observable<AlbumDetailListBean>>() {
             @Override
             public Observable<AlbumDetailListBean> call(String s) {
-                return ReUtil.getApiManager(false).getAlbumDetailList(albumId);
+                return ReUtil.getApiManager(AppContants.TNGOU_HTTP).getAlbumDetailList(albumId);
             }
         }, new MySubscriber<AlbumDetailListBean>() {
             @Override

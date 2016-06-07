@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.gyz.androiddevelope.R;
+import com.gyz.androiddevelope.base.BaseRecyclerAdapter;
 import com.gyz.androiddevelope.engine.AppContants;
 import com.gyz.androiddevelope.response_bean.GalleryBean;
 import com.gyz.androiddevelope.util.ImageUtils;

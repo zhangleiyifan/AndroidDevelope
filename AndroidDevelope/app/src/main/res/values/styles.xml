@@ -36,7 +36,8 @@
         <item name="android:layout_height">wrap_content</item>
     </style>
 
-//  no action bar==============================
+    // no action bar==============================
+
     <style name="TransparentTheme" parent="@android:style/Theme.Holo.Light">
         <item name="android:windowBackground">@null</item>
         <item name="android:actionBarStyle">@style/ActionBarStyle.Transparent</item>
@@ -58,19 +59,16 @@
 
     //======日历================================================
 
-    <style name="TextAppearance.MaterialCalendarWidget.Header"
-        parent="android:TextAppearance.DeviceDefault.Small">
+    <style name="TextAppearance.MaterialCalendarWidget.Header" parent="android:TextAppearance.DeviceDefault.Small">
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="TextAppearance.MaterialCalendarWidget.Date"
-        parent="android:TextAppearance.DeviceDefault.Small">
+    <style name="TextAppearance.MaterialCalendarWidget.Date" parent="android:TextAppearance.DeviceDefault.Small">
         <item name="android:textSize">12sp</item>
         <item name="android:textColor">@color/mcv_text_date_light</item>
     </style>
 
-    <style name="TextAppearance.MaterialCalendarWidget.WeekDay"
-        parent="android:TextAppearance.DeviceDefault.Small">
+    <style name="TextAppearance.MaterialCalendarWidget.WeekDay" parent="android:TextAppearance.DeviceDefault.Small">
         <item name="android:textSize">12sp</item>
     </style>
     // tabLayout=========================
@@ -80,4 +78,16 @@
         <item name="android:textColor">@color/color_a4a4a4</item>
     </style>
 
+    //======================花瓣=================
+    <style name="text_secondary">
+        <item name="android:textSize">@dimen/sp_12</item>
+        <item name="android:textColor">?android:textColorSecondary</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="card_text_secondary_info" parent="text_secondary">
+        <item name="android:padding">@dimen/dp_16</item>
+        <item name="android:gravity">center|left</item>
+    </style>
 </resources>

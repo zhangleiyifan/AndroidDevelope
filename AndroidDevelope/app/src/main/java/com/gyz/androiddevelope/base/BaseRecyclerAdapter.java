@@ -1,4 +1,4 @@
-package com.gyz.androiddevelope.adapter;
+package com.gyz.androiddevelope.base;
 
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,6 +19,8 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
     private List<T> mDatas = new ArrayList<>();
     private View mHeaderView;
     private OnItemClickListener mListener;
+    private int pos;
+
     public void setOnItemClickListener(OnItemClickListener li) {
         mListener = li;
     }
@@ -56,7 +58,7 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         if(getItemViewType(position) == TYPE_HEADER) return;
-        final int pos = getRealPosition(viewHolder);
+        pos = getRealPosition(viewHolder);
         final T data = mDatas.get(pos);
         onBind(viewHolder, pos, data);
         if(mListener != null) {
@@ -97,6 +99,10 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
     public int getRealPosition(RecyclerView.ViewHolder holder) {
         int position = holder.getLayoutPosition();
         return mHeaderView == null ? position : position - 1;
+    }
+
+    public int getPosition(){
+        return pos;
     }
     @Override
     public int getItemCount() {

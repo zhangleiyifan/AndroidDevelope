@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.gyz.androiddevelope.R;
 import com.gyz.androiddevelope.base.BaseActivity;
 import com.gyz.androiddevelope.base.BaseApplication;
+import com.gyz.androiddevelope.engine.AppContants;
 import com.gyz.androiddevelope.response_bean.NewsDetailBean;
 import com.gyz.androiddevelope.response_bean.StoryExtraBean;
 import com.gyz.androiddevelope.retrofit.MySubscriber;
@@ -119,7 +120,7 @@ public class NewsDetailActivity extends BaseActivity implements Toolbar.OnMenuIt
         RxUtil.subscribeAll(new Func1<String, Observable<NewsDetailBean>>() {
             @Override
             public Observable<NewsDetailBean> call(String s) {
-                return ReUtil.getApiManager(true).getNewsDetail(newsID);
+                return ReUtil.getApiManager(AppContants.ZHIHU_HTTP).getNewsDetail(newsID);
             }
         }, new MySubscriber<NewsDetailBean>() {
 
@@ -167,7 +168,7 @@ public class NewsDetailActivity extends BaseActivity implements Toolbar.OnMenuIt
         RxUtil.subscribeAll(new Func1<String, Observable<StoryExtraBean>>() {
             @Override
             public Observable<StoryExtraBean> call(String s) {
-                return ReUtil.getApiManager(true).getNewsExtra(newsID);
+                return ReUtil.getApiManager(AppContants.ZHIHU_HTTP).getNewsExtra(newsID);
             }
         }, new MySubscriber<StoryExtraBean>() {
             @Override

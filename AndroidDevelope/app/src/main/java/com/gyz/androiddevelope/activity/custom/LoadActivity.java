@@ -98,7 +98,7 @@ public class LoadActivity extends BaseActivity {
                 RxUtil.subscribeAll(new Func1<String, Observable<LoadImageBean>>() {
                     @Override
                     public Observable<LoadImageBean> call(String s) {
-                        return ReUtil.getApiManager(true).getLoadImg();
+                        return ReUtil.getApiManager(AppContants.ZHIHU_HTTP).getLoadImg();
                     }
                 }, new Subscriber<LoadImageBean>() {
                     @Override

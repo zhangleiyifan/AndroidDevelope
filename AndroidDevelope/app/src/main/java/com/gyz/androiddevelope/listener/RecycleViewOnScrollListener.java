@@ -38,10 +38,17 @@ public abstract class RecycleViewOnScrollListener extends RecyclerView.OnScrollL
         normalScroll();
     }
 
+    @Override
+    public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+        onScrollStateChange(recyclerView,newState);
+    }
+
     public abstract void show();
 
     public abstract void hide();
 
     public abstract void normalScroll();
+
+    public abstract void onScrollStateChange(RecyclerView recyclerView, int newState);
 
 }

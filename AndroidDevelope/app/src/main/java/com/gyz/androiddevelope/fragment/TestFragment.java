@@ -6,15 +6,21 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutCompat;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alipay.euler.andfix.AndFix;
+import com.alipay.euler.andfix.patch.PatchManager;
 import com.gyz.androiddevelope.R;
 import com.gyz.androiddevelope.activity.custom.CircleActivity;
 import com.gyz.androiddevelope.activity.HomeActivity;
@@ -33,6 +39,7 @@ import com.gyz.androiddevelope.activity.custom.ToolbarTestActivity;
 import com.gyz.androiddevelope.activity.custom.Transform3DActivity;
 import com.gyz.androiddevelope.activity.custom.WaveActivity;
 import com.gyz.androiddevelope.activity.noactionbar.NoBoringActionBarActivity;
+import com.gyz.androiddevelope.base.BaseApplication;
 import com.gyz.androiddevelope.base.BaseFragment;
 import com.gyz.androiddevelope.engine.AppContants;
 import com.gyz.androiddevelope.engine.User;
@@ -44,9 +51,13 @@ import com.gyz.androiddevelope.response_bean.Tngou;
 import com.gyz.androiddevelope.response_bean.UserInfo;
 import com.gyz.androiddevelope.retrofit.ReUtil;
 import com.gyz.androiddevelope.retrofit.RxUtil;
+import com.gyz.androiddevelope.util.L;
+import com.gyz.androiddevelope.util.ToastUtil;
 import com.gyz.androiddevelope.util.Utils;
 import com.gyz.androiddevelope.view.PwdView;
 
+import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
@@ -77,28 +88,32 @@ public class TestFragment extends BaseFragment {
     ProgressDialog dlg;
     Context context;
 
-    @Nullable
+//    @Nullable
+//    @Override
+//    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+//
+//        View view = inflater.inflate(R.layout.activity_main, container, false);
+//        ButterKnife.bind(this, view);
+//
+//        return view;
+//    }
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-        View view = inflater.inflate(R.layout.activity_main, container, false);
-        ButterKnife.bind(this, view);
-
-        context =getContext();
-        dlg = Utils.createProgressDialog(context,this.getString(R.string.str_loading));
-
-        return view;
+    public int getLayoutId() {
+        return R.layout.activity_main;
     }
 
 
     @Override
     public void initView() {
 
+        context = getContext();
+        dlg = Utils.createProgressDialog(context, this.getString(R.string.str_loading));
+
     }
 
     @Override
     public void initData() {
-
     }
 
     @Override
@@ -106,14 +121,36 @@ public class TestFragment extends BaseFragment {
         return "test";
     }
 
-    @OnClick({ R.id.btnToolbar, R.id.btnWebView, R.id.btnProgress,R.id.btnMyListview,R.id.btnWave,R.id.noToolBar,R.id.btnCalendar,R.id.btnMCalendar,R.id.btnM,R.id.btnFly,R.id.btnNearBy,R.id.btnMatrix,
+    @OnClick({R.id.btnAndfix, R.id.btnToolbar, R.id.btnWebView, R.id.btnProgress, R.id.btnMyListview, R.id.btnWave, R.id.noToolBar, R.id.btnCalendar, R.id.btnMCalendar, R.id.btnM, R.id.btnFly, R.id.btnNearBy, R.id.btnMatrix,
             R.id.btnHome, R.id.btnOnClick, R.id.btnGo, R.id.btnOkHttp, R.id.btnOkHttp3, R.id.view, R.id.retrofit, R.id.btnHealth, R.id.btnHealthList})
     public void OnClick(View view) {
 
         switch (view.getId()) {
+            case R.id.btnAndfix:
+                String str = "abcdefg123";
+                String encodeStr = new String(Base64.encode(str.getBytes(), Base64.DEFAULT)) ;
+                L.e(TAG, "encodeStr===" + encodeStr);
+
+                String decodeStr =new String( Base64.decode(encodeStr.getBytes(),Base64.DEFAULT)) ;
+                L.e(TAG, "decodeStr====" + decodeStr);
+
+////                AndFix
+//                PatchManager patchManager = BaseApplication.getInstantce().getPatchManager();
+//                File patchFile = new File(Environment.getExternalStorageDirectory().getPath() + "/new.apatch");
+//                Log.e(TAG, "patchFile=toString==" + patchFile.toString());
+//                if (patchFile.exists()) {
+//                    try {
+//                        patchManager.addPatch(patchFile.getPath());
+//                        ToastUtil.showLong(context, "andfix 合并patch 成功！！！");
+//
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+                break;
             case R.id.btnToolbar:
 
-                startActivity(new Intent(context, ToolbarTestActivity.class));
+                gotoToolbarActivity();
 
                 break;
             case R.id.btnProgress:
@@ -126,25 +163,25 @@ public class TestFragment extends BaseFragment {
                 startActivity(new Intent(context, MyListViewActivity.class));
                 break;
             case R.id.btnMatrix:
-                startActivity(new Intent(context,ConcatMatrixActivity.class));
+                startActivity(new Intent(context, ConcatMatrixActivity.class));
                 break;
             case R.id.btnNearBy:
                 startActivity(new Intent(context, NearBySearchActivity.class));
                 break;
             case R.id.btnMCalendar:
-                startActivity(new Intent(context,McalendarActivity.class));
+                startActivity(new Intent(context, McalendarActivity.class));
                 break;
             case R.id.btnFly:
 
-                startActivity(new Intent(context,FlyViewActivity.class));
+                startActivity(new Intent(context, FlyViewActivity.class));
                 break;
             case R.id.btnM:
 
-                startActivity(new Intent(context,MountainViewActivity.class));
+                startActivity(new Intent(context, MountainViewActivity.class));
                 break;
 
             case R.id.btnCalendar:
-                startActivity(new Intent(context,CalenderActivity.class));
+                startActivity(new Intent(context, CalenderActivity.class));
                 break;
             case R.id.noToolBar:
                 startActivity(new Intent(context, NoBoringActionBarActivity.class));
@@ -165,7 +202,7 @@ public class TestFragment extends BaseFragment {
                 RxUtil.subscribeAll(new Func1<String, Observable<Tngou>>() {
                     @Override
                     public Observable<Tngou> call(String s) {
-                        return ReUtil.getApiManager(true).getInfoList();
+                        return ReUtil.getApiManager(AppContants.ZHIHU_HTTP).getInfoList();
                     }
                 }, new Subscriber<Tngou>() {
                     @Override
@@ -198,7 +235,7 @@ public class TestFragment extends BaseFragment {
 
 //                        Observable<UserInfo> observable =  ReUtil.getApiManager().getUserInfo(bean);
 //                        return observable;
-                        return ReUtil.getApiManager(true).getUserInfo("a4fe0465b9464ae8fbl54da04bfd6e2f");
+                        return ReUtil.getApiManager(AppContants.ZHIHU_HTTP).getUserInfo("a4fe0465b9464ae8fbl54da04bfd6e2f");
                     }
                 }, new Subscriber<UserInfo>() {
                     @Override
@@ -295,9 +332,9 @@ public class TestFragment extends BaseFragment {
                     // 创建代理对象
                     Instrumentation evilInstrumentation = new EvilInstrumentation(mInstrumentation);
                     // 偷梁换柱
-                    mInstrumentationField.set(currentActivityThread,evilInstrumentation);
+                    mInstrumentationField.set(currentActivityThread, evilInstrumentation);
 
-                } catch ( Exception e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
 
@@ -397,6 +434,10 @@ public class TestFragment extends BaseFragment {
 
     }
 
+    private void gotoToolbarActivity() {
+        startActivity(new Intent(context, ToolbarTestActivity.class));
+//        startActivity(new Intent(context, MyProgressBarActivity.class));
+    }
 
 
     @Override
@@ -404,7 +445,6 @@ public class TestFragment extends BaseFragment {
         if (resultCode == Activity.RESULT_OK) {
             switch (requestCode) {
                 case GO_TO_INFO:
-
                     ShowInfoActivity.startActivity(context);
                     break;
             }
@@ -412,10 +452,10 @@ public class TestFragment extends BaseFragment {
 
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        ButterKnife.unbind(this);
-    }
+//    @Override
+//    public void onDestroyView() {
+//        super.onDestroyView();
+//        ButterKnife.unbind(this);
+//    }
 
 }

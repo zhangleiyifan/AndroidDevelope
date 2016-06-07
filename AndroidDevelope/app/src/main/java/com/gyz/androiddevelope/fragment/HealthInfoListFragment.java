@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.gyz.androiddevelope.R;
 import com.gyz.androiddevelope.adapter.HealthInfoAdapter;
 import com.gyz.androiddevelope.base.BaseFragment;
+import com.gyz.androiddevelope.engine.AppContants;
 import com.gyz.androiddevelope.request_bean.ReqHealthInfoList;
 import com.gyz.androiddevelope.response_bean.HealthInfoList;
 import com.gyz.androiddevelope.retrofit.ReUtil;
@@ -48,13 +49,18 @@ public class HealthInfoListFragment extends BaseFragment implements SwipeRefresh
     private boolean isAdd;
 
 
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_health_info_list, container, false);
+//    @Nullable
+//    @Override
+//    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+//        View view = inflater.inflate(R.layout.fragment_health_info_list, container, false);
+//
+//        ButterKnife.bind(this, view);
+//        return view;
+//    }
 
-        ButterKnife.bind(this, view);
-        return view;
+    @Override
+    public int getLayoutId() {
+        return R.layout.fragment_health_info_list;
     }
 
     @Override
@@ -115,7 +121,7 @@ public class HealthInfoListFragment extends BaseFragment implements SwipeRefresh
         RxUtil.subscribeAll(new Func1<String, Observable<HealthInfoList>>() {
             @Override
             public Observable<HealthInfoList> call(String s) {
-                return ReUtil.getApiManager(true).getHealthNewsInfoList(new ReqHealthInfoList(page, rows, id));
+                return ReUtil.getApiManager(AppContants.ZHIHU_HTTP).getHealthNewsInfoList(new ReqHealthInfoList(page, rows, id));
             }
         }, new Subscriber<HealthInfoList>() {
             @Override
@@ -157,10 +163,10 @@ public class HealthInfoListFragment extends BaseFragment implements SwipeRefresh
 
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        ButterKnife.unbind(this);
-    }
+//    @Override
+//    public void onDestroyView() {
+//        super.onDestroyView();
+//        ButterKnife.unbind(this);
+//    }
 
 }

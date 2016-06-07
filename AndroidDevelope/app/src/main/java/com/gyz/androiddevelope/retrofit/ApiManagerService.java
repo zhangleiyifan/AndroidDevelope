@@ -12,6 +12,7 @@ import com.gyz.androiddevelope.response_bean.GalleryTypeRespBean;
 import com.gyz.androiddevelope.response_bean.HealthInfoList;
 import com.gyz.androiddevelope.response_bean.InfoList;
 import com.gyz.androiddevelope.response_bean.LatestNewsBean;
+import com.gyz.androiddevelope.response_bean.ListPinsBean;
 import com.gyz.androiddevelope.response_bean.LoadImageBean;
 import com.gyz.androiddevelope.response_bean.NewsDetailBean;
 import com.gyz.androiddevelope.response_bean.StoryExtraBean;
@@ -22,6 +23,7 @@ import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
@@ -34,9 +36,9 @@ import rx.Observable;
 public interface ApiManagerService {
 
     //============================================知乎日报api=======================================================
-        @GET(AppContants.START_IMAG)
+    @GET(AppContants.START_IMAG)
     Observable<LoadImageBean> getLoadImg();
-    
+
     //最新消息
     @GET(AppContants.LATEST_NEWS)
     Observable<LatestNewsBean> getLatestNews();
@@ -61,16 +63,16 @@ public interface ApiManagerService {
 
     @FormUrlEncoded
     @POST(AppContants.GALLERY_BEAN_LIST)
-    Observable<GalleryRespBean> getGalleryBeanList( @Field("id") int id,@Field("page") int page,@Field("rows") int rows);
+    Observable<GalleryRespBean> getGalleryBeanList(@Field("id") int id, @Field("page") int page, @Field("rows") int rows);
 
     @FormUrlEncoded
     @POST(AppContants.ALBUM_DETAIL_LIST)
     Observable<AlbumDetailListBean> getAlbumDetailList(@Field("id") int id);
 
-//=============================================================================================================
+    //=============================================================================================================
     @FormUrlEncoded
     @POST("/data/sk/101010100.html")
-    Observable<Axiba> getWeather(@Field("cityId") String cityId,@Field("cityName") String cityName);
+    Observable<Axiba> getWeather(@Field("cityId") String cityId, @Field("cityName") String cityName);
 
     @POST("/data/sk/101010100.html")
     Observable<Axiba> getWeather2(@Body ReqWeatherBean reqWeatherBean);
@@ -90,12 +92,23 @@ public interface ApiManagerService {
 
 
     @GET("api/info/list")
-    Observable<InfoList> getHealthInfoList(@Query("id") int id,@Query("rows") int rows,@Query("page")int page);
+    Observable<InfoList> getHealthInfoList(@Query("id") int id, @Query("rows") int rows, @Query("page") int page);
 
     @POST("api/info/list")
     Observable<InfoList> getHealthInfoList(@Body ReqHealthInfoList list);
 
     @POST("api/info/list")
-    Observable<HealthInfoList> getHealthNewsInfoList(@Body ReqHealthInfoList list );
+    Observable<HealthInfoList> getHealthNewsInfoList(@Body ReqHealthInfoList list);
+
+    //=========================花瓣==========================
+//https://api.huaban.com/favorite/food_drink?limit=20
+// 模板类型
+    @GET("favorite/{type}")
+    Observable<ListPinsBean> httpsTypeLimitRx(@Header("Authorization") String authorization, @Path("type") String type, @Query("limit") int limit);
+
+    //https://api.huaban.com/favorite/food_drink?max=5445324325&limit=20
+    //模板类型 的后续联网 max
+    @GET("favorite/{type}")
+    Observable<ListPinsBean> httpsTypeMaxLimitRx(@Header("Authorization") String authorization, @Path("type") String type, @Query("max") int max, @Query("limit") int limit);
 
 }

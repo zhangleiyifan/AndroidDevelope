@@ -3,10 +3,16 @@ package com.gyz.androiddevelope.base;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
+import butterknife.ButterKnife;
 
 /**
  * @author: guoyazhou
@@ -18,9 +24,17 @@ public abstract class BaseFragment extends Fragment {
     private Gson gson;
     protected ProgressDialog dlg;
 
+    protected View mRootView;
+
+    @Nullable
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        if (null == mRootView) {
+            mRootView = inflater.inflate(getLayoutId(), null);
+        }
+        ButterKnife.bind(this, mRootView);
+        return mRootView;
     }
 
     @Override
@@ -35,6 +49,11 @@ public abstract class BaseFragment extends Fragment {
     }
 
     /**
+     *
+     * @return 获取布局文件id
+     */
+    public abstract int getLayoutId();
+    /**
      * 初始化界面
      */
     public abstract void initView();
@@ -48,6 +67,12 @@ public abstract class BaseFragment extends Fragment {
 
     public Gson getGson(){
         return gson;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
     }
 
     @Override
