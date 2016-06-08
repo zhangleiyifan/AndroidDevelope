@@ -44,6 +44,7 @@ public abstract class BaseFragment extends Fragment {
         gson = new GsonBuilder().create();
 
         dlg = new ProgressDialog(context);
+        getBundleDatas(getArguments());
         initView();
         initData();
     }
@@ -53,6 +54,9 @@ public abstract class BaseFragment extends Fragment {
      * @return 获取布局文件id
      */
     public abstract int getLayoutId();
+
+    public abstract void getBundleDatas(Bundle bundle);
+
     /**
      * 初始化界面
      */

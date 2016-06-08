@@ -58,6 +58,7 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         if(getItemViewType(position) == TYPE_HEADER) return;
+        //获取position信息
         pos = getRealPosition(viewHolder);
         final T data = mDatas.get(pos);
         onBind(viewHolder, pos, data);
@@ -70,32 +71,33 @@ public abstract class BaseRecyclerAdapter<T> extends RecyclerView.Adapter<Recycl
             });
         }
     }
-    @Override
-    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
-        super.onAttachedToRecyclerView(recyclerView);
-        RecyclerView.LayoutManager manager = recyclerView.getLayoutManager();
-        if(manager instanceof GridLayoutManager) {
-            final GridLayoutManager gridManager = ((GridLayoutManager) manager);
-            gridManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-                @Override
-                public int getSpanSize(int position) {
-                    return getItemViewType(position) == TYPE_HEADER
-                            ? gridManager.getSpanCount() : 1;
-                }
-            });
-        }
-    }
-    @Override
-    public void onViewAttachedToWindow(RecyclerView.ViewHolder holder) {
-        super.onViewAttachedToWindow(holder);
-        ViewGroup.LayoutParams lp = holder.itemView.getLayoutParams();
-        if(lp != null
-                && lp instanceof StaggeredGridLayoutManager.LayoutParams
-                && holder.getLayoutPosition() == 0) {
-            StaggeredGridLayoutManager.LayoutParams p = (StaggeredGridLayoutManager.LayoutParams) lp;
-            p.setFullSpan(true);
-        }
-    }
+//    @Override
+//    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+//        super.onAttachedToRecyclerView(recyclerView);
+//        RecyclerView.LayoutManager manager = recyclerView.getLayoutManager();
+//        if(manager instanceof GridLayoutManager) {
+//            final GridLayoutManager gridManager = ((GridLayoutManager) manager);
+//            gridManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+//                @Override
+//                public int getSpanSize(int position) {
+//                    return getItemViewType(position) == TYPE_HEADER
+//                            ? gridManager.getSpanCount() : 1;
+//                }
+//            });
+//        }
+//    }
+//    @Override
+//    public void onViewAttachedToWindow(RecyclerView.ViewHolder holder) {
+//        super.onViewAttachedToWindow(holder);
+//        ViewGroup.LayoutParams lp = holder.itemView.getLayoutParams();
+//        if(lp != null
+//                && lp instanceof StaggeredGridLayoutManager.LayoutParams
+//                && holder.getLayoutPosition() == 0) {
+//            StaggeredGridLayoutManager.LayoutParams p = (StaggeredGridLayoutManager.LayoutParams) lp;
+//            p.setFullSpan(true);
+//        }
+//    }
+//
     public int getRealPosition(RecyclerView.ViewHolder holder) {
         int position = holder.getLayoutPosition();
         return mHeaderView == null ? position : position - 1;

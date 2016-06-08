@@ -8,10 +8,10 @@
     android:layout_marginRight="@dimen/dp_12"
     android:layout_marginTop="@dimen/dp_8"
     android:foreground="?attr/selectableItemBackground"
+    android:stateListAnimator="@drawable/translationz_anim"
     app:cardCornerRadius="@dimen/dp_10"
     app:cardPreventCornerOverlap="true"
     app:cardUseCompatPadding="true"
-    android:stateListAnimator="@drawable/translationz_anim"
     app:contentPaddingLeft="@dimen/dp_12"
     app:contentPaddingRight="@dimen/dp_12"
     app:contentPaddingTop="@dimen/dp_12">

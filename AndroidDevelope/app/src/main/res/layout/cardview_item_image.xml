@@ -10,6 +10,9 @@
     android:layout_marginLeft="@dimen/dp_4"
     android:layout_marginRight="@dimen/dp_4"
     android:layout_marginTop="@dimen/dp_8"
+    app:cardPreventCornerOverlap="true"
+    app:cardUseCompatPadding="true"
+
     app:cardCornerRadius="@dimen/dp_2"
     app:elevation="@dimen/dp_2"
     >

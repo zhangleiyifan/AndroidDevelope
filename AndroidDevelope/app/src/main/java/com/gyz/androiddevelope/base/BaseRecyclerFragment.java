@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 
 import com.gyz.androiddevelope.R;
+import com.gyz.androiddevelope.listener.OnRecyclerRefreshListener;
 import com.gyz.androiddevelope.listener.RecycleViewOnScrollListener;
 import com.gyz.androiddevelope.util.L;
 
@@ -16,7 +17,7 @@ import butterknife.Bind;
  * @author: ZhaoHao
  * @date: 2016-06-07 09:50
  */
-public abstract class BaseRecyclerFragment extends BaseFragment {
+public abstract class BaseRecyclerFragment extends BaseFragment implements OnRecyclerRefreshListener {
     private static final String TAG = "BaseRecyclerFragment";
     @Bind(R.id.recyclerView)
     RecyclerView recyclerView;
@@ -32,6 +33,7 @@ public abstract class BaseRecyclerFragment extends BaseFragment {
 
     @Override
     public void initView() {
+
         mAdapter = getAdapter();
         recyclerView.setAdapter(mAdapter);
         recyclerView.setLayoutManager(getLayoutManager());
@@ -56,14 +58,14 @@ public abstract class BaseRecyclerFragment extends BaseFragment {
                     L.d("滑动停止 position=" + mAdapter.getPosition());
                     int size = (int) (mAdapter.getItemCount() * percentageScroll);
                     if (mAdapter.getPosition() >= --size && isScorllLisener) {
-                        addMoreData();
+                        addData(true);
                     }
                 } else if (RecyclerView.SCROLL_STATE_DRAGGING == newState) {
                     //用户正在滑动
-//                    Logger.d("用户正在滑动 position=" + mAdapter.getAdapterPosition());
+//                    L.d("用户正在滑动 position=" + mAdapter.getAdapterPosition());
                 } else {
                     //惯性滑动
-//                    Logger.d("惯性滑动 position=" + mAdapter.getAdapterPosition());
+//                    L.d("惯性滑动 position=" + mAdapter.getAdapterPosition());
                 }
             }
         });
@@ -72,9 +74,14 @@ public abstract class BaseRecyclerFragment extends BaseFragment {
     /**
      * 获取数据
      */
-    protected abstract void addMoreData();
+    protected abstract void addData(boolean isAdd);
 
     protected abstract BaseRecyclerAdapter getAdapter(); //这里初始化 adapter
+
+    @Override
+    public void onRecyclerRefresh() {
+        addData(false);
+    }
 
     protected RecyclerView.LayoutManager getLayoutManager() {
         return new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);

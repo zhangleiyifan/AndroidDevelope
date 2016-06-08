@@ -64,6 +64,11 @@ public class HealthInfoListFragment extends BaseFragment implements SwipeRefresh
     }
 
     @Override
+    public void getBundleDatas(Bundle bundle) {
+
+    }
+
+    @Override
     public void initView() {
 
         swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimaryDark, R.color.colorAccent, R.color.color_f98435, R.color.color_ef5350);

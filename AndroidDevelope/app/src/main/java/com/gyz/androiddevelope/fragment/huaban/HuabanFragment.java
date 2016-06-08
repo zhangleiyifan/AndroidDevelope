@@ -1,5 +1,6 @@
 package com.gyz.androiddevelope.fragment.huaban;
 
+import android.os.Bundle;
 import android.view.View;
 import com.gyz.androiddevelope.adapter.HuabanRecyclerAdapter;
 import com.gyz.androiddevelope.base.BaseRecyclerAdapter;
@@ -23,18 +24,35 @@ import rx.functions.Func1;
  */
 public class HuabanFragment extends BaseRecyclerFragment {
     private static final String TAG = "HuabanFragment";
+    public static final String KEY  = "key";
 
     //花瓣联网的授权字段
     protected String mAuthorization;
-    protected String mKey = "beauty";//用于联网查询的关键字
+    protected String mKey = "all";//用于联网查询的关键字
     protected static int mLimit = AppContants.LIMIT;
     private int mMaxId = 0;
     private HuabanRecyclerAdapter adapter;
 
     @Override
-    protected void addMoreData() {
+    public void getBundleDatas(Bundle bundle) {
+        mKey = bundle!=null? (String) bundle.get(KEY) :"all";
+    }
+
+    @Override
+    public void initData() {
+        requestData(false);
+    }
+
+    @Override
+    public String getTitle() {
+        return "花瓣";
+    }
+
+
+    @Override
+    protected void addData(boolean isAdd) {
         //下拉刷新新数据
-        requestData(true);
+        requestData(isAdd);
     }
 
     private void requestData(final boolean isAddData) {
@@ -102,13 +120,4 @@ public class HuabanFragment extends BaseRecyclerFragment {
         return adapter;
     }
 
-    @Override
-    public void initData() {
-        requestData(false);
-    }
-
-    @Override
-    public String getTitle() {
-        return "花瓣";
-    }
 }

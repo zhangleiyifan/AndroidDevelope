@@ -135,8 +135,12 @@ public class HomeActivity extends BaseActivity
             if (huabanFragment==null){
                 huabanFragment = new HuabanFragment();
             }
+
+                Bundle bundle = new Bundle();
+            bundle.putString(HuabanFragment.KEY,"beauty");
+            huabanFragment.setArguments(bundle);
             switchFragment(huabanFragment);
-//            toolbar.setTitle("");
+            toolbar.setTitle("花瓣");
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

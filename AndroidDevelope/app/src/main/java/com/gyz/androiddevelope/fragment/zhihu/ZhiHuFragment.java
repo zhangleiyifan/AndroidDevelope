@@ -2,6 +2,7 @@ package com.gyz.androiddevelope.fragment.zhihu;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -61,6 +62,11 @@ public class ZhiHuFragment extends BaseFragment implements SwipeRefreshLayout.On
     @Override
     public int getLayoutId() {
         return R.layout.fragment_zhihu;
+    }
+
+    @Override
+    public void getBundleDatas(Bundle bundle) {
+
     }
 
     @Override

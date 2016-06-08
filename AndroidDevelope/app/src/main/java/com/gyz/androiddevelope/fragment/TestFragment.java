@@ -103,6 +103,11 @@ public class TestFragment extends BaseFragment {
         return R.layout.activity_main;
     }
 
+    @Override
+    public void getBundleDatas(Bundle bundle) {
+
+    }
+
 
     @Override
     public void initView() {

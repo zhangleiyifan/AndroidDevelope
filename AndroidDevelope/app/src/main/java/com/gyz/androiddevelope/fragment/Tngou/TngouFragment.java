@@ -61,6 +61,11 @@ public class TngouFragment extends BaseFragment {
     }
 
     @Override
+    public void getBundleDatas(Bundle bundle) {
+
+    }
+
+    @Override
     public void initView() {
     }
 

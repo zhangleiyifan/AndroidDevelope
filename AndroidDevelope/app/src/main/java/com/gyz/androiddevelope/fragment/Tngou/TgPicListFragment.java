@@ -64,6 +64,11 @@ public class TgPicListFragment extends BaseFragment implements BaseRecyclerAdapt
     }
 
     @Override
+    public void getBundleDatas(Bundle bundle) {
+
+    }
+
+    @Override
     public void initView() {
         L.e(TAG,"进入图片列表页，initview");
         Bundle bundle = this.getArguments();
