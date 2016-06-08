@@ -1,11 +1,15 @@
 package com.gyz.androiddevelope.fragment.huaban;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import com.gyz.androiddevelope.adapter.HuabanRecyclerAdapter;
 import com.gyz.androiddevelope.base.BaseRecyclerAdapter;
 import com.gyz.androiddevelope.base.BaseRecyclerFragment;
 import com.gyz.androiddevelope.engine.AppContants;
+import com.gyz.androiddevelope.listener.OnSwipeRefreshFragmentListener;
 import com.gyz.androiddevelope.response_bean.ListPinsBean;
 import com.gyz.androiddevelope.response_bean.PinsMainEntity;
 import com.gyz.androiddevelope.retrofit.ReUtil;
@@ -32,6 +36,8 @@ public class HuabanFragment extends BaseRecyclerFragment {
     protected static int mLimit = AppContants.LIMIT;
     private int mMaxId = 0;
     private HuabanRecyclerAdapter adapter;
+    //与Activity 交互接口 SWIpe 刷新结束后，停止转圈
+    private OnSwipeRefreshFragmentListener mRefreshListener;
 
     @Override
     public void getBundleDatas(Bundle bundle) {
@@ -48,9 +54,16 @@ public class HuabanFragment extends BaseRecyclerFragment {
         return "花瓣";
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnSwipeRefreshFragmentListener){
+            mRefreshListener = (OnSwipeRefreshFragmentListener) context;
+        }
+    }
 
     @Override
-    protected void addData(boolean isAdd) {
+    protected void addListNetData(boolean isAdd) {
         //下拉刷新新数据
         requestData(isAdd);
     }
@@ -61,6 +74,7 @@ public class HuabanFragment extends BaseRecyclerFragment {
             @Override
             public Observable<ListPinsBean> call(String s) {
                 if (isAddData) {
+                    mRefreshListener.OnRefreshState(true);
                     return ReUtil.getApiManager(AppContants.HUABAN_HTTP).httpsTypeMaxLimitRx(mAuthorization, mKey, mMaxId, mLimit);
                 } else {
                     return ReUtil.getApiManager(AppContants.HUABAN_HTTP).httpsTypeLimitRx(mAuthorization, mKey, mLimit);
@@ -69,12 +83,12 @@ public class HuabanFragment extends BaseRecyclerFragment {
         }, new Subscriber<ListPinsBean>() {
             @Override
             public void onCompleted() {
-
+                mRefreshListener.OnRefreshState(false);
             }
 
             @Override
             public void onError(Throwable e) {
-                e.printStackTrace();
+                e.printStackTrace();mRefreshListener.OnRefreshState(false);
             }
 
             @Override
@@ -118,6 +132,11 @@ public class HuabanFragment extends BaseRecyclerFragment {
         });
 
         return adapter;
+    }
+
+    @Override
+    protected RecyclerView.LayoutManager getLayoutManager() {
+        return new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
     }
 
 }

@@ -1,11 +1,13 @@
 package com.gyz.androiddevelope.activity;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -15,24 +17,35 @@ import android.widget.FrameLayout;
 import com.gyz.androiddevelope.R;
 import com.gyz.androiddevelope.base.BaseActivity;
 import com.gyz.androiddevelope.base.BaseFragment;
+import com.gyz.androiddevelope.base.BaseRecyclerFragment;
 import com.gyz.androiddevelope.fragment.TestFragment;
 import com.gyz.androiddevelope.fragment.Tngou.TngouFragment;
 import com.gyz.androiddevelope.fragment.huaban.HuabanFragment;
-import com.gyz.androiddevelope.fragment.zhihu.ZhiHuFragment;
+import com.gyz.androiddevelope.fragment.zhihu.ZhiHu2Fragment;
+import com.gyz.androiddevelope.listener.OnRecyclerRefreshListener;
+import com.gyz.androiddevelope.listener.OnSwipeRefreshFragmentListener;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class HomeActivity extends BaseActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, OnSwipeRefreshFragmentListener {
 
     @Bind(R.id.toolbar)
     Toolbar toolbar;
     @Bind(R.id.contain_home)
     FrameLayout containHome;
+    @Bind(R.id.swipeRefreshLayout)
+    SwipeRefreshLayout swipeRefreshLayout;
+    @Bind(R.id.floatingActionButton)
+    FloatingActionButton floatingActionButton;
 
-    private BaseFragment mainFragment,tngouPicFragment, testFragment,huabanFragment;
+    protected static final int[] ints = new int[]{R.color.colorPrimaryDark};
+    private BaseFragment zhihuFragment, tngouPicFragment, testFragment, huabanFragment;
     long firstTime = 0;
+
+    //刷新的接口 子Fragment实现
+    private OnRecyclerRefreshListener mListenerRefresh;
 
     @Override
     protected void initVariables() {
@@ -55,8 +68,17 @@ public class HomeActivity extends BaseActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        mainFragment = new ZhiHuFragment();
-        switchFragment(mainFragment);
+
+        swipeRefreshLayout.setColorSchemeResources(ints);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mListenerRefresh.onRecyclerRefresh();
+            }
+        });
+
+        zhihuFragment = new ZhiHu2Fragment();
+        switchFragment(zhihuFragment);
 
     }
 
@@ -73,12 +95,12 @@ public class HomeActivity extends BaseActivity
         } else {
             long secondTime = System.currentTimeMillis();
             if (secondTime - firstTime > 2000) {
-                Snackbar sb = Snackbar.make(containHome, R.string.exit_app,Snackbar.LENGTH_SHORT);
+                Snackbar sb = Snackbar.make(containHome, R.string.exit_app, Snackbar.LENGTH_SHORT);
                 sb.getView().setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
                 sb.show();
                 firstTime = secondTime;
-            }else {
-               finish();
+            } else {
+                finish();
             }
         }
     }
@@ -97,7 +119,7 @@ public class HomeActivity extends BaseActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-                SettingsActivity.startActivity();
+            SettingsActivity.startActivity();
             return true;
         }
 
@@ -111,7 +133,7 @@ public class HomeActivity extends BaseActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            switchFragment(mainFragment);
+            switchFragment(zhihuFragment);
             toolbar.setTitle(getString(R.string.title_zhihu));
 
         } else if (id == R.id.nav_test) {
@@ -122,7 +144,7 @@ public class HomeActivity extends BaseActivity
 
         } else if (id == R.id.nav_picshow) {
 
-            if (tngouPicFragment ==null)
+            if (tngouPicFragment == null)
                 tngouPicFragment = new TngouFragment();
             switchFragment(tngouPicFragment);
             toolbar.setTitle(getString(R.string.title_tngou));
@@ -132,12 +154,12 @@ public class HomeActivity extends BaseActivity
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.navTest) {
-            if (huabanFragment==null){
+            if (huabanFragment == null) {
                 huabanFragment = new HuabanFragment();
             }
 
-                Bundle bundle = new Bundle();
-            bundle.putString(HuabanFragment.KEY,"beauty");
+            Bundle bundle = new Bundle();
+            bundle.putString(HuabanFragment.KEY, "beauty");
             huabanFragment.setArguments(bundle);
             switchFragment(huabanFragment);
             toolbar.setTitle("花瓣");
@@ -150,14 +172,19 @@ public class HomeActivity extends BaseActivity
 
 
     protected void switchFragment(BaseFragment fragment) {
-
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 
         if (fragment != null) {
+            if (fragment instanceof BaseRecyclerFragment) {
+                mListenerRefresh = (OnRecyclerRefreshListener) fragment;
+            }
             ft.replace(R.id.contain_home, fragment);
         }
         ft.commit();
-
     }
 
+    @Override
+    public void OnRefreshState(boolean isRefreshing) {
+        swipeRefreshLayout.setRefreshing(isRefreshing);
+    }
 }

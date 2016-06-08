@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutCompat;
+import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -41,6 +42,8 @@ import com.gyz.androiddevelope.activity.custom.WaveActivity;
 import com.gyz.androiddevelope.activity.noactionbar.NoBoringActionBarActivity;
 import com.gyz.androiddevelope.base.BaseApplication;
 import com.gyz.androiddevelope.base.BaseFragment;
+import com.gyz.androiddevelope.base.BaseRecyclerAdapter;
+import com.gyz.androiddevelope.base.BaseRecyclerFragment;
 import com.gyz.androiddevelope.engine.AppContants;
 import com.gyz.androiddevelope.engine.User;
 import com.gyz.androiddevelope.net.okhttp.OkHttpClientManager;
@@ -88,16 +91,6 @@ public class TestFragment extends BaseFragment {
     ProgressDialog dlg;
     Context context;
 
-//    @Nullable
-//    @Override
-//    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-//
-//        View view = inflater.inflate(R.layout.activity_main, container, false);
-//        ButterKnife.bind(this, view);
-//
-//        return view;
-//    }
-
     @Override
     public int getLayoutId() {
         return R.layout.activity_main;
@@ -116,7 +109,6 @@ public class TestFragment extends BaseFragment {
         dlg = Utils.createProgressDialog(context, this.getString(R.string.str_loading));
 
     }
-
     @Override
     public void initData() {
     }

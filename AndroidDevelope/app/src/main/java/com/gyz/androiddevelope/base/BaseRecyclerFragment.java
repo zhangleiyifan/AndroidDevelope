@@ -2,7 +2,6 @@ package com.gyz.androiddevelope.base;
 
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 
 import com.gyz.androiddevelope.R;
 import com.gyz.androiddevelope.listener.OnRecyclerRefreshListener;
@@ -34,9 +33,9 @@ public abstract class BaseRecyclerFragment extends BaseFragment implements OnRec
     @Override
     public void initView() {
 
+        recyclerView.setLayoutManager(getLayoutManager());
         mAdapter = getAdapter();
         recyclerView.setAdapter(mAdapter);
-        recyclerView.setLayoutManager(getLayoutManager());
         recyclerView.setItemAnimator(new DefaultItemAnimator());//设置默认动画
         recyclerView.addOnScrollListener(new RecycleViewOnScrollListener() {
             @Override
@@ -58,7 +57,7 @@ public abstract class BaseRecyclerFragment extends BaseFragment implements OnRec
                     L.d("滑动停止 position=" + mAdapter.getPosition());
                     int size = (int) (mAdapter.getItemCount() * percentageScroll);
                     if (mAdapter.getPosition() >= --size && isScorllLisener) {
-                        addData(true);
+                        addListNetData(true);
                     }
                 } else if (RecyclerView.SCROLL_STATE_DRAGGING == newState) {
                     //用户正在滑动
@@ -72,18 +71,29 @@ public abstract class BaseRecyclerFragment extends BaseFragment implements OnRec
     }
 
     /**
-     * 获取数据
+     * 获取list数据
      */
-    protected abstract void addData(boolean isAdd);
+    protected abstract void addListNetData(boolean isAdd);
 
-    protected abstract BaseRecyclerAdapter getAdapter(); //这里初始化 adapter
+    /**
+     *
+     * @return 这里初始化 adapter
+     */
+    protected abstract BaseRecyclerAdapter getAdapter();
+
+    /**
+     *
+     * @return 获取recyclerView的layoutmanager
+     */
+    protected abstract RecyclerView.LayoutManager getLayoutManager();
 
     @Override
     public void onRecyclerRefresh() {
-        addData(false);
+        addListNetData(false);
     }
 
-    protected RecyclerView.LayoutManager getLayoutManager() {
-        return new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+
+    public RecyclerView getRecyclerView(){
+        return recyclerView;
     }
 }

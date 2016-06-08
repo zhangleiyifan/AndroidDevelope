@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,8 @@ import com.gyz.androiddevelope.R;
 import com.gyz.androiddevelope.adapter.TngouPicViewPagerAdapter;
 import com.gyz.androiddevelope.base.BaseApplication;
 import com.gyz.androiddevelope.base.BaseFragment;
+import com.gyz.androiddevelope.base.BaseRecyclerAdapter;
+import com.gyz.androiddevelope.base.BaseRecyclerFragment;
 import com.gyz.androiddevelope.engine.AppContants;
 import com.gyz.androiddevelope.response_bean.GalleryTypeBean;
 import com.gyz.androiddevelope.response_bean.GalleryTypeRespBean;
@@ -45,16 +48,6 @@ public class TngouFragment extends BaseFragment {
     private List<BaseFragment> fragmentList = new ArrayList<>();
     TngouPicViewPagerAdapter pagerAdapter;
 
-//    @Nullable
-//    @Override
-//    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-//
-//        View view = inflater.inflate(R.layout.fragment_tg_pic, container, false);
-//        ButterKnife.bind(this, view);
-//        return view;
-//
-//    }
-
     @Override
     public int getLayoutId() {
         return R.layout.fragment_tg_pic;
@@ -62,7 +55,6 @@ public class TngouFragment extends BaseFragment {
 
     @Override
     public void getBundleDatas(Bundle bundle) {
-
     }
 
     @Override
