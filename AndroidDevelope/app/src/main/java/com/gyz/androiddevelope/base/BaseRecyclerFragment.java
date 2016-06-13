@@ -13,7 +13,7 @@ import butterknife.Bind;
 /**
  * @version V1.0
  * @FileName: com.gyz.androiddevelope.base.BaseRecyclerFragment.java
- * @author: ZhaoHao
+ * @author: GYZ
  * @date: 2016-06-07 09:50
  */
 public abstract class BaseRecyclerFragment extends BaseFragment implements OnRecyclerRefreshListener {
@@ -39,11 +39,11 @@ public abstract class BaseRecyclerFragment extends BaseFragment implements OnRec
         recyclerView.setItemAnimator(new DefaultItemAnimator());//设置默认动画
         recyclerView.addOnScrollListener(new RecycleViewOnScrollListener() {
             @Override
-            public void show() {
+            public void showFab() {
             }
 
             @Override
-            public void hide() {
+            public void hideFab() {
             }
 
             @Override

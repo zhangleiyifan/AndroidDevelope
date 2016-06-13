@@ -21,12 +21,12 @@ public abstract class RecycleViewOnScrollListener extends RecyclerView.OnScrollL
 
         if (dy < 0 && isVisible && moveDistance > MOVE_DISTANCE) {
             //做显示操作
-            show();
+            showFab();
             isVisible = false;
             moveDistance = 0;
         } else if (dy > 0 && !isVisible && moveDistance > MOVE_DISTANCE) {
 //            做隐藏操作
-            hide();
+            hideFab();
             isVisible = true;
             moveDistance = 0;
         }
@@ -43,9 +43,9 @@ public abstract class RecycleViewOnScrollListener extends RecyclerView.OnScrollL
         onScrollStateChange(recyclerView,newState);
     }
 
-    public abstract void show();
+    public abstract void showFab();
 
-    public abstract void hide();
+    public abstract void hideFab();
 
     public abstract void normalScroll();
 

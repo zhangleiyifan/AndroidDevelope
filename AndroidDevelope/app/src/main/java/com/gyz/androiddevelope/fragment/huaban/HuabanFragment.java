@@ -65,6 +65,9 @@ public class HuabanFragment extends BaseRecyclerFragment {
     @Override
     protected void addListNetData(boolean isAdd) {
         //下拉刷新新数据
+        if (!isAdd){
+            mRefreshListener.OnRefreshState(true);
+        }
         requestData(isAdd);
     }
 
@@ -74,7 +77,6 @@ public class HuabanFragment extends BaseRecyclerFragment {
             @Override
             public Observable<ListPinsBean> call(String s) {
                 if (isAddData) {
-                    mRefreshListener.OnRefreshState(true);
                     return ReUtil.getApiManager(AppContants.HUABAN_HTTP).httpsTypeMaxLimitRx(mAuthorization, mKey, mMaxId, mLimit);
                 } else {
                     return ReUtil.getApiManager(AppContants.HUABAN_HTTP).httpsTypeLimitRx(mAuthorization, mKey, mLimit);
@@ -122,12 +124,10 @@ public class HuabanFragment extends BaseRecyclerFragment {
 
             @Override
             public void onClickInfoGather(PinsMainEntity bean, View view) {
-
             }
 
             @Override
             public void onClickInfoLike(PinsMainEntity bean, View view) {
-
             }
         });
 

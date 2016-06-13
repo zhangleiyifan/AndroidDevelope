@@ -17,6 +17,7 @@ import com.gyz.androiddevelope.R;
 import com.gyz.androiddevelope.base.BaseRecyclerAdapter;
 import com.gyz.androiddevelope.response_bean.PinsMainEntity;
 import com.gyz.androiddevelope.util.CompatUtils;
+import com.gyz.androiddevelope.util.ImageLoadFresco;
 import com.gyz.androiddevelope.util.ImageUtils;
 import com.gyz.androiddevelope.util.Utils;
 
@@ -111,8 +112,9 @@ public class HuabanRecyclerAdapter extends BaseRecyclerAdapter {
         //长图 "width":440,"height":5040,
         holder.img_card_image.setAspectRatio(ratio);//设置宽高比
         Drawable dProgressImage = CompatUtils.getTintListDrawable(context, R.drawable.ic_toys_black_48dp, R.color.tint_list_pink);
-
-        ImageUtils.loadImageByFresco(context,holder.img_card_image,url_img);
+        new ImageLoadFresco.LoadImageFrescoBuilder(context,holder.img_card_image,url_img)
+                .setProgressBarImage(dProgressImage).build();
+//        ImageUtils.loadImageByFresco(context,holder.img_card_image,url_img);
 
     }
 

@@ -111,21 +111,17 @@ public class ZhiHuFragment extends BaseFragment implements SwipeRefreshLayout.On
 
                 //跳转至详情页
                 NewsDetailActivity.startActivity(context, object.id);
-//                TransitionAnimation 跳转
-//                Intent intent = new Intent(context, NewsDetailActivity.class);
-//                intent.putExtra(NewsDetailActivity.NEWS_ID, object.id);
-//               context.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
             }
         });
 
         recyclerView.addOnScrollListener(new RecycleViewOnScrollListener() {
             @Override
-            public void show() {
+            public void showFab() {
                 floatingActionButton.animate().translationY(0);
             }
 
             @Override
-            public void hide() {
+            public void hideFab() {
                 floatingActionButton.animate().translationY(floatingActionButton.getHeight() + ((FrameLayout.LayoutParams) floatingActionButton.getLayoutParams()).bottomMargin);
             }
 

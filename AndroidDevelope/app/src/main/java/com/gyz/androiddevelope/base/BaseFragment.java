@@ -23,7 +23,6 @@ public abstract class BaseFragment extends Fragment {
     public Context context;
     private Gson gson;
     protected ProgressDialog dlg;
-
     protected View mRootView;
 
     @Nullable

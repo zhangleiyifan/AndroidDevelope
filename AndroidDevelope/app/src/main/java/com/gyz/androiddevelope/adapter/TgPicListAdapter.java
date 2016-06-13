@@ -2,6 +2,7 @@ package com.gyz.androiddevelope.adapter;
 
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,8 @@ import com.gyz.androiddevelope.R;
 import com.gyz.androiddevelope.base.BaseRecyclerAdapter;
 import com.gyz.androiddevelope.engine.AppContants;
 import com.gyz.androiddevelope.response_bean.GalleryBean;
+import com.gyz.androiddevelope.util.CompatUtils;
+import com.gyz.androiddevelope.util.ImageLoadFresco;
 import com.gyz.androiddevelope.util.ImageUtils;
 import com.gyz.androiddevelope.util.ScreenUtils;
 
@@ -24,12 +27,14 @@ public class TgPicListAdapter extends BaseRecyclerAdapter<GalleryBean> {
     private static final String TAG = "TgPicListAdapter";
 
     private Context context;
-    private int imgWidth,imgHeight;
+    private int imgWidth, imgHeight;
+    private Drawable dProgressImage;
 
     public TgPicListAdapter(Context context) {
         this.context = context;
-        imgWidth = ScreenUtils.getScreenWidth(context)/3;
-        imgHeight = ScreenUtils.getScreenHeight(context)/3;
+        imgWidth = ScreenUtils.getScreenWidth(context) / 3;
+        imgHeight = ScreenUtils.getScreenHeight(context) / 3;
+        dProgressImage = CompatUtils.getTintListDrawable(context, R.drawable.ic_toys_black_48dp, R.color.tint_list_pink);
     }
 
 
@@ -50,8 +55,13 @@ public class TgPicListAdapter extends BaseRecyclerAdapter<GalleryBean> {
 //                .centerCrop()
 //                .tag(new Object())
 //                .into(viewHolder.img);
-        ImageUtils.loadImageByFresco(context,viewHolder.img,AppContants.TG_IMAGE_HEAD + data.getImg());
 //        viewHolder.img.setImageURI(Uri.parse(AppContants.TG_IMAGE_HEAD + data.getImg()));
+
+
+        //2 ImageUtils.loadImageByFresco(context,viewHolder.img,AppContants.TG_IMAGE_HEAD + data.getImg());
+
+        new ImageLoadFresco.LoadImageFrescoBuilder(context, viewHolder.img, AppContants.TG_IMAGE_HEAD + data.getImg())
+                .setProgressBarImage(dProgressImage).build();
         viewHolder.txtCount.setText(String.valueOf(data.getSize()));
     }
 
