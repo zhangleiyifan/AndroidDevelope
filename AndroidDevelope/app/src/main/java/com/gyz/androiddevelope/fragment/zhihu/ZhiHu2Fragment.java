@@ -82,7 +82,6 @@ public class ZhiHu2Fragment extends BaseRecyclerFragment {
         });
 
         adapter.setHeaderView(header);
-
         adapter.setOnItemClickListener(new BaseRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position, Object data, View v) {

@@ -34,6 +34,7 @@ import com.gyz.androiddevelope.activity.custom.McalendarActivity;
 import com.gyz.androiddevelope.activity.custom.MountainViewActivity;
 import com.gyz.androiddevelope.activity.custom.MyListViewActivity;
 import com.gyz.androiddevelope.activity.custom.MyProgressBarActivity;
+import com.gyz.androiddevelope.activity.custom.MyRecyclerActivity;
 import com.gyz.androiddevelope.activity.custom.MyWebActivity;
 import com.gyz.androiddevelope.activity.custom.NearBySearchActivity;
 import com.gyz.androiddevelope.activity.custom.ToolbarTestActivity;
@@ -395,24 +396,7 @@ public class TestFragment extends BaseFragment {
 
             case R.id.btnOnClick:
 
-//                dlg.show();
-
-                //网络操作.
-//                List<RequestParams> paramses = new ArrayList<>();
-//                paramses.add(new RequestParams("cityId", "111"));
-//                paramses.add(new RequestParams("cityName", "Beijing"));
-//
-//                RemoteService.getInstance().invoke(this, "getWeatherInfo", paramses, new AbstractRequestCallback() {
-//                    @Override
-//                    public void onSuccess(String result) {
-//
-//                        Log.v(TAG, "回调onSuccess==result" + result);
-//                        dlg.dismiss();
-//                        WeatherInfo info = JSON.parseObject(result, WeatherInfo.class);
-//                        txtInfo.setText(info.getCity());
-//                    }
-//
-//                });
+                startActivity(new Intent(getContext(),MyRecyclerActivity.class));
 
                 break;
 
