@@ -37,8 +37,8 @@ public class HomeActivity extends BaseActivity
     FrameLayout containHome;
     @Bind(R.id.swipeRefreshLayout)
     SwipeRefreshLayout swipeRefreshLayout;
-    @Bind(R.id.floatingActionButton)
-    FloatingActionButton floatingActionButton;
+//    @Bind(R.id.floatingActionButton)
+//    FloatingActionButton floatingActionButton;
 
     protected static final int[] ints = new int[]{R.color.colorPrimaryDark};
     private BaseFragment zhihuFragment, tngouPicFragment, testFragment, huabanFragment;

@@ -1,7 +1,13 @@
 package com.gyz.androiddevelope.base;
 
+import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 import com.gyz.androiddevelope.R;
 import com.gyz.androiddevelope.listener.OnRecyclerRefreshListener;
@@ -9,6 +15,7 @@ import com.gyz.androiddevelope.listener.RecycleViewOnScrollListener;
 import com.gyz.androiddevelope.util.L;
 
 import butterknife.Bind;
+import butterknife.ButterKnife;
 
 /**
  * @version V1.0
@@ -21,10 +28,13 @@ public abstract class BaseRecyclerFragment extends BaseFragment implements OnRec
     @Bind(R.id.recyclerView)
     RecyclerView recyclerView;
     BaseRecyclerAdapter mAdapter;
+    @Bind(R.id.floatingActionButton)
+    FloatingActionButton floatingActionButton;
 
     protected final float percentageScroll = 0.8f;//滑动距离的百分比
     //是否还监听滑动的联网 标志位 默认为true 表示需要监听
     protected boolean isScorllLisener = true;
+
     @Override
     public int getLayoutId() {
         return R.layout.base_recycler_fragment;
@@ -33,6 +43,13 @@ public abstract class BaseRecyclerFragment extends BaseFragment implements OnRec
     @Override
     public void initView() {
 
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addListNetData(false);
+            }
+        });
+
         recyclerView.setLayoutManager(getLayoutManager());
         mAdapter = getAdapter();
         recyclerView.setAdapter(mAdapter);
@@ -40,10 +57,12 @@ public abstract class BaseRecyclerFragment extends BaseFragment implements OnRec
         recyclerView.addOnScrollListener(new RecycleViewOnScrollListener() {
             @Override
             public void showFab() {
+                floatingActionButton.animate().translationY(0);
             }
 
             @Override
             public void hideFab() {
+                floatingActionButton.animate().translationY(floatingActionButton.getHeight() + ((FrameLayout.LayoutParams) floatingActionButton.getLayoutParams()).bottomMargin);
             }
 
             @Override
@@ -76,13 +95,11 @@ public abstract class BaseRecyclerFragment extends BaseFragment implements OnRec
     protected abstract void addListNetData(boolean isAdd);
 
     /**
-     *
      * @return 这里初始化 adapter
      */
     protected abstract BaseRecyclerAdapter getAdapter();
 
     /**
-     *
      * @return 获取recyclerView的layoutmanager
      */
     protected abstract RecyclerView.LayoutManager getLayoutManager();
@@ -93,7 +110,13 @@ public abstract class BaseRecyclerFragment extends BaseFragment implements OnRec
     }
 
 
-    public RecyclerView getRecyclerView(){
+    public RecyclerView getRecyclerView() {
         return recyclerView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
     }
 }

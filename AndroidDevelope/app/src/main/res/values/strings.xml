@@ -28,4 +28,10 @@
     <string name="add_pic">移动网络下加载图片</string>
     <string name="card_title">测试Card的title应该是很长的文本</string>
     <string name="url_image_general">http://img.hb.aicdn.com/%s_fw320sf</string>
+    <string name="prompt_username">邮箱</string>
+    <string name="prompt_password">密码</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="action_sign_in">登入</string>
+    <string name="action_register">注册</string>
+    <string name="null_info">输入信息不完整</string>
 </resources>

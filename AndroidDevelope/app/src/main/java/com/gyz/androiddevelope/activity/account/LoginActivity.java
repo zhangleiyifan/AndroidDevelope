@@ -1,17 +1,18 @@
 package com.gyz.androiddevelope.activity.account;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 
 import com.gyz.androiddevelope.R;
-import com.gyz.androiddevelope.base.BaseActivity;
-import com.gyz.androiddevelope.engine.AppContants;
-import com.gyz.androiddevelope.engine.User;
+import com.gyz.androiddevelope.base.BaseToolbarActivity;
+import com.gyz.androiddevelope.util.ToastUtil;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -21,21 +22,18 @@ import butterknife.OnClick;
  * @author: guoyazhou
  * @date: 2016-01-22 15:44
  */
-public class LoginActivity extends BaseActivity {
+public class LoginActivity extends BaseToolbarActivity {
 
     private static final String TAG = "LoginActivity";
-    @Bind(R.id.edtUserName)
-    EditText edtUserName;
-    @Bind(R.id.edtPwd)
-    EditText edtPwd;
-    @Bind(R.id.btnLogin)
-    Button btnLogin;
+    @Bind(R.id.actv_username)
+    AutoCompleteTextView actvUsername;
+    @Bind(R.id.edit_password)
+    EditText editPassword;
+    @Bind(R.id.progress_login)
+    ProgressBar progressLogin;
 
-    boolean needCallback;
-
-    public static void startActivity(Context context ,boolean needCallBack) {
+    public static void startActivity(Context context) {
         Intent intent = new Intent(context, LoginActivity.class);
-        intent.putExtra(AppContants.NEED_CALLBACK, needCallBack);
         context.startActivity(intent);
 
     }
@@ -43,7 +41,6 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void initVariables() {
 
-        needCallback= getIntent().getBooleanExtra(AppContants.NEED_CALLBACK,false);
 
     }
 
@@ -58,20 +55,40 @@ public class LoginActivity extends BaseActivity {
 
     }
 
-    @OnClick(R.id.btnLogin)
-    public void OnClick(View view){
-
-     User user=   User.getInstantce();
-        user.setIsLogin(true);
-        user.setLoginName(edtUserName.getText().toString());
-        user.setUserName("张三");
-
-        if (needCallback){
-            setResult(Activity.RESULT_OK);
-        }else {
-
-        }
-            finish();
+    /**
+     * 描述当前页面的title--便于友盟统计
+     */
+    @Override
+    protected String currActivityName() {
+        return "登入";
     }
 
+    @OnClick({R.id.btn_login, R.id.btn_register})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.btn_login:
+                doLogin();
+                break;
+            case R.id.btn_register:
+
+                break;
+        }
+    }
+
+    /**
+     * 登录操作
+     */
+    private void doLogin() {
+
+        String userName =actvUsername.getText().toString().toLowerCase().trim();
+        String pwd = editPassword.getText().toString().trim();
+
+        if (TextUtils.isEmpty(userName)|| TextUtils.isEmpty(pwd)){
+            ToastUtil.showShort(getBaseContext(),getString(R.string.null_info));
+        }
+
+
+
+
+    }
 }
