@@ -31,7 +31,9 @@
     <string name="prompt_username">邮箱</string>
     <string name="prompt_password">密码</string>
     <string name="action_sign_in_short">Sign in</string>
-    <string name="action_sign_in">登入</string>
+    <string name="action_sign_in">登录</string>
     <string name="action_register">注册</string>
     <string name="null_info">输入信息不完整</string>
+    <string name="login_success">登录成功</string>
+
 </resources>

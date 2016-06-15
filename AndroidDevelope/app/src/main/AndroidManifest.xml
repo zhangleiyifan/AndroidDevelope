@@ -37,6 +37,7 @@
         android:theme="@style/AppTheme.NoActionBar">
         <activity
             android:name=".activity.custom.LoadActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_load">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -66,6 +67,7 @@
         <activity
             android:name=".activity.HomeActivity"
             android:label="@string/title_home_page"
+            android:screenOrientation="portrait"
             android:launchMode="singleTask"
             android:theme="@style/AppThemeNotTranslucent"  >
 

@@ -114,7 +114,6 @@ public class HuabanRecyclerAdapter extends BaseRecyclerAdapter {
         Drawable dProgressImage = CompatUtils.getTintListDrawable(context, R.drawable.ic_toys_black_48dp, R.color.tint_list_pink);
         new ImageLoadFresco.LoadImageFrescoBuilder(context,holder.img_card_image,url_img)
                 .setProgressBarImage(dProgressImage).build();
-//        ImageUtils.loadImageByFresco(context,holder.img_card_image,url_img);
 
     }
 

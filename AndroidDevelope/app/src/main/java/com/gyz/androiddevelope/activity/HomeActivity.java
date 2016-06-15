@@ -24,6 +24,7 @@ import com.gyz.androiddevelope.fragment.huaban.HuabanFragment;
 import com.gyz.androiddevelope.fragment.zhihu.ZhiHu2Fragment;
 import com.gyz.androiddevelope.listener.OnRecyclerRefreshListener;
 import com.gyz.androiddevelope.listener.OnSwipeRefreshFragmentListener;
+import com.gyz.androiddevelope.util.SnackbarUtils;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -95,9 +96,11 @@ public class HomeActivity extends BaseActivity
         } else {
             long secondTime = System.currentTimeMillis();
             if (secondTime - firstTime > 2000) {
-                Snackbar sb = Snackbar.make(containHome, R.string.exit_app, Snackbar.LENGTH_SHORT);
-                sb.getView().setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
-                sb.show();
+                SnackbarUtils.showSnackBar(getBaseContext(),containHome,R.string.exit_app);
+
+//                Snackbar sb = Snackbar.make(containHome, R.string.exit_app, Snackbar.LENGTH_SHORT);
+//                sb.getView().setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+//                sb.show();
                 firstTime = secondTime;
             } else {
                 finish();

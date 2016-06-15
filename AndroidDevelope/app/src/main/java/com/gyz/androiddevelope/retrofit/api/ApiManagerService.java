@@ -1,4 +1,4 @@
-package com.gyz.androiddevelope.retrofit;
+package com.gyz.androiddevelope.retrofit.api;
 
 import com.gyz.androiddevelope.engine.AppContants;
 import com.gyz.androiddevelope.request_bean.ReqHealthInfoList;
@@ -7,6 +7,7 @@ import com.gyz.androiddevelope.request_bean.ReqWeatherBean;
 import com.gyz.androiddevelope.response_bean.AlbumDetailListBean;
 import com.gyz.androiddevelope.response_bean.Axiba;
 import com.gyz.androiddevelope.response_bean.BeforeNewsBean;
+import com.gyz.androiddevelope.response_bean.BoardListInfoBean;
 import com.gyz.androiddevelope.response_bean.GalleryRespBean;
 import com.gyz.androiddevelope.response_bean.GalleryTypeRespBean;
 import com.gyz.androiddevelope.response_bean.HealthInfoList;
@@ -17,7 +18,9 @@ import com.gyz.androiddevelope.response_bean.LoadImageBean;
 import com.gyz.androiddevelope.response_bean.NewsDetailBean;
 import com.gyz.androiddevelope.response_bean.StoryExtraBean;
 import com.gyz.androiddevelope.response_bean.Tngou;
+import com.gyz.androiddevelope.response_bean.TokenBean;
 import com.gyz.androiddevelope.response_bean.UserInfo;
+import com.gyz.androiddevelope.response_bean.UserMeAndOtherBean;
 
 import retrofit2.http.Body;
 import retrofit2.http.Field;
@@ -110,5 +113,24 @@ public interface ApiManagerService {
     //模板类型 的后续联网 max
     @GET("favorite/{type}")
     Observable<ListPinsBean> httpsTypeMaxLimitRx(@Header("Authorization") String authorization, @Path("type") String type, @Query("max") int max, @Query("limit") int limit);
+
+
+    //https 用户登录  的第一步
+    // Authorization 报头一个固定的值 内容 grant_type=password&password=密码&username=账号
+    //传入用户名和密码
+    @FormUrlEncoded
+    @POST("https://huaban.com/oauth/access_token/")
+    Observable<TokenBean> httpsTokenRx(@Header("Authorization") String authorization, @Field("grant_type") String grant,
+                                       @Field("username") String username, @Field("password") String password);
+
+    //登录第二步 用上一步结果联网
+    @GET("users/me")
+    Observable<UserMeAndOtherBean> httpsUserRx(@Header("Authorization") String authorization);
+
+
+    //获取我的画板集合信息 不需要显示需要保存
+    //https://api.huaban.com/last_boards/?extra=recommend_tags
+    @GET("last_boards/")
+    Observable<BoardListInfoBean> httpsBoardListInfo(@Header("Authorization") String authorization, @Query("extra") String extra);
 
 }
