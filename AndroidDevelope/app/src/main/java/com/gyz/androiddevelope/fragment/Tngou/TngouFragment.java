@@ -63,23 +63,13 @@ public class TngouFragment extends BaseFragment {
 
     @Override
     public void initData() {
-
         getTypeList();
-
-
     }
 
     @Override
     public String getTitle() {
         return getResources().getString(R.string.title_tngou);
     }
-
-//    @Override
-//    public void onDestroyView() {
-//        super.onDestroyView();
-//        ButterKnife.unbind(this);
-//    }
-
 
     /**
      * 获取顶部列表信息

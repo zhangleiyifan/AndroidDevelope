@@ -1,4 +1,4 @@
-package com.gyz.androiddevelope.activity;
+package com.gyz.androiddevelope.activity.zhihu;
 
 import android.content.Context;
 import android.content.Intent;

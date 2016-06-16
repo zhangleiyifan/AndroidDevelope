@@ -1,17 +1,22 @@
 package com.gyz.androiddevelope.fragment.zhihu;
 
+import android.app.ActivityOptions;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.gyz.androiddevelope.R;
-import com.gyz.androiddevelope.activity.NewsDetailActivity;
+import com.gyz.androiddevelope.activity.zhihu.NewsDetailActivity;
 import com.gyz.androiddevelope.adapter.HomeNewsAdapter;
 import com.gyz.androiddevelope.base.BaseApplication;
 import com.gyz.androiddevelope.base.BaseRecyclerAdapter;
@@ -95,8 +100,16 @@ public class ZhiHu2Fragment extends BaseRecyclerFragment {
                     //保存已读
                     SPUtils.put(context, AppContants.READ_ID, readId + "," + object.id);
                 }
+
                 //跳转至详情页
+//                if (Build.VERSION) {
+//                    Intent intent = new Intent(context, NewsDetailActivity.class).putExtra(NewsDetailActivity.NEWS_ID, object.id);
+//                    getActivity().startActivity(intent, ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), ((ImageView) v.findViewById(R.id.img)), "sharetrans").toBundle());
+//                }else {
                 NewsDetailActivity.startActivity(context, object.id);
+//                }
+
+
             }
         });
         return adapter;

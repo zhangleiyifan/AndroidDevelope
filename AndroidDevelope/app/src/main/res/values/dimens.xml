@@ -83,4 +83,5 @@
     <dimen name="dp_70">70dp</dimen>
     <dimen name="viewpager_margin">25dp</dimen>
     <dimen name="dp_45">45dp</dimen>
+    <dimen name="dp_56">56dp</dimen>
 </resources>

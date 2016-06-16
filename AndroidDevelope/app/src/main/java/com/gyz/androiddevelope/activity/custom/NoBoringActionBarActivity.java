@@ -1,4 +1,4 @@
-package com.gyz.androiddevelope.activity.noactionbar;
+package com.gyz.androiddevelope.activity.custom;
 
 import android.app.ActionBar;
 import android.app.Activity;

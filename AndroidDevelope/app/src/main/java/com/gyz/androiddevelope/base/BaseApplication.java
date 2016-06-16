@@ -12,7 +12,10 @@ import com.gyz.androiddevelope.db.TngouDbHelper;
 import com.gyz.androiddevelope.db.TngouListDbHelper;
 import com.gyz.androiddevelope.db.WebCacheDbHelper;
 import com.gyz.androiddevelope.engine.AppContants;
+import com.gyz.androiddevelope.response_bean.UserInfo;
+import com.gyz.androiddevelope.response_bean.UserMeAndOtherBean;
 import com.gyz.androiddevelope.util.ConfigConstants;
+import com.gyz.androiddevelope.util.SPUtils;
 import com.squareup.leakcanary.LeakCanary;
 import com.tencent.bugly.crashreport.CrashReport;
 
@@ -30,6 +33,7 @@ public class BaseApplication extends Application {
     private static WebCacheDbHelper webCacheDbHelper;
     private static TngouListDbHelper tngouListDbHelper;
     private PatchManager patchManager;
+    private boolean isLogin;
 
     @Override
     public void onCreate() {
@@ -93,4 +97,12 @@ public class BaseApplication extends Application {
         return patchManager;
     }
 
+
+    public boolean isLogin() {
+        return (boolean)SPUtils.get(this, AppContants.ISLOGIN,false);
+    }
+
+    public void setIsLogin(boolean isLogin) {
+        this.isLogin = isLogin;
+    }
 }

@@ -14,6 +14,8 @@ import com.gyz.androiddevelope.listener.OnRecyclerRefreshListener;
 import com.gyz.androiddevelope.listener.RecycleViewOnScrollListener;
 import com.gyz.androiddevelope.util.L;
 
+import java.util.IllegalFormatCodePointException;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
@@ -71,6 +73,8 @@ public abstract class BaseRecyclerFragment extends BaseFragment implements OnRec
 
             @Override
             public void onScrollStateChange(RecyclerView recyclerView, int newState) {
+                if (mAdapter == null)
+                    return;
                 if (RecyclerView.SCROLL_STATE_IDLE == newState) {
                     //滑动停止
                     L.d("滑动停止 position=" + mAdapter.getPosition());

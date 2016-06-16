@@ -8,6 +8,7 @@ import com.gyz.androiddevelope.response_bean.AlbumDetailListBean;
 import com.gyz.androiddevelope.response_bean.Axiba;
 import com.gyz.androiddevelope.response_bean.BeforeNewsBean;
 import com.gyz.androiddevelope.response_bean.BoardListInfoBean;
+import com.gyz.androiddevelope.response_bean.FollowUserOperateBean;
 import com.gyz.androiddevelope.response_bean.GalleryRespBean;
 import com.gyz.androiddevelope.response_bean.GalleryTypeRespBean;
 import com.gyz.androiddevelope.response_bean.HealthInfoList;
@@ -132,5 +133,20 @@ public interface ApiManagerService {
     //https://api.huaban.com/last_boards/?extra=recommend_tags
     @GET("last_boards/")
     Observable<BoardListInfoBean> httpsBoardListInfo(@Header("Authorization") String authorization, @Query("extra") String extra);
+
+    //https://api.huaban.com/users/15246080
+    //获取个人信息
+    @GET("users/{userId}")
+    Observable<UserMeAndOtherBean> httpsUserInfoRx(@Header("Authorization") String authorization, @Path("userId") String pinsId);
+
+    //关注某个用户
+    //https://api.huaban.com/users/17037199/follow  或者unfollow POST方法 统一成一个接口
+    @POST("users/{userId}/{operate}")
+    Observable<FollowUserOperateBean> httpsFollowUserOperate(@Header("Authorization") String authorization, @Path("userId") String userId, @Path("operate") String operate);
+
+    //https://api.huaban.com/users/188174/likes?limit=40
+    //用户的喜欢
+    @GET("users/{userId}/likes")
+    Observable<ListPinsBean> httpsUserLikePinsRx(@Header("Authorization") String authorization, @Path("userId") String pinsId, @Query("limit") int limit);
 
 }

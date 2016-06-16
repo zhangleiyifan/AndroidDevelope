@@ -1,9 +1,7 @@
 package com.gyz.androiddevelope.activity;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -12,25 +10,34 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.gyz.androiddevelope.R;
+import com.gyz.androiddevelope.activity.custom.SettingsActivity;
+import com.gyz.androiddevelope.activity.huaban.LoginActivity;
+import com.gyz.androiddevelope.activity.huaban.UserActivity;
 import com.gyz.androiddevelope.base.BaseActivity;
+import com.gyz.androiddevelope.base.BaseApplication;
 import com.gyz.androiddevelope.base.BaseFragment;
 import com.gyz.androiddevelope.base.BaseRecyclerFragment;
+import com.gyz.androiddevelope.engine.AppContants;
 import com.gyz.androiddevelope.fragment.TestFragment;
 import com.gyz.androiddevelope.fragment.Tngou.TngouFragment;
 import com.gyz.androiddevelope.fragment.huaban.HuabanFragment;
 import com.gyz.androiddevelope.fragment.zhihu.ZhiHu2Fragment;
 import com.gyz.androiddevelope.listener.OnRecyclerRefreshListener;
 import com.gyz.androiddevelope.listener.OnSwipeRefreshFragmentListener;
+import com.gyz.androiddevelope.util.SPUtils;
 import com.gyz.androiddevelope.util.SnackbarUtils;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class HomeActivity extends BaseActivity
-        implements NavigationView.OnNavigationItemSelectedListener, OnSwipeRefreshFragmentListener {
+        implements NavigationView.OnNavigationItemSelectedListener, OnSwipeRefreshFragmentListener , View.OnClickListener{
 
     @Bind(R.id.toolbar)
     Toolbar toolbar;
@@ -42,11 +49,20 @@ public class HomeActivity extends BaseActivity
 //    FloatingActionButton floatingActionButton;
 
     protected static final int[] ints = new int[]{R.color.colorPrimaryDark};
+    @Bind(R.id.nav_view)
+    NavigationView navigationView;
+    @Bind(R.id.drawer_layout)
+    DrawerLayout drawer;
+    ImageView imgHead;
+    TextView tvUserName,tvUserInfo;
+
     private BaseFragment zhihuFragment, tngouPicFragment, testFragment, huabanFragment;
     long firstTime = 0;
 
     //刷新的接口 子Fragment实现
     private OnRecyclerRefreshListener mListenerRefresh;
+    private String mUserName;
+    private String mUserId;
 
     @Override
     protected void initVariables() {
@@ -60,15 +76,15 @@ public class HomeActivity extends BaseActivity
         getSwipeBackLayout().setEnableGesture(false);
         setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
+        View headView = navigationView.getHeaderView(0);
+        imgHead= ButterKnife.findById(headView,R.id.imageView);
+        tvUserName =ButterKnife.findById(headView,R.id.tvUserName);
+        tvUserName =ButterKnife.findById(headView,R.id.textView);
+        imgHead.setOnClickListener(this);
 
         swipeRefreshLayout.setColorSchemeResources(ints);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -85,18 +101,21 @@ public class HomeActivity extends BaseActivity
 
     @Override
     protected void loadData() {
+        if (BaseApplication.getInstantce().isLogin()){
 
+            mUserName = (String) SPUtils.get(this, AppContants.USERNAME, "");
+            mUserId = (String) SPUtils.get(this, AppContants.USERID, "");
+        }
     }
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
             long secondTime = System.currentTimeMillis();
             if (secondTime - firstTime > 2000) {
-                SnackbarUtils.showSnackBar(getBaseContext(),containHome,R.string.exit_app);
+                SnackbarUtils.showSnackBar(getBaseContext(), containHome, R.string.exit_app);
 
 //                Snackbar sb = Snackbar.make(containHome, R.string.exit_app, Snackbar.LENGTH_SHORT);
 //                sb.getView().setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
@@ -186,5 +205,19 @@ public class HomeActivity extends BaseActivity
     @Override
     public void OnRefreshState(boolean isRefreshing) {
         swipeRefreshLayout.setRefreshing(isRefreshing);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.imageView:
+                if (BaseApplication.getInstantce().isLogin()) {
+                    UserActivity.startActivity(HomeActivity.this, mUserId, mUserName);
+                } else {
+                    LoginActivity.startActivity(HomeActivity.this);
+                }
+                break;
+        }
+
     }
 }

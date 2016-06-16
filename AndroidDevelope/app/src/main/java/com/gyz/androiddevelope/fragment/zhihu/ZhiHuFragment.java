@@ -14,7 +14,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.gyz.androiddevelope.R;
-import com.gyz.androiddevelope.activity.NewsDetailActivity;
+import com.gyz.androiddevelope.activity.zhihu.NewsDetailActivity;
 import com.gyz.androiddevelope.base.BaseRecyclerAdapter;
 import com.gyz.androiddevelope.adapter.HomeNewsAdapter;
 import com.gyz.androiddevelope.base.BaseApplication;

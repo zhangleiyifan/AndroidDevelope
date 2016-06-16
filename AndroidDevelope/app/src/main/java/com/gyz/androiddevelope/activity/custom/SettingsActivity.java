@@ -1,4 +1,4 @@
-package com.gyz.androiddevelope.activity;
+package com.gyz.androiddevelope.activity.custom;
 
 import android.content.Intent;
 import android.os.Bundle;

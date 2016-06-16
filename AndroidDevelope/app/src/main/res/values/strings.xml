@@ -27,7 +27,6 @@
     <string name="title_zhihu">知乎日报</string>
     <string name="add_pic">移动网络下加载图片</string>
     <string name="card_title">测试Card的title应该是很长的文本</string>
-    <string name="url_image_general">http://img.hb.aicdn.com/%s_fw320sf</string>
     <string name="prompt_username">邮箱</string>
     <string name="prompt_password">密码</string>
     <string name="action_sign_in_short">Sign in</string>
@@ -35,5 +34,19 @@
     <string name="action_register">注册</string>
     <string name="null_info">输入信息不完整</string>
     <string name="login_success">登录成功</string>
+
+
+    //图片的后缀 则同一个图片key 得到不同的结果
+    <string name="image_suffix_general">_fw320sf</string>//普通浏览的图
+    <string name="image_suffix_big">_fw658</string>//大图
+    <string name="image_suffix_small">_sq75sf</string>//小图
+    <string name="url_image_general">http://img.hb.aicdn.com/%s_fw320sf</string>
+    <string name="url_image_big">http://img.hb.aicdn.com/%s_fw658</string>
+    <string name="url_image_small">http://img.hb.aicdn.com/%s_sq75sf</string>
+    <string name="text_fans_attention">%1$d粉丝 %2$d关注</string>
+
+    <string name="title_fragment_board">画板</string>
+    <string name="title_fragment_gather">采集</string>
+    <string name="title_fragment_like">喜欢</string>
 
 </resources>

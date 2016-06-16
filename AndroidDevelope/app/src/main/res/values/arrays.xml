@@ -52,4 +52,10 @@
         <item>4000</item>
     </integer-array>
 
+    <string-array name="title_user_info">
+        <item>@string/title_fragment_board</item>
+        <item>@string/title_fragment_gather</item>
+        <item>@string/title_fragment_like</item>
+    </string-array>
+
 </resources>

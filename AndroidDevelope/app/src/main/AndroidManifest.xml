@@ -54,11 +54,10 @@
 
         <activity android:name=".activity.custom.CircleActivity" />
         <activity
-            android:name=".activity.ShowInfoActivity"
+            android:name=".activity.custom.ShowInfoActivity"
             android:label="@string/title_activity_do_sth" />
-        <activity
-            android:name=".activity.account.LoginActivity"
-            android:label="@string/title_activity_do_sth" />
+        <activity android:name=".activity.huaban.LoginActivity" />
+        <activity android:name=".activity.huaban.UserActivity" />
         <activity
             android:name=".activity.custom.WaveActivity"
             android:label="WaveActivity" />
@@ -72,12 +71,12 @@
             android:theme="@style/AppThemeNotTranslucent"  >
 
             </activity>
-        <activity android:name=".activity.NewsDetailActivity" />
+        <activity android:name=".activity.zhihu.NewsDetailActivity" />
         <activity
-            android:name=".activity.noactionbar.NoBoringActionBarActivity"
+            android:name=".activity.custom.NoBoringActionBarActivity"
             android:theme="@style/TransparentTheme" />
         <activity android:name=".activity.tngou.AlbumDetailActivity" />
-        <activity android:name=".activity.SettingsActivity" />
+        <activity android:name=".activity.custom.SettingsActivity" />
         <activity android:name=".activity.custom.MountainViewActivity" />
         <activity android:name=".activity.custom.FlyViewActivity" />
         <activity android:name=".activity.custom.NearBySearchActivity" />

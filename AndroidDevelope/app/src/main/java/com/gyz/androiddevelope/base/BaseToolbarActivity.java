@@ -35,7 +35,6 @@ public abstract class BaseToolbarActivity extends AppCompatActivity implements S
         super.onCreate(savedInstanceState);
         mHelper = new SwipeBackActivityHelper(this);
         mHelper.onActivityCreate();
-//        setStatusBarColor();
         super.setContentView(R.layout.activity_base_toolbar);
         initToolbar();
         initVariables();
@@ -43,27 +42,8 @@ public abstract class BaseToolbarActivity extends AppCompatActivity implements S
         loadData();
     }
 
-//    private void setStatusBarColor() {
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-//            Window win = getWindow();
-//            WindowManager.LayoutParams winParams = win.getAttributes();
-//            final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
-//            if (true) {
-//                winParams.flags |= bits;
-//            } else {
-//                winParams.flags &= ~bits;
-//            }
-//            win.setAttributes(winParams);
-//
-//            SystemBarTintManager tintManager = new SystemBarTintManager(this);
-//            tintManager.setStatusBarTintEnabled(true);
-//            tintManager.setStatusBarTintResource(R.color.colorRed);//通知栏所需颜色
-//        }
-//    }
-
     private void initToolbar() {
         appBar = (AppBar) findViewById(R.id.app_bar);
-//        appBar.setBackImage(R.mipmap.back);
         appBar.setImageBackListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -159,6 +139,5 @@ public abstract class BaseToolbarActivity extends AppCompatActivity implements S
         getSwipeBackLayout().scrollToFinishActivity();
     }
 //======SwipeBack==end===========================
-
 
 }

@@ -1,4 +1,4 @@
-package com.gyz.androiddevelope.activity.account;
+package com.gyz.androiddevelope.activity.huaban;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +12,7 @@ import android.widget.ProgressBar;
 import android.widget.ScrollView;
 
 import com.gyz.androiddevelope.R;
+import com.gyz.androiddevelope.base.BaseApplication;
 import com.gyz.androiddevelope.base.BaseToolbarActivity;
 import com.gyz.androiddevelope.engine.AppContants;
 import com.gyz.androiddevelope.response_bean.BoardItemInfoBean;
@@ -162,7 +163,8 @@ public class LoginActivity extends BaseToolbarActivity {
                             @Override
                             public void onDismissed(Snackbar snackbar, int event) {
                                 super.onDismissed(snackbar, event);
-                                // TODO 跳转至个人中心
+                                // 跳转至个人中心
+                                UserActivity.startActivity(LoginActivity.this, String.valueOf(mUserBean.getUser_id()), mUserBean.getUsername());
                                 saveUserInfo(mUserBean,mTokenBean,userName,pwd,boardListInfoBean.getBoards());
                                 finishActivity();
                             }
@@ -178,6 +180,7 @@ public class LoginActivity extends BaseToolbarActivity {
                               TokenBean mTokenBean,
                               String mUserAccount, String mUserPassword, List<BoardItemInfoBean> mBoardList) {
 
+        BaseApplication.getInstantce().setIsLogin(true);
         //构造两个StringBuilder对象 拼接用逗号分隔 写入 SharedPreferences
         StringBuilder boardTitle = new StringBuilder();
         StringBuilder boardId = new StringBuilder();
